@@ -987,11 +987,23 @@ TapBridge::ReceiveFromBridgedDevice (
   NS_LOG_LOGIC ("Pkt size is " << p->GetSize ());
 
   NS_ASSERT_MSG (p->GetSize () <= 65536, "TapBridge::ReceiveFromBridgedDevice: Packet too big " << p->GetSize ());
+
   p->CopyData (m_packetBuffer, p->GetSize ());
 
-  uint32_t bytesWritten = write (m_sock, m_packetBuffer, p->GetSize ());
-  NS_ABORT_MSG_IF (bytesWritten != p->GetSize (), "TapBridge::ReceiveFromBridgedDevice(): Write error.");
+  int32_t bytesWritten = -1;
 
+  while(1){
+  	bytesWritten=write(m_sock, m_packetBuffer, p->GetSize ());
+  	if (bytesWritten>0){
+  		break;
+  	}
+  	else{
+  		//std::cout<<"Write fails...Rewrite now"<<std::endl;
+  	}
+  }
+  //std::cout<<"Write successfully"<<std::endl;
+  //std::cout << "Bytes Written: " << bytesWritten << "p->GetSize(): " << p->GetSize() << std::endl;
+  NS_ABORT_MSG_IF (bytesWritten != p->GetSize (), "TapBridge::ReceiveFromBridgedDevice(): Write error.");
   NS_LOG_LOGIC ("End of receive packet handling on node " << m_node->GetId ());
   return true;
 }

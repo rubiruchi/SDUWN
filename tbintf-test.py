@@ -66,4 +66,4 @@ if __name__ == '__main__':
 
     info( '*** Running test\n' )
     h0.cmdPrint( 'ping -c1 ' + h1.IP() )
-    h0.cmdPrint( 'ping -c1 ' + h2.IP() )
+    h0.cmdPrint( 'ping ' + h2.IP() )
