@@ -4,8 +4,8 @@ from mininet.link import Link, Intf
 from mininet.log import setLogLevel, info
 from mininet.cli import CLI
 
-import ns3
-from ns3 import TBIntf
+import opennet
+from opennet import TBIntf
 
 import ns.network
 
@@ -57,7 +57,7 @@ if __name__ == '__main__':
     h1.setIP( '192.168.123.2/24')
     h2.setIP( '192.168.123.3/24')
 
-    ns3.start()
+    opennet.start()
 
 
     info( '*** Network state:\n' )

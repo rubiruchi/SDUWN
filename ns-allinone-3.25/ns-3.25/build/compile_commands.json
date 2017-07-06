@@ -66,8 +66,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -Isrc/sixlowpan -I../src/sixlowpan -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/sixlowpan/model/sixlowpan-header.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/sixlowpan/model/sixlowpan-header.cc.1.o", 
-    "file": "../src/sixlowpan/model/sixlowpan-header.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wimax/model/service-flow-manager.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wimax/model/service-flow-manager.cc.1.o", 
+    "file": "../src/wimax/model/service-flow-manager.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -106,18 +106,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../examples/wireless/wifi-ap.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/examples/wireless/wifi-ap.cc.4.o", 
-    "file": "../examples/wireless/wifi-ap.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/model/icmpv6-header.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/model/icmpv6-header.cc.1.o", 
     "file": "../src/internet/model/icmpv6-header.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/parf-wifi-manager.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/parf-wifi-manager.cc.1.o", 
-    "file": "../src/wifi/model/parf-wifi-manager.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -143,11 +133,6 @@
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/model/lte-pdcp-sap.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/model/lte-pdcp-sap.cc.1.o", 
     "file": "../src/lte/model/lte-pdcp-sap.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wave/helper/wave-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wave/helper/wave-helper.cc.1.o", 
-    "file": "../src/wave/helper/wave-helper.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -296,6 +281,11 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/test-lte-handover-delay.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/test-lte-handover-delay.cc.3.o", 
+    "file": "../src/lte/test/test-lte-handover-delay.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/network/model/header.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/network/model/header.cc.1.o", 
     "file": "../src/network/model/header.cc"
   }, 
@@ -313,6 +303,11 @@
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/mobility/model/rectangle.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mobility/model/rectangle.cc.1.o", 
     "file": "../src/mobility/model/rectangle.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -I../src/spectrum -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 '-DNS_TEST_SOURCEDIR=\"src/spectrum/test\"' ../src/spectrum/test/spectrum-value-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/spectrum/test/spectrum-value-test.cc.3.o", 
+    "file": "../src/spectrum/test/spectrum-value-test.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -441,8 +436,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wimax/model/service-flow-manager.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wimax/model/service-flow-manager.cc.1.o", 
-    "file": "../src/wimax/model/service-flow-manager.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -Isrc/sixlowpan -I../src/sixlowpan -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/sixlowpan/model/sixlowpan-header.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/sixlowpan/model/sixlowpan-header.cc.1.o", 
+    "file": "../src/sixlowpan/model/sixlowpan-header.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -478,11 +473,6 @@
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -I../src/stats -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 '-DNS_TEST_SOURCEDIR=\"src/stats/test\"' ../src/stats/test/basic-data-calculators-test-suite.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/stats/test/basic-data-calculators-test-suite.cc.3.o", 
     "file": "../src/stats/test/basic-data-calculators-test-suite.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/energy/examples/basic-energy-model-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/energy/examples/basic-energy-model-test.cc.3.o", 
-    "file": "../src/energy/examples/basic-energy-model-test.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -571,11 +561,6 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/ht-capabilities.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/ht-capabilities.cc.1.o", 
-    "file": "../src/wifi/model/ht-capabilities.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/mesh/model/dot11s/ie-dot11s-prep.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mesh/model/dot11s/ie-dot11s-prep.cc.1.o", 
     "file": "../src/mesh/model/dot11s/ie-dot11s-prep.cc"
   }, 
@@ -656,6 +641,11 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/network/model/buffer.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/network/model/buffer.cc.1.o", 
+    "file": "../src/network/model/buffer.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -Isrc/olsr -I../src/olsr -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/olsr/model/olsr-header.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/olsr/model/olsr-header.cc.1.o", 
     "file": "../src/olsr/model/olsr-header.cc"
   }, 
@@ -708,6 +698,11 @@
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/helper/ipv4-static-routing-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/helper/ipv4-static-routing-helper.cc.1.o", 
     "file": "../src/internet/helper/ipv4-static-routing-helper.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/model/lte-handover-management-sap.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/model/lte-handover-management-sap.cc.1.o", 
+    "file": "../src/lte/model/lte-handover-management-sap.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -1106,11 +1101,6 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/helper/ipv6-address-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/helper/ipv6-address-helper.cc.1.o", 
-    "file": "../src/internet/helper/ipv6-address-helper.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/examples/lena-profiling.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/examples/lena-profiling.cc.6.o", 
     "file": "../src/lte/examples/lena-profiling.cc"
   }, 
@@ -1296,6 +1286,11 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/model/ff-mac-common.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/model/ff-mac-common.cc.1.o", 
+    "file": "../src/lte/model/ff-mac-common.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/config.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/config.cc.1.o", 
     "file": "../src/core/model/config.cc"
   }, 
@@ -1436,8 +1431,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/applications/helper/udp-echo-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/applications/helper/udp-echo-helper.cc.1.o", 
-    "file": "../src/applications/helper/udp-echo-helper.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wave/model/channel-coordinator.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wave/model/channel-coordinator.cc.1.o", 
+    "file": "../src/wave/model/channel-coordinator.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -1731,6 +1726,11 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wimax/model/bs-scheduler-rtps.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wimax/model/bs-scheduler-rtps.cc.1.o", 
+    "file": "../src/wimax/model/bs-scheduler-rtps.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/mobility/helper/ns2-mobility-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mobility/helper/ns2-mobility-helper.cc.1.o", 
     "file": "../src/mobility/helper/ns2-mobility-helper.cc"
   }, 
@@ -1946,18 +1946,13 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/model/tcp-socket.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/model/tcp-socket.cc.1.o", 
-    "file": "../src/internet/model/tcp-socket.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wave/helper/wave-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wave/helper/wave-helper.cc.1.o", 
+    "file": "../src/wave/helper/wave-helper.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-rr-ff-mac-scheduler.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/lte-test-rr-ff-mac-scheduler.cc.3.o", 
     "file": "../src/lte/test/lte-test-rr-ff-mac-scheduler.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/energy -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 '-DNS_TEST_SOURCEDIR=\"src/energy/test\"' ../src/energy/test/basic-energy-harvester-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/energy/test/basic-energy-harvester-test.cc.3.o", 
-    "file": "../src/energy/test/basic-energy-harvester-test.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -2201,6 +2196,11 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/traffic-control/model/queue-disc.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/traffic-control/model/queue-disc.cc.1.o", 
+    "file": "../src/traffic-control/model/queue-disc.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -fno-strict-aliasing -fstack-protector-strong -fwrapv -fvisibility=hidden -Wno-array-bounds -pthread -pthread -I. -I.. -Isrc/dsdv/bindings -I../src/dsdv/bindings -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DNS_DEPRECATED= -DNS3_DEPRECATED_H -DHAVE_PYEXT=1 -D_FORTIFY_SOURCE=2 -DNDEBUG -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 src/dsdv/bindings/ns3module.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/dsdv/bindings/ns3module.cc.7.o", 
     "file": "src/dsdv/bindings/ns3module.cc"
   }, 
@@ -2391,6 +2391,11 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/core/examples/main-random-variable.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/examples/main-random-variable.cc.4.o", 
+    "file": "../src/core/examples/main-random-variable.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/ht-operations.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/ht-operations.cc.1.o", 
     "file": "../src/wifi/model/ht-operations.cc"
   }, 
@@ -2473,11 +2478,6 @@
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/config-store/model/config-store.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/config-store/model/config-store.cc.1.o", 
     "file": "../src/config-store/model/config-store.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/internet -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 '-DNS_TEST_SOURCEDIR=\"src/internet/test\"' ../src/internet/test/tcp-rto-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/test/tcp-rto-test.cc.3.o", 
-    "file": "../src/internet/test/tcp-rto-test.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -2651,8 +2651,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/buildings -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/buildings/test\"' ../src/buildings/test/buildings-shadowing-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/buildings/test/buildings-shadowing-test.cc.3.o", 
-    "file": "../src/buildings/test/buildings-shadowing-test.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/ht-capabilities.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/ht-capabilities.cc.1.o", 
+    "file": "../src/wifi/model/ht-capabilities.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -2711,6 +2711,11 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../scratch/scratch-simulator.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/scratch/scratch-simulator.cc.3.o", 
+    "file": "../scratch/scratch-simulator.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/test-epc-tft-classifier.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/test-epc-tft-classifier.cc.3.o", 
     "file": "../src/lte/test/test-epc-tft-classifier.cc"
   }, 
@@ -2721,11 +2726,6 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/helper/radio-bearer-stats-calculator.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/helper/radio-bearer-stats-calculator.cc.1.o", 
-    "file": "../src/lte/helper/radio-bearer-stats-calculator.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wimax/model/ss-service-flow-manager.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wimax/model/ss-service-flow-manager.cc.1.o", 
     "file": "../src/wimax/model/ss-service-flow-manager.cc"
   }, 
@@ -2733,11 +2733,6 @@
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -fno-strict-aliasing -fstack-protector-strong -fwrapv -fvisibility=hidden -Wno-array-bounds -pthread -pthread -I. -I.. -Isrc/stats/bindings -I../src/stats/bindings -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DNS_DEPRECATED= -DNS3_DEPRECATED_H -DHAVE_PYEXT=1 -D_FORTIFY_SOURCE=2 -DNDEBUG -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 src/stats/bindings/ns3module.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/stats/bindings/ns3module.cc.7.o", 
     "file": "src/stats/bindings/ns3module.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/wifi-phy.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/wifi-phy.cc.1.o", 
-    "file": "../src/wifi/model/wifi-phy.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -3016,8 +3011,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/buildings -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/buildings/test\"' ../src/buildings/test/building-position-allocator-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/buildings/test/building-position-allocator-test.cc.3.o", 
-    "file": "../src/buildings/test/building-position-allocator-test.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/stats/helper/gnuplot-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/stats/helper/gnuplot-helper.cc.1.o", 
+    "file": "../src/stats/helper/gnuplot-helper.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -3131,6 +3126,11 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -fno-strict-aliasing -fstack-protector-strong -fwrapv -fvisibility=hidden -Wno-array-bounds -pthread -pthread -I. -I.. -Isrc/energy/bindings -I../src/energy/bindings -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DNS_DEPRECATED= -DNS3_DEPRECATED_H -DHAVE_PYEXT=1 -D_FORTIFY_SOURCE=2 -DNDEBUG -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 src/energy/bindings/ns3module.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/energy/bindings/ns3module.cc.7.o", 
+    "file": "src/energy/bindings/ns3module.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/buildings/helper/building-container.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/buildings/helper/building-container.cc.1.o", 
     "file": "../src/buildings/helper/building-container.cc"
   }, 
@@ -3211,6 +3211,11 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-fdmt-ff-mac-scheduler.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/lte-test-fdmt-ff-mac-scheduler.cc.3.o", 
+    "file": "../src/lte/test/lte-test-fdmt-ff-mac-scheduler.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/lr-wpan/model/lr-wpan-error-model.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lr-wpan/model/lr-wpan-error-model.cc.1.o", 
     "file": "../src/lr-wpan/model/lr-wpan-error-model.cc"
   }, 
@@ -3221,8 +3226,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/network/model/node.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/network/model/node.cc.1.o", 
-    "file": "../src/network/model/node.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/applications/model/bulk-send-application.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/applications/model/bulk-send-application.cc.1.o", 
+    "file": "../src/applications/model/bulk-send-application.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -3276,13 +3281,18 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/command-line.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/command-line.cc.1.o", 
+    "file": "../src/core/model/command-line.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/model/a3-rsrp-handover-algorithm.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/model/a3-rsrp-handover-algorithm.cc.1.o", 
     "file": "../src/lte/model/a3-rsrp-handover-algorithm.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/mobility -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 '-DNS_TEST_SOURCEDIR=\"src/mobility/test\"' ../src/mobility/test/steady-state-random-waypoint-mobility-model-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mobility/test/steady-state-random-waypoint-mobility-model-test.cc.3.o", 
-    "file": "../src/mobility/test/steady-state-random-waypoint-mobility-model-test.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/network/model/node.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/network/model/node.cc.1.o", 
+    "file": "../src/network/model/node.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -3431,11 +3441,6 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/fatal-impl.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/fatal-impl.cc.1.o", 
-    "file": "../src/core/model/fatal-impl.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/network/model/net-device.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/network/model/net-device.cc.1.o", 
     "file": "../src/network/model/net-device.cc"
   }, 
@@ -3546,8 +3551,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/test-lte-handover-delay.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/test-lte-handover-delay.cc.3.o", 
-    "file": "../src/lte/test/test-lte-handover-delay.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wimax/model/cid-factory.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wimax/model/cid-factory.cc.1.o", 
+    "file": "../src/wimax/model/cid-factory.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -3598,11 +3603,6 @@
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -fno-strict-aliasing -fstack-protector-strong -fwrapv -fvisibility=hidden -Wno-array-bounds -pthread -pthread -I. -I.. -Isrc/bridge/bindings -I../src/bridge/bindings -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DNS_DEPRECATED= -DNS3_DEPRECATED_H -DHAVE_PYEXT=1 -D_FORTIFY_SOURCE=2 -DNDEBUG -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 src/bridge/bindings/ns3module.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/bridge/bindings/ns3module.cc.5.o", 
     "file": "src/bridge/bindings/ns3module.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/bridge/examples/csma-bridge.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/bridge/examples/csma-bridge.cc.1.o", 
-    "file": "../src/bridge/examples/csma-bridge.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -3716,8 +3716,13 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/model/lte-fr-hard-algorithm.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/model/lte-fr-hard-algorithm.cc.1.o", 
-    "file": "../src/lte/model/lte-fr-hard-algorithm.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/helper/ipv6-address-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/helper/ipv6-address-helper.cc.1.o", 
+    "file": "../src/internet/helper/ipv6-address-helper.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/applications/model/udp-echo-client.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/applications/model/udp-echo-client.cc.1.o", 
+    "file": "../src/applications/model/udp-echo-client.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -3726,8 +3731,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/command-line.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/command-line.cc.1.o", 
-    "file": "../src/core/model/command-line.cc"
+    "command": "/usr/bin/g++ -std=c++0x -I../src/buildings -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/buildings/test\"' ../src/buildings/test/buildings-shadowing-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/buildings/test/buildings-shadowing-test.cc.3.o", 
+    "file": "../src/buildings/test/buildings-shadowing-test.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -3756,8 +3761,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-fdmt-ff-mac-scheduler.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/lte-test-fdmt-ff-mac-scheduler.cc.3.o", 
-    "file": "../src/lte/test/lte-test-fdmt-ff-mac-scheduler.cc"
+    "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/examples/lena-intercell-interference.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/examples/lena-intercell-interference.cc.4.o", 
+    "file": "../src/lte/examples/lena-intercell-interference.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -3871,13 +3876,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../examples/stats/wifi-example-sim.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/examples/stats/wifi-example-sim.cc.1.o", 
-    "file": "../examples/stats/wifi-example-sim.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/uan/model/uan-prop-model-ideal.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/uan/model/uan-prop-model-ideal.cc.1.o", 
-    "file": "../src/uan/model/uan-prop-model-ideal.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/model/tcp-option.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/model/tcp-option.cc.1.o", 
+    "file": "../src/internet/model/tcp-option.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -3901,13 +3901,18 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/model/ipv6-option-header.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/model/ipv6-option-header.cc.1.o", 
+    "file": "../src/internet/model/ipv6-option-header.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/energy/helper/li-ion-energy-source-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/energy/helper/li-ion-energy-source-helper.cc.1.o", 
     "file": "../src/energy/helper/li-ion-energy-source-helper.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/spectrum/model/tv-spectrum-transmitter.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/spectrum/model/tv-spectrum-transmitter.cc.1.o", 
-    "file": "../src/spectrum/model/tv-spectrum-transmitter.cc"
+    "command": "/usr/bin/g++ -std=c++0x -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/examples/main-ptr.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/examples/main-ptr.cc.3.o", 
+    "file": "../src/core/examples/main-ptr.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -3956,11 +3961,6 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/uan/model/uan-prop-model.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/uan/model/uan-prop-model.cc.1.o", 
-    "file": "../src/uan/model/uan-prop-model.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/model/ipv6-packet-info-tag.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/model/ipv6-packet-info-tag.cc.1.o", 
     "file": "../src/internet/model/ipv6-packet-info-tag.cc"
   }, 
@@ -3981,8 +3981,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/antenna/model/parabolic-antenna-model.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/antenna/model/parabolic-antenna-model.cc.1.o", 
-    "file": "../src/antenna/model/parabolic-antenna-model.cc"
+    "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/test-lte-rrc.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/test-lte-rrc.cc.3.o", 
+    "file": "../src/lte/test/test-lte-rrc.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4026,8 +4026,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -Isrc/dsr -I../src/dsr -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/dsr/model/dsr-fs-header.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/dsr/model/dsr-fs-header.cc.1.o", 
-    "file": "../src/dsr/model/dsr-fs-header.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/model/lte-rlc-sdu-status-tag.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/model/lte-rlc-sdu-status-tag.cc.1.o", 
+    "file": "../src/lte/model/lte-rlc-sdu-status-tag.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4206,8 +4206,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/model/tcp-option.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/model/tcp-option.cc.1.o", 
-    "file": "../src/internet/model/tcp-option.cc"
+    "command": "/usr/bin/g++ -std=c++0x -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../examples/stats/wifi-example-sim.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/examples/stats/wifi-example-sim.cc.1.o", 
+    "file": "../examples/stats/wifi-example-sim.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4251,11 +4251,6 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/mgt-headers.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/mgt-headers.cc.1.o", 
-    "file": "../src/wifi/model/mgt-headers.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/model/lte-ue-phy.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/model/lte-ue-phy.cc.1.o", 
     "file": "../src/lte/model/lte-ue-phy.cc"
   }, 
@@ -4286,8 +4281,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/network/utils/ascii-file.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/network/utils/ascii-file.cc.1.o", 
-    "file": "../src/network/utils/ascii-file.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/uan/model/uan-prop-model.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/uan/model/uan-prop-model.cc.1.o", 
+    "file": "../src/uan/model/uan-prop-model.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4456,6 +4451,11 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -I../src/core -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 '-DNS_TEST_SOURCEDIR=\"src/core/test\"' ../src/core/test/config-test-suite.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/test/config-test-suite.cc.3.o", 
+    "file": "../src/core/test/config-test-suite.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/int64x64.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/int64x64.cc.1.o", 
     "file": "../src/core/model/int64x64.cc"
   }, 
@@ -4471,8 +4471,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/model/ff-mac-common.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/model/ff-mac-common.cc.1.o", 
-    "file": "../src/lte/model/ff-mac-common.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/spectrum/model/tv-spectrum-transmitter.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/spectrum/model/tv-spectrum-transmitter.cc.1.o", 
+    "file": "../src/spectrum/model/tv-spectrum-transmitter.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4526,8 +4526,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/stats/helper/gnuplot-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/stats/helper/gnuplot-helper.cc.1.o", 
-    "file": "../src/stats/helper/gnuplot-helper.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/model/tcp-socket.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/model/tcp-socket.cc.1.o", 
+    "file": "../src/internet/model/tcp-socket.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4551,8 +4551,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wimax/model/bs-scheduler-rtps.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wimax/model/bs-scheduler-rtps.cc.1.o", 
-    "file": "../src/wimax/model/bs-scheduler-rtps.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/parf-wifi-manager.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/parf-wifi-manager.cc.1.o", 
+    "file": "../src/wifi/model/parf-wifi-manager.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4606,11 +4606,6 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/default-simulator-impl.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/default-simulator-impl.cc.1.o", 
-    "file": "../src/core/model/default-simulator-impl.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/rng-stream.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/rng-stream.cc.1.o", 
     "file": "../src/core/model/rng-stream.cc"
   }, 
@@ -4641,8 +4636,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/mobility -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 '-DNS_TEST_SOURCEDIR=\"src/mobility/test\"' ../src/mobility/test/ns2-mobility-helper-test-suite.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mobility/test/ns2-mobility-helper-test-suite.cc.3.o", 
-    "file": "../src/mobility/test/ns2-mobility-helper-test-suite.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/mgt-headers.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/mgt-headers.cc.1.o", 
+    "file": "../src/wifi/model/mgt-headers.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4681,11 +4676,6 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wimax/model/crc8.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wimax/model/crc8.cc.1.o", 
-    "file": "../src/wimax/model/crc8.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/internet/examples/main-simple.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/examples/main-simple.cc.1.o", 
     "file": "../src/internet/examples/main-simple.cc"
   }, 
@@ -4716,13 +4706,18 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../scratch/scratch-simulator.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/scratch/scratch-simulator.cc.3.o", 
-    "file": "../scratch/scratch-simulator.cc"
+    "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/bridge/examples/csma-bridge.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/bridge/examples/csma-bridge.cc.1.o", 
+    "file": "../src/bridge/examples/csma-bridge.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/scheduler.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/scheduler.cc.1.o", 
     "file": "../src/core/model/scheduler.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/type-id.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/type-id.cc.1.o", 
+    "file": "../src/core/model/type-id.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4743,11 +4738,6 @@
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/test-lte-handover-target.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/test-lte-handover-target.cc.3.o", 
     "file": "../src/lte/test/test-lte-handover-target.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/ideal-wifi-manager.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/ideal-wifi-manager.cc.1.o", 
-    "file": "../src/wifi/model/ideal-wifi-manager.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4801,8 +4791,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/applications/model/bulk-send-application.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/applications/model/bulk-send-application.cc.1.o", 
-    "file": "../src/applications/model/bulk-send-application.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wimax/model/crc8.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wimax/model/crc8.cc.1.o", 
+    "file": "../src/wimax/model/crc8.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4836,8 +4826,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/examples/lena-intercell-interference.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/examples/lena-intercell-interference.cc.4.o", 
-    "file": "../src/lte/examples/lena-intercell-interference.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/helper/radio-bearer-stats-calculator.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/helper/radio-bearer-stats-calculator.cc.1.o", 
+    "file": "../src/lte/helper/radio-bearer-stats-calculator.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4876,8 +4866,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/core/examples/main-random-variable.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/examples/main-random-variable.cc.4.o", 
-    "file": "../src/core/examples/main-random-variable.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/default-simulator-impl.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/default-simulator-impl.cc.1.o", 
+    "file": "../src/core/model/default-simulator-impl.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -4986,8 +4976,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/test-lte-rrc.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/test-lte-rrc.cc.3.o", 
-    "file": "../src/lte/test/test-lte-rrc.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/ideal-wifi-manager.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/ideal-wifi-manager.cc.1.o", 
+    "file": "../src/wifi/model/ideal-wifi-manager.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5031,13 +5021,13 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/global-value.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/global-value.cc.1.o", 
-    "file": "../src/core/model/global-value.cc"
+    "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../examples/wireless/wifi-ap.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/examples/wireless/wifi-ap.cc.4.o", 
+    "file": "../examples/wireless/wifi-ap.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/model/ipv6-extension-demux.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/model/ipv6-extension-demux.cc.1.o", 
-    "file": "../src/internet/model/ipv6-extension-demux.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/fatal-impl.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/fatal-impl.cc.1.o", 
+    "file": "../src/core/model/fatal-impl.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5061,8 +5051,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/type-id.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/type-id.cc.1.o", 
-    "file": "../src/core/model/type-id.cc"
+    "command": "/usr/bin/g++ -std=c++0x -I../src/mobility -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 '-DNS_TEST_SOURCEDIR=\"src/mobility/test\"' ../src/mobility/test/ns2-mobility-helper-test-suite.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mobility/test/ns2-mobility-helper-test-suite.cc.3.o", 
+    "file": "../src/mobility/test/ns2-mobility-helper-test-suite.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5246,8 +5236,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/model/lte-rlc-sdu-status-tag.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/model/lte-rlc-sdu-status-tag.cc.1.o", 
-    "file": "../src/lte/model/lte-rlc-sdu-status-tag.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -Isrc/dsr -I../src/dsr -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/dsr/model/dsr-fs-header.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/dsr/model/dsr-fs-header.cc.1.o", 
+    "file": "../src/dsr/model/dsr-fs-header.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5281,8 +5271,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/mesh/model/dot11s/ie-dot11s-configuration.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mesh/model/dot11s/ie-dot11s-configuration.cc.1.o", 
-    "file": "../src/mesh/model/dot11s/ie-dot11s-configuration.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/point-to-point/model/point-to-point-channel.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/point-to-point/model/point-to-point-channel.cc.1.o", 
+    "file": "../src/point-to-point/model/point-to-point-channel.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5351,6 +5341,11 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/spectrum/model/wifi-spectrum-value-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/spectrum/model/wifi-spectrum-value-helper.cc.1.o", 
+    "file": "../src/spectrum/model/wifi-spectrum-value-helper.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/mpi/examples/third-distributed.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mpi/examples/third-distributed.cc.2.o", 
     "file": "../src/mpi/examples/third-distributed.cc"
   }, 
@@ -5376,8 +5371,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/traffic-control/model/queue-disc.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/traffic-control/model/queue-disc.cc.1.o", 
-    "file": "../src/traffic-control/model/queue-disc.cc"
+    "command": "/usr/bin/g++ -std=c++0x -I../src/mobility -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 '-DNS_TEST_SOURCEDIR=\"src/mobility/test\"' ../src/mobility/test/steady-state-random-waypoint-mobility-model-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mobility/test/steady-state-random-waypoint-mobility-model-test.cc.3.o", 
+    "file": "../src/mobility/test/steady-state-random-waypoint-mobility-model-test.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5416,8 +5411,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/applications/model/udp-echo-client.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/applications/model/udp-echo-client.cc.1.o", 
-    "file": "../src/applications/model/udp-echo-client.cc"
+    "command": "/usr/bin/g++ -std=c++0x -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/energy/examples/basic-energy-model-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/energy/examples/basic-energy-model-test.cc.3.o", 
+    "file": "../src/energy/examples/basic-energy-model-test.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5486,8 +5481,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/spectrum -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 '-DNS_TEST_SOURCEDIR=\"src/spectrum/test\"' ../src/spectrum/test/spectrum-value-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/spectrum/test/spectrum-value-test.cc.3.o", 
-    "file": "../src/spectrum/test/spectrum-value-test.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/model/ipv6-extension-demux.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/model/ipv6-extension-demux.cc.1.o", 
+    "file": "../src/internet/model/ipv6-extension-demux.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5513,11 +5508,6 @@
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/network/utils/crc32.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/network/utils/crc32.cc.1.o", 
     "file": "../src/network/utils/crc32.cc"
-  }, 
-  {
-    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-downlink-power-control.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/lte-test-downlink-power-control.cc.3.o", 
-    "file": "../src/lte/test/lte-test-downlink-power-control.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5621,8 +5611,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wave/model/channel-coordinator.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wave/model/channel-coordinator.cc.1.o", 
-    "file": "../src/wave/model/channel-coordinator.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/applications/helper/udp-echo-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/applications/helper/udp-echo-helper.cc.1.o", 
+    "file": "../src/applications/helper/udp-echo-helper.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5806,8 +5796,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/core -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 '-DNS_TEST_SOURCEDIR=\"src/core/test\"' ../src/core/test/config-test-suite.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/test/config-test-suite.cc.3.o", 
-    "file": "../src/core/test/config-test-suite.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/wifi-phy.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/wifi-phy.cc.1.o", 
+    "file": "../src/wifi/model/wifi-phy.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5848,6 +5838,11 @@
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wifi/model/rraa-wifi-manager.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wifi/model/rraa-wifi-manager.cc.1.o", 
     "file": "../src/wifi/model/rraa-wifi-manager.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/examples/sample-random-variable-stream.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/examples/sample-random-variable-stream.cc.7.o", 
+    "file": "../src/core/examples/sample-random-variable-stream.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5896,8 +5891,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/examples/sample-random-variable-stream.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/examples/sample-random-variable-stream.cc.7.o", 
-    "file": "../src/core/examples/sample-random-variable-stream.cc"
+    "command": "/usr/bin/g++ -std=c++0x -I../src/buildings -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/buildings/test\"' ../src/buildings/test/building-position-allocator-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/buildings/test/building-position-allocator-test.cc.3.o", 
+    "file": "../src/buildings/test/building-position-allocator-test.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5921,8 +5916,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -fno-strict-aliasing -fstack-protector-strong -fwrapv -fvisibility=hidden -Wno-array-bounds -pthread -pthread -I. -I.. -Isrc/energy/bindings -I../src/energy/bindings -I/usr/include/python2.7 -I/usr/include/x86_64-linux-gnu/python2.7 -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DNS_DEPRECATED= -DNS3_DEPRECATED_H -DHAVE_PYEXT=1 -D_FORTIFY_SOURCE=2 -DNDEBUG -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 src/energy/bindings/ns3module.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/energy/bindings/ns3module.cc.7.o", 
-    "file": "src/energy/bindings/ns3module.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/mpi/model/mpi-interface.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mpi/model/mpi-interface.cc.1.o", 
+    "file": "../src/mpi/model/mpi-interface.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5933,6 +5928,11 @@
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
     "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wimax/model/simple-ofdm-wimax-channel.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wimax/model/simple-ofdm-wimax-channel.cc.1.o", 
     "file": "../src/wimax/model/simple-ofdm-wimax-channel.cc"
+  }, 
+  {
+    "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
+    "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-rlc-am-transmitter.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/lte-test-rlc-am-transmitter.cc.3.o", 
+    "file": "../src/lte/test/lte-test-rlc-am-transmitter.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5961,8 +5961,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/mpi/model/null-message-simulator-impl.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mpi/model/null-message-simulator-impl.cc.1.o", 
-    "file": "../src/mpi/model/null-message-simulator-impl.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/antenna/model/parabolic-antenna-model.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/antenna/model/parabolic-antenna-model.cc.1.o", 
+    "file": "../src/antenna/model/parabolic-antenna-model.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -5986,8 +5986,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/mpi/model/mpi-interface.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mpi/model/mpi-interface.cc.1.o", 
-    "file": "../src/mpi/model/mpi-interface.cc"
+    "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-downlink-power-control.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/lte-test-downlink-power-control.cc.3.o", 
+    "file": "../src/lte/test/lte-test-downlink-power-control.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -6041,13 +6041,13 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/examples/main-ptr.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/examples/main-ptr.cc.3.o", 
-    "file": "../src/core/examples/main-ptr.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/uan/model/uan-prop-model-ideal.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/uan/model/uan-prop-model-ideal.cc.1.o", 
+    "file": "../src/uan/model/uan-prop-model-ideal.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/internet/model/ipv6-option-header.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/model/ipv6-option-header.cc.1.o", 
-    "file": "../src/internet/model/ipv6-option-header.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/model/lte-fr-hard-algorithm.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/model/lte-fr-hard-algorithm.cc.1.o", 
+    "file": "../src/lte/model/lte-fr-hard-algorithm.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -6061,8 +6061,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/network/model/buffer.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/network/model/buffer.cc.1.o", 
-    "file": "../src/network/model/buffer.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/network/utils/ascii-file.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/network/utils/ascii-file.cc.1.o", 
+    "file": "../src/network/utils/ascii-file.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -6186,8 +6186,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/point-to-point/model/point-to-point-channel.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/point-to-point/model/point-to-point-channel.cc.1.o", 
-    "file": "../src/point-to-point/model/point-to-point-channel.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/mesh/model/dot11s/ie-dot11s-configuration.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mesh/model/dot11s/ie-dot11s-configuration.cc.1.o", 
+    "file": "../src/mesh/model/dot11s/ie-dot11s-configuration.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -6216,8 +6216,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/spectrum/model/wifi-spectrum-value-helper.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/spectrum/model/wifi-spectrum-value-helper.cc.1.o", 
-    "file": "../src/spectrum/model/wifi-spectrum-value-helper.cc"
+    "command": "/usr/bin/g++ -std=c++0x -I../src/internet -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 '-DNS_TEST_SOURCEDIR=\"src/internet/test\"' ../src/internet/test/tcp-rto-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/internet/test/tcp-rto-test.cc.3.o", 
+    "file": "../src/internet/test/tcp-rto-test.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -6296,8 +6296,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/wimax/model/cid-factory.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/wimax/model/cid-factory.cc.1.o", 
-    "file": "../src/wimax/model/cid-factory.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 ../src/mpi/model/null-message-simulator-impl.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/mpi/model/null-message-simulator-impl.cc.1.o", 
+    "file": "../src/mpi/model/null-message-simulator-impl.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -6391,8 +6391,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -I../src/lte -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 '-DNS_TEST_SOURCEDIR=\"src/lte/test\"' ../src/lte/test/lte-test-rlc-am-transmitter.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/test/lte-test-rlc-am-transmitter.cc.3.o", 
-    "file": "../src/lte/test/lte-test-rlc-am-transmitter.cc"
+    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 ../src/core/model/global-value.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/core/model/global-value.cc.1.o", 
+    "file": "../src/core/model/global-value.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
@@ -6421,8 +6421,8 @@
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
-    "command": "/usr/bin/g++ -std=c++0x -fPIC -pthread -pthread -I. -I.. -I/usr/include/gtk-2.0 -I/usr/lib/x86_64-linux-gnu/gtk-2.0/include -I/usr/include/gio-unix-2.0 -I/usr/include/cairo -I/usr/include/pango-1.0 -I/usr/include/atk-1.0 -I/usr/include/pixman-1 -I/usr/include/libpng12 -I/usr/include/gdk-pixbuf-2.0 -I/usr/include/harfbuzz -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include -I/usr/include/freetype2 -I/usr/include/libxml2 -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 -DHAVE_GTK2=1 -DHAVE_LIBXML2=1 ../src/lte/model/lte-handover-management-sap.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/lte/model/lte-handover-management-sap.cc.1.o", 
-    "file": "../src/lte/model/lte-handover-management-sap.cc"
+    "command": "/usr/bin/g++ -std=c++0x -I../src/energy -fPIC -pthread -I. -I.. -DNS3_BUILD_PROFILE_DEBUG -DNS3_ASSERT_ENABLE -DNS3_LOG_ENABLE -DHAVE_SYS_IOCTL_H=1 -DHAVE_IF_NETS_H=1 -DHAVE_NET_ETHERNET_H=1 -DHAVE_PACKET_H=1 -DHAVE_IF_TUN_H=1 -DHAVE_GSL=1 -DHAVE_SQLITE3=1 '-DNS_TEST_SOURCEDIR=\"src/energy/test\"' ../src/energy/test/basic-energy-harvester-test.cc -c -o /home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build/src/energy/test/basic-energy-harvester-test.cc.3.o", 
+    "file": "../src/energy/test/basic-energy-harvester-test.cc"
   }, 
   {
     "directory": "/home/yuxin/Workspace-NS3.25+Mininet/ns-allinone-3.25/ns-3.25/build", 
