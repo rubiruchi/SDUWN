@@ -29,8 +29,6 @@
 #include "uan-channel.h"
 #include "uan-transducer.h"
 #include "ns3/log.h"
-//#include "ns3/mac48-address.h"
-//#include <stdio.h>
 
 namespace ns3 {
 
@@ -135,7 +133,6 @@ UanNetDevice::SetMac (Ptr<UanMac> mac)
           NS_LOG_DEBUG ("Attached MAC to PHY");
         }
       m_mac->SetForwardUpCb (MakeCallback (&UanNetDevice::ForwardUp, this));
-      m_mac->SetPromiscCb (MakeCallback (&UanNetDevice::PromiscForward, this));
     }
 
 }
@@ -224,21 +221,7 @@ UanNetDevice::GetChannel () const
 Address
 UanNetDevice::GetAddress () const
 {
- /* UanAddress addr = UanAddress::ConvertFrom (m_mac->GetAddress());
-  uint8_t intAddr = addr.GetAsInt();
-  char buff[17+1];
-  memset(buff, 0, 18);
-  if (intAddr >= 100){
-    intAddr -= 100;
-    snprintf(buff, 18, "00:00:00:00:01:%.2d", intAddr);
-  }
-  else
-    snprintf(buff, 18, "00:00:00:00:00:%.2d", intAddr);
-
-  Mac48Address* returnAddr = new Mac48Address(buff);
-  return *returnAddr; */
-  //return m_at.getM48(UanAddress::ConvertFrom (m_mac->GetAddress()));
-  return m_mac->GetMac48Address ();
+  return m_mac->GetAddress ();
 }
 
 bool
@@ -348,6 +331,7 @@ UanNetDevice::ForwardUp (Ptr<Packet> pkt, const UanAddress &src)
   NS_LOG_DEBUG ("Forwarding packet up to application");
   m_rxLogger (pkt, src);
   m_forwardUp (this, pkt, 0, src);
+
 }
 
 Ptr<UanTransducer>
@@ -389,17 +373,9 @@ UanNetDevice::AddLinkChangeCallback (Callback<void> callback)
 void
 UanNetDevice::SetPromiscReceiveCallback (PromiscReceiveCallback cb)
 {
-    NS_LOG_FUNCTION (this << &cb);
-    m_promiscCallback = cb;
+  // Not implemented yet
+  NS_ASSERT_MSG (0, "Not yet implemented");
 }
-
-void
-UanNetDevice::PromiscForward (Ptr<Packet> pkt, const Address& src, const Address& dest, uint16_t protocol, NetDevice::PacketType packetType)
-{
-  NS_LOG_DEBUG ("Promiscuously forwarding packet up to application");
-  m_promiscCallback (this, pkt, protocol, src, dest, packetType);
-}
-
 
 bool
 UanNetDevice::SupportsSendFrom (void) const
@@ -410,8 +386,8 @@ UanNetDevice::SupportsSendFrom (void) const
 void
 UanNetDevice::SetAddress (Address address)
 {
-  //NS_ASSERT_MSG (0, "Tried to set MAC address with no MAC");
-  m_mac->SetAddress (address);
+  NS_ASSERT_MSG (0, "Tried to set MAC address with no MAC");
+  m_mac->SetAddress (UanAddress::ConvertFrom (address));
 }
 
 void

@@ -86,7 +86,7 @@ public:
    *
    * \param pBuffer
    */
-  void CopyTo (uint8_t *pBuffer) const;
+  void CopyTo (uint8_t *pBuffer);
 
   /**
    * Convert to integer.

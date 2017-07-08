@@ -46,6 +46,7 @@ def runMain(argc, argv):
 	nodes.Create(nNodes)
 	
 	uan = ns.uan.UanHelper()
+	uan.TestForHelper()
 	chan = ns.uan.UanChannel()
 	
 	# noise configuration

@@ -25,7 +25,6 @@
 #include "ns3/pointer.h"
 #include "ns3/traced-callback.h"
 #include "uan-address.h"
-#include "uan-address-translator.h"
 #include <list>
 
 namespace ns3 {
@@ -165,16 +164,6 @@ private:
    * \param src The source address.
    */
   virtual void ForwardUp (Ptr<Packet> pkt, const UanAddress &src);
-
-  /**
-   * Promiscuously forward the packet to a higher level, set with SetPromiscReceiveCallback.
-   *
-   * \param pkt The packet.
-   * \param src The source address.
-   * \param dest The destination address.
-   * \param type The packet type.
-   */
-  virtual void PromiscForward (Ptr<Packet> pkt, const Address &src, const Address &dest, uint16_t protocol, NetDevice::PacketType packetType);
   
   /** \return The channel attached to this device. */
   Ptr<UanChannel> DoGetChannel (void) const;
@@ -191,7 +180,6 @@ private:
   bool m_linkup;                   //!< The link state, true if up.
   TracedCallback<> m_linkChanges;  //!< Callback to invoke when the link state changes to UP.
   ReceiveCallback m_forwardUp;     //!< The receive callback.
-  NetDevice::PromiscReceiveCallback m_promiscCallback;
 
   /** Trace source triggered when forwarding up received payload from the MAC layer. */
   TracedCallback<Ptr<const Packet>, UanAddress> m_rxLogger;

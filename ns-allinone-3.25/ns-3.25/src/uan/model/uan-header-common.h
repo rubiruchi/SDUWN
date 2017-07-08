@@ -81,8 +81,6 @@ public:
    */
   void SetType (uint8_t type);
 
-  void SetLengthType(uint16_t lengthType);
-
   /**
    * Get the destination address.
    *
@@ -102,8 +100,6 @@ public:
    */
   uint8_t GetType (void) const;
 
-  uint16_t GetLengthType(void) const;
-
 
   // Inherited methods
   virtual uint32_t GetSerializedSize (void) const;
@@ -115,7 +111,6 @@ private:
   UanAddress m_dest;  //!< The destination address.
   UanAddress m_src;   //!< The source address.
   uint8_t m_type;     //!< The type field.
-  uint16_t m_lengthType; //!< For compatibility with TapBridge
 
 };  // class UanHeaderCommon
 

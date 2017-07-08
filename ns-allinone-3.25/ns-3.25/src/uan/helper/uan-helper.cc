@@ -40,6 +40,7 @@
 
 #include <sstream>
 #include <string>
+#include <iostream>
 
 namespace ns3 {
 
@@ -269,6 +270,12 @@ UanHelper::AssignStreams (NetDeviceContainer c, int64_t stream)
         }
     }
   return (currentStream - stream);
+}
+
+
+void 
+UanHelper::TestForHelper(){
+    std::cout<<"Test For Helper"<<std::endl;
 }
 
 } // end namespace ns3

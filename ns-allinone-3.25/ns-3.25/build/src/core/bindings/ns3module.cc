@@ -40225,7 +40225,6 @@ _wrap_PyNs3FdReader__tp_init(void)
 }
 
 
-
 PyObject *
 _wrap_PyNs3FdReader_Stop(PyNs3FdReader *self)
 {

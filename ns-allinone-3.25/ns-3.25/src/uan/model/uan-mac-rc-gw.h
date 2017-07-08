@@ -68,7 +68,7 @@ public:
 
   // Inherited methods
   virtual Address GetAddress (void);
-  virtual void SetAddress (Address addr);
+  virtual void SetAddress (UanAddress addr);
   virtual bool Enqueue (Ptr<Packet> pkt, const Address &dest, uint16_t protocolNumber);
   virtual void SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress&> cb);
   virtual void AttachPhy (Ptr<UanPhy> phy);

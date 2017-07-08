@@ -82,7 +82,7 @@ UanAddress::CopyFrom (const uint8_t *pBuffer)
 }
 
 void
-UanAddress::CopyTo (uint8_t *pBuffer) const
+UanAddress::CopyTo (uint8_t *pBuffer)
 {
   *pBuffer = m_address;
 
