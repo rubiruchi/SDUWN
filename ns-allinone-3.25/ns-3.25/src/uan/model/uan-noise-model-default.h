@@ -60,6 +60,10 @@ public:
   // Inherited methods
   virtual double GetNoiseDbHz (double fKhz) const;
 
+  void SetWind(double windspeed);
+
+  void SetShipping(double shipcontri);
+
 private:
   double m_wind;      //!< Wind speed in m/s.
   double m_shipping;  //!< Shipping contribution to noise between 0 and 1.

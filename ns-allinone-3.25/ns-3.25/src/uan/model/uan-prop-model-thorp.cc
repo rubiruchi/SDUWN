@@ -99,5 +99,10 @@ UanPropModelThorp::GetAttenDbKm (double freqKhz)
 
   return atten;
 }
+void
+UanPropModelThorp::SetSpreadCoef(double sPreadCoef)
+{
+  m_SpreadCoef=sPreadCoef;
+}
 
 } // namespace ns3

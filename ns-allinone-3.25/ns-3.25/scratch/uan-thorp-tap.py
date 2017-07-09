@@ -46,20 +46,24 @@ def runMain(argc, argv):
 	nodes.Create(nNodes)
 	
 	uan = ns.uan.UanHelper()
-	uan.TestForHelper()
 	chan = ns.uan.UanChannel()
 	
 	# noise configuration
 	noise = ns.uan.UanNoiseModelDefault()
-	noise.Wind = ns.core.DoubleValue(windspeed)
-	noise.Shipping = ns.core.DoubleValue(shipcontri)
 	
+	noise.SetWind(windspeed)
+	noise.SetShipping(shipcontri)
+	#noise.Wind = ns.core.DoubleValue(windspeed)
+	#noise.Shipping = ns.core.DoubleValue(shipcontri)
 	noisePtr = ns.core.PointerValue(noise)
 	chan.SetAttribute("NoiseModel", noisePtr)
 
 	# propagation model configuration
 	prop = ns.uan.UanPropModelThorp()
-	prop.SpreadCoef = ns.core.DoubleValue(sPreadCoef)
+
+	#prop.SpreadCoef = ns.core.DoubleValue(sPreadCoef)
+	prop.SetSpreadCoef(sPreadCoef)
+
 	propPtr = ns.core.PointerValue(prop)
 	chan.SetAttribute("PropagationModel", propPtr)
 

@@ -79,5 +79,15 @@ UanNoiseModelDefault::GetNoiseDbHz (double fKhz) const
 
   return noiseDb;
 }
+void
+UanNoiseModelDefault::SetWind(double windspeed)
+{
+  m_wind=windspeed;
+}
+void
+UanNoiseModelDefault::SetShipping(double shipcontri)
+{
+  m_shipping=shipcontri;
+}
 
 } // namespace ns3
