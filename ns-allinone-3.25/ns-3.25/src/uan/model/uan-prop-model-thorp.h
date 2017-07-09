@@ -51,7 +51,7 @@ public:
   virtual UanPdp GetPdp (Ptr<MobilityModel> a, Ptr<MobilityModel> b, UanTxMode mode);
   virtual Time GetDelay (Ptr<MobilityModel> a, Ptr<MobilityModel> b, UanTxMode mode);
   
-  void SetSpreadCoef(double sPreadCoef);
+  //void SetSpreadCoef(double sPreadCoef);
 private:
   /**
    * Get the attenuation in dB / 1000 yards.

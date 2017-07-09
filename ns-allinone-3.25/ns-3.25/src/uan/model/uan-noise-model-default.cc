@@ -29,7 +29,8 @@ NS_OBJECT_ENSURE_REGISTERED (UanNoiseModelDefault);
 
 UanNoiseModelDefault::UanNoiseModelDefault ()
 {
-
+ // m_wind=4.5;      
+ // m_shipping=0.5;
 }
 
 UanNoiseModelDefault::~UanNoiseModelDefault ()
@@ -44,13 +45,13 @@ UanNoiseModelDefault::GetTypeId (void)
     .SetGroupName ("Uan")
     .AddConstructor<UanNoiseModelDefault> ()
     .AddAttribute ("Wind", "Wind speed in m/s.",
-                   DoubleValue (1),
+                   DoubleValue (6.5),
                    MakeDoubleAccessor (&UanNoiseModelDefault::m_wind),
-                   MakeDoubleChecker<double> (0))
+                   MakeDoubleChecker<double> (0.1))
     .AddAttribute ("Shipping", "Shipping contribution to noise between 0 and 1.",
-                   DoubleValue (0),
+                   DoubleValue (3.5),
                    MakeDoubleAccessor (&UanNoiseModelDefault::m_shipping),
-                   MakeDoubleChecker<double> (0,1))
+                   MakeDoubleChecker<double> (0.1))
   ;
   return tid;
 }
@@ -79,7 +80,7 @@ UanNoiseModelDefault::GetNoiseDbHz (double fKhz) const
 
   return noiseDb;
 }
-void
+/*void
 UanNoiseModelDefault::SetWind(double windspeed)
 {
   m_wind=windspeed;
@@ -88,6 +89,6 @@ void
 UanNoiseModelDefault::SetShipping(double shipcontri)
 {
   m_shipping=shipcontri;
-}
+}*/
 
 } // namespace ns3

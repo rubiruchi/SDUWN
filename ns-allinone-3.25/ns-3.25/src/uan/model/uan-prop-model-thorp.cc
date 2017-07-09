@@ -30,6 +30,7 @@ NS_OBJECT_ENSURE_REGISTERED (UanPropModelThorp);
 
 UanPropModelThorp::UanPropModelThorp ()
 {
+ //m_SpreadCoef=1.5;
 }
 
 UanPropModelThorp::~UanPropModelThorp ()
@@ -45,9 +46,9 @@ UanPropModelThorp::GetTypeId (void)
     .AddConstructor<UanPropModelThorp> ()
     .AddAttribute ("SpreadCoef",
                    "Spreading coefficient used in calculation of Thorp's approximation.",
-                   DoubleValue (1.5),
+                   DoubleValue (2.0),
                    MakeDoubleAccessor (&UanPropModelThorp::m_SpreadCoef),
-                   MakeDoubleChecker<double> ())
+                   MakeDoubleChecker<double> (0.1))
   ;
   return tid;
 }
@@ -99,10 +100,10 @@ UanPropModelThorp::GetAttenDbKm (double freqKhz)
 
   return atten;
 }
-void
+/*void
 UanPropModelThorp::SetSpreadCoef(double sPreadCoef)
 {
   m_SpreadCoef=sPreadCoef;
-}
+}*/
 
 } // namespace ns3

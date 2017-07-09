@@ -49,23 +49,23 @@ def runMain(argc, argv):
 	chan = ns.uan.UanChannel()
 	
 	# noise configuration
-	noise = ns.uan.UanNoiseModelDefault()
-	
-	noise.SetWind(windspeed)
-	noise.SetShipping(shipcontri)
+	noise_object=ns.uan.UanNoiseModelDefault()
+	noise_ptr = noise_object.GetObject(ns.uan.UanNoiseModelDefault.GetTypeId())
+	#noise.SetWind(windspeed)
+	#noise.SetShipping(shipcontri)
 	#noise.Wind = ns.core.DoubleValue(windspeed)
 	#noise.Shipping = ns.core.DoubleValue(shipcontri)
-	noisePtr = ns.core.PointerValue(noise)
-	chan.SetAttribute("NoiseModel", noisePtr)
-
+	#noisePtr = ns.core.PointerValue(noise)
+	chan.SetNoiseModel(noise_ptr)
+	#chan.SetAttribute("NoiseModel", noise_ptr)
 	# propagation model configuration
-	prop = ns.uan.UanPropModelThorp()
-
+	prop_object=ns.uan.UanPropModelThorp()
+	prop_ptr = prop_object.GetObject(ns.uan.UanPropModelThorp.GetTypeId())
 	#prop.SpreadCoef = ns.core.DoubleValue(sPreadCoef)
-	prop.SetSpreadCoef(sPreadCoef)
-
-	propPtr = ns.core.PointerValue(prop)
-	chan.SetAttribute("PropagationModel", propPtr)
+	#prop.SetSpreadCoef(sPreadCoef)
+	#propPtr = ns.core.PointerValue(prop)
+	chan.SetPropagationModel(prop_ptr)
+	#chan.SetAttribute("PropagationModel", prop_ptr)
 
 	# modulation mode configuration
 	mode = ns.uan.UanTxMode()
