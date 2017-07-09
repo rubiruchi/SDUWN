@@ -4747,6 +4747,14 @@ def register_Ns3UanNoiseModelDefault_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
+
+    cls.add_method('SetWind',
+                    'void',
+                    [param('double','windspeed')])
+
+    cls.add_method('SetShipping',
+                    'void',
+                    [param('double','shipcontri')])
     return
 
 def register_Ns3UanPhy_methods(root_module, cls):
@@ -5744,6 +5752,9 @@ def register_Ns3UanPropModelThorp_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
+    cls.add_method('SetSpreadCoef',
+                    'void',
+                    [param('double','sPreadCoef')])
     return
 
 def register_Ns3UanTransducer_methods(root_module, cls):
