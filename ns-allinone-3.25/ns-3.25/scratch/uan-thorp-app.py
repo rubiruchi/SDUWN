@@ -1,6 +1,3 @@
-'''
-	might need to convert a bunch of the objects into Ptr's
-'''
 import ns
 import ns.core
 import ns.network
@@ -21,12 +18,13 @@ def ReceivePacket(socket):
 	
 def runMain(argc, argv):
 
-	#ns.core.LogComponentEnable("UanChannel", ns.core.LOG_ALL)
-	#ns.core.LogComponentEnable("UanHelper", ns.core.LOG_ALL)
-	#ns.core.LogComponentEnable("UanNetDevice", ns.core.LOG_ALL)
+	ns.core.LogComponentEnable("UanChannel", ns.core.LOG_ALL)
+	ns.core.LogComponentEnable("UanHelper", ns.core.LOG_ALL)
+	ns.core.LogComponentEnable("UanNetDevice", ns.core.LOG_ALL)
 	ns.core.LogComponentEnable("UanPhyGen", ns.core.LOG_ALL)
-	#ns.core.LogComponentEnable("UanPropModelThorp", ns.core.LOG_ALL)
-	#ns.core.LogComponentEnable("OnOffApplication", ns.core.LOG_ALL)
+	# ns.core.LogComponentEnable("UanPhy", ns.core.LOG_ALL)
+	ns.core.LogComponentEnable("UanPropModelThorp", ns.core.LOG_ALL)
+	ns.core.LogComponentEnable("OnOffApplication", ns.core.LOG_ALL)
 	ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_NODE)
 	ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_TIME)
 
@@ -44,7 +42,7 @@ def runMain(argc, argv):
 	''' channel module configurations begin '''
 	nodes = ns.network.NodeContainer()
 	nodes.Create(nNodes)
-	
+
 	uan = ns.uan.UanHelper()
 	chan = ns.uan.UanChannel()
 	
@@ -65,8 +63,6 @@ def runMain(argc, argv):
 	#prop.SetSpreadCoef(sPreadCoef)
 	#propPtr = ns.core.PointerValue(prop)
 	chan.SetPropagationModel(prop_ptr)
-	#chan.SetAttribute("PropagationModel", prop_ptr)
-
 	# modulation mode configuration
 	mode = ns.uan.UanTxMode()
 	mode = ns.uan.UanTxModeFactory.CreateMode(ns.uan.UanTxMode.FSK, # modulation type
@@ -101,10 +97,8 @@ def runMain(argc, argv):
 	uan.SetMac("ns3::UanMacAloha")
 	
 	# install wireless devices onto ghost nodes
-	
-	#devices = ns.network.NetDeviceContainer(uan.Install(nodes, chan))
 	devices = uan.Install(nodes, chan)
-	#devices = uan.Install(nodes)
+
 	#mobility
 	mobility = ns.mobility.MobilityHelper()
 	positionAlloc = ns.mobility.ListPositionAllocator()
@@ -117,31 +111,34 @@ def runMain(argc, argv):
 	mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel")
 	mobility.Install(nodes)
 
-	mobility.SetPositionAllocator(positionAlloc)
-	mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel")
-	mobility.Install(nodes)
+	#mobility.SetPositionAllocator(positionAlloc)
+	#mobility.SetMobilityModel("ns3::ConstantPositionMobilityModel")
+	#mobility.Install(nodes)
 
+	"""
 	''' setup tap bridges from vmuan-2km.cc '''
 	tapBridge = ns3.TapBridgeHelper()
 	tapBridge.SetAttribute("Mode", ns.core.StringValue("UseLocal"))
 	tapBridge.SetAttribute("DeviceName", ns3.StringValue("tap-vNode1"))	
 	tapBridge.Install(nodes.Get(0), devices.Get(0))
 	
-	#tapBridge.SetAttribute ("DeviceName", ns3.StringValue ("tap-vNode2"));
-  	#tapBridge.Install (nodes.Get (1), devices.Get (1));
+	tapBridge.SetAttribute ("DeviceName", ns3.StringValue ("tap-vNode2"));
+  	tapBridge.Install (nodes.Get (1), devices.Get (1));
 
-  	#tapBridge.SetAttribute ("DeviceName", ns3.StringValue ("tap-vNode3"));
-  	#tapBridge.Install (nodes.Get (2), devices.Get (2));
+  	tapBridge.SetAttribute ("DeviceName", ns3.StringValue ("tap-vNode3"));
+  	tapBridge.Install (nodes.Get (2), devices.Get (2));
 
-  	#tapBridge.SetAttribute ("DeviceName", ns3.StringValue ("tap-vNode4"));
-  	#tapBridge.Install (nodes.Get (3), devices.Get (3));
+  	tapBridge.SetAttribute ("DeviceName", ns3.StringValue ("tap-vNode4"));
+  	tapBridge.Install (nodes.Get (3), devices.Get (3));
 
-  	#tapBridge.SetAttribute ("DeviceName", ns3.StringValue ("tap-vNode5"));
-  	#tapBridge.Install (nodes.Get (4), devices.Get (4));
+  	tapBridge.SetAttribute ("DeviceName", ns3.StringValue ("tap-vNode5"));
+  	tapBridge.Install (nodes.Get (4), devices.Get (4));
 
-  	#tapBridge.SetAttribute ("DeviceName", ns3.StringValue ("tap-vNode6"));
-  	#tapBridge.Install (nodes.Get (5), devices.Get (5));
-  	'''
+  	tapBridge.SetAttribute ("DeviceName", ns3.StringValue ("tap-vNode6"));
+  	tapBridge.Install (nodes.Get (5), devices.Get (5));
+	""" 	
+
+	
 	pktskth=ns.network.PacketSocketHelper()
 	pktskth.Install(nodes)
 	appsocket=ns.network.PacketSocketAddress()
@@ -150,26 +147,36 @@ def runMain(argc, argv):
 	appsocket.SetPhysicalAddress(devices.Get (nNodes-1).GetAddress())
 	appsocket.SetProtocol(0)
 	
-	app=ns.applications.OnOffHelper("ns3::PacketSocketFactory",appsocket.GetPhysicalAddress())
+	# app=ns.applications.OnOffHelper("ns3::PacketSocketFactory",appsocket.GetPhysicalAddress())
+	app=ns.applications.OnOffHelper("ns3::PacketSocketFactory", ns.network.Address(appsocket))
 	app.SetAttribute("OnTime",ns.core.StringValue("ns3::ConstantRandomVariable[Constant=1]"))
 	app.SetAttribute("OffTime",ns.core.StringValue("ns3::ConstantRandomVariable[Constant=0]"))
-	app.SetAttribute("DataRate",ns.network.DataRateValue(ns.network.DataRate(1300)))
-	app.SetAttribute("PacketSize",ns.core.UintegerValue(1000))
-	apps=ns.network.ApplicationContainer(app.Install(nodes.Get(0)))
+	
+	app.SetAttribute("DataRate",ns.network.DataRateValue(ns.network.DataRate(2000)))
+	app.SetAttribute("PacketSize",ns.core.UintegerValue(100)) # OK
+	apps = app.Install(nodes.Get(8)) # OK
+	# apps=ns.network.ApplicationContainer(app.Install(nodes.Get(0)))
 
 	sinkNode=nodes.Get(nNodes-1)
-    #Ptr<Node> sinkNode = nodes.Get (nNodes-1);
   	psfid = ns3.TypeId.LookupByName("ns3::PacketSocketFactory")
   	sinkSocket = ns3.Socket.CreateSocket(sinkNode, psfid)
   	sinkSocket.Bind (appsocket)
-  	#sinkSocket.SetRecvCallback(ns.core.MakeCallback(ReceivePacket));
-	
+
   	apps.Start(ns.core.Seconds(0.5))
 	apps.Stop(ns.core.Seconds(100.5))
-	'''
+	
+
 	#NS_LOG_INFO ("Run Simulation.");
-  	#ns3.Simulator.Stop(ns.core.Seconds(100.))
+  	ns3.Simulator.Stop(ns.core.Seconds(20))
   	ns3.Simulator.Run()
+
+	'''
+	f = open("ns3funcs.txt", 'w')
+	funcs = dir(ns.core.Object)
+	for i in funcs:
+		f.write(i + '\n')
+	f.close()
+	''' 
   	ns3.Simulator.Destroy()
 
 if __name__ == "__main__":
