@@ -24,6 +24,8 @@ def register_types(module):
     module.add_class('Address', import_from_module='ns.network')
     ## address.h (module 'network'): ns3::Address::MaxSize_e [enumeration]
     module.add_enum('MaxSize_e', ['MAX_SIZE'], outer_class=root_module['ns3::Address'], import_from_module='ns.network')
+    ## uan-address-translator.h (module 'uan'): ns3::AddressTranslator [class]
+    module.add_class('AddressTranslator')
     ## attribute-construction-list.h (module 'core'): ns3::AttributeConstructionList [class]
     module.add_class('AttributeConstructionList', import_from_module='ns.core')
     ## attribute-construction-list.h (module 'core'): ns3::AttributeConstructionList::Item [struct]
@@ -519,6 +521,7 @@ def register_types_ns3_internal(module):
 
 def register_methods(root_module):
     register_Ns3Address_methods(root_module, root_module['ns3::Address'])
+    register_Ns3AddressTranslator_methods(root_module, root_module['ns3::AddressTranslator'])
     register_Ns3AttributeConstructionList_methods(root_module, root_module['ns3::AttributeConstructionList'])
     register_Ns3AttributeConstructionListItem_methods(root_module, root_module['ns3::AttributeConstructionList::Item'])
     register_Ns3Buffer_methods(root_module, root_module['ns3::Buffer'])
@@ -768,6 +771,25 @@ def register_Ns3Address_methods(root_module, cls):
                    'void', 
                    [param('ns3::TagBuffer', 'buffer')], 
                    is_const=True)
+    return
+
+def register_Ns3AddressTranslator_methods(root_module, cls):
+    ## uan-address-translator.h (module 'uan'): ns3::AddressTranslator::AddressTranslator(ns3::AddressTranslator const & arg0) [copy constructor]
+    cls.add_constructor([param('ns3::AddressTranslator const &', 'arg0')])
+    ## uan-address-translator.h (module 'uan'): ns3::AddressTranslator::AddressTranslator() [constructor]
+    cls.add_constructor([])
+    ## uan-address-translator.h (module 'uan'): ns3::Mac48Address ns3::AddressTranslator::getM48(ns3::UanAddress const addr) [member function]
+    cls.add_method('getM48', 
+                   'ns3::Mac48Address', 
+                   [param('ns3::UanAddress const', 'addr')])
+    ## uan-address-translator.h (module 'uan'): void ns3::AddressTranslator::remove(ns3::Mac48Address addr) [member function]
+    cls.add_method('remove', 
+                   'void', 
+                   [param('ns3::Mac48Address', 'addr')])
+    ## uan-address-translator.h (module 'uan'): ns3::UanAddress ns3::AddressTranslator::translate(ns3::Mac48Address const addr) [member function]
+    cls.add_method('translate', 
+                   'ns3::UanAddress', 
+                   [param('ns3::Mac48Address const', 'addr')])
     return
 
 def register_Ns3AttributeConstructionList_methods(root_module, cls):
@@ -2814,10 +2836,11 @@ def register_Ns3UanAddress_methods(root_module, cls):
     cls.add_method('CopyFrom', 
                    'void', 
                    [param('uint8_t const *', 'pBuffer')])
-    ## uan-address.h (module 'uan'): void ns3::UanAddress::CopyTo(uint8_t * pBuffer) [member function]
+    ## uan-address.h (module 'uan'): void ns3::UanAddress::CopyTo(uint8_t * pBuffer) const [member function]
     cls.add_method('CopyTo', 
                    'void', 
-                   [param('uint8_t *', 'pBuffer')])
+                   [param('uint8_t *', 'pBuffer')], 
+                   is_const=True)
     ## uan-address.h (module 'uan'): uint8_t ns3::UanAddress::GetAsInt() const [member function]
     cls.add_method('GetAsInt', 
                    'uint8_t', 
@@ -3919,6 +3942,11 @@ def register_Ns3UanHeaderCommon_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_const=True, is_virtual=True)
+    ## uan-header-common.h (module 'uan'): uint16_t ns3::UanHeaderCommon::GetLengthType() const [member function]
+    cls.add_method('GetLengthType', 
+                   'uint16_t', 
+                   [], 
+                   is_const=True)
     ## uan-header-common.h (module 'uan'): uint32_t ns3::UanHeaderCommon::GetSerializedSize() const [member function]
     cls.add_method('GetSerializedSize', 
                    'uint32_t', 
@@ -3953,6 +3981,10 @@ def register_Ns3UanHeaderCommon_methods(root_module, cls):
     cls.add_method('SetDest', 
                    'void', 
                    [param('ns3::UanAddress', 'dest')])
+    ## uan-header-common.h (module 'uan'): void ns3::UanHeaderCommon::SetLengthType(uint16_t lengthType) [member function]
+    cls.add_method('SetLengthType', 
+                   'void', 
+                   [param('uint16_t', 'lengthType')])
     ## uan-header-common.h (module 'uan'): void ns3::UanHeaderCommon::SetSrc(ns3::UanAddress src) [member function]
     cls.add_method('SetSrc', 
                    'void', 
@@ -4358,21 +4390,31 @@ def register_Ns3UanMac_methods(root_module, cls):
                    'ns3::Address', 
                    [], 
                    is_pure_virtual=True, is_const=True, is_virtual=True)
+    ## uan-mac.h (module 'uan'): ns3::Address ns3::UanMac::GetMac48Address() [member function]
+    cls.add_method('GetMac48Address', 
+                   'ns3::Address', 
+                   [], 
+                   is_virtual=True)
     ## uan-mac.h (module 'uan'): static ns3::TypeId ns3::UanMac::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## uan-mac.h (module 'uan'): void ns3::UanMac::SetAddress(ns3::UanAddress addr) [member function]
+    ## uan-mac.h (module 'uan'): void ns3::UanMac::SetAddress(ns3::Address addr) [member function]
     cls.add_method('SetAddress', 
                    'void', 
-                   [param('ns3::UanAddress', 'addr')], 
+                   [param('ns3::Address', 'addr')], 
                    is_pure_virtual=True, is_virtual=True)
     ## uan-mac.h (module 'uan'): void ns3::UanMac::SetForwardUpCb(ns3::Callback<void, ns3::Ptr<ns3::Packet>, ns3::UanAddress const&, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
     cls.add_method('SetForwardUpCb', 
                    'void', 
                    [param('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::UanAddress const &, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'cb')], 
                    is_pure_virtual=True, is_virtual=True)
+    ## uan-mac.h (module 'uan'): void ns3::UanMac::SetPromiscCb(ns3::Callback<void, ns3::Ptr<ns3::Packet>, ns3::Address const&, ns3::Address const&, unsigned short, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
+    cls.add_method('SetPromiscCb', 
+                   'void', 
+                   [param('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Address const &, ns3::Address const &, unsigned short, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'cb')], 
+                   is_virtual=True)
     return
 
 def register_Ns3UanMacAloha_methods(root_module, cls):
@@ -4410,20 +4452,30 @@ def register_Ns3UanMacAloha_methods(root_module, cls):
                    'ns3::Address', 
                    [], 
                    is_const=True, is_virtual=True)
+    ## uan-mac-aloha.h (module 'uan'): ns3::Address ns3::UanMacAloha::GetMac48Address() [member function]
+    cls.add_method('GetMac48Address', 
+                   'ns3::Address', 
+                   [], 
+                   is_virtual=True)
     ## uan-mac-aloha.h (module 'uan'): static ns3::TypeId ns3::UanMacAloha::GetTypeId() [member function]
     cls.add_method('GetTypeId', 
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## uan-mac-aloha.h (module 'uan'): void ns3::UanMacAloha::SetAddress(ns3::UanAddress addr) [member function]
+    ## uan-mac-aloha.h (module 'uan'): void ns3::UanMacAloha::SetAddress(ns3::Address addr) [member function]
     cls.add_method('SetAddress', 
                    'void', 
-                   [param('ns3::UanAddress', 'addr')], 
+                   [param('ns3::Address', 'addr')], 
                    is_virtual=True)
     ## uan-mac-aloha.h (module 'uan'): void ns3::UanMacAloha::SetForwardUpCb(ns3::Callback<void, ns3::Ptr<ns3::Packet>, ns3::UanAddress const&, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
     cls.add_method('SetForwardUpCb', 
                    'void', 
                    [param('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::UanAddress const &, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'cb')], 
+                   is_virtual=True)
+    ## uan-mac-aloha.h (module 'uan'): void ns3::UanMacAloha::SetPromiscCb(ns3::Callback<void, ns3::Ptr<ns3::Packet>, ns3::Address const&, ns3::Address const&, unsigned short, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
+    cls.add_method('SetPromiscCb', 
+                   'void', 
+                   [param('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Address const &, ns3::Address const &, unsigned short, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'cb')], 
                    is_virtual=True)
     ## uan-mac-aloha.h (module 'uan'): void ns3::UanMacAloha::DoDispose() [member function]
     cls.add_method('DoDispose', 
@@ -4512,10 +4564,10 @@ def register_Ns3UanMacCw_methods(root_module, cls):
                    'void', 
                    [param('ns3::Time', 'duration')], 
                    is_virtual=True)
-    ## uan-mac-cw.h (module 'uan'): void ns3::UanMacCw::SetAddress(ns3::UanAddress addr) [member function]
+    ## uan-mac-cw.h (module 'uan'): void ns3::UanMacCw::SetAddress(ns3::Address addr) [member function]
     cls.add_method('SetAddress', 
                    'void', 
-                   [param('ns3::UanAddress', 'addr')], 
+                   [param('ns3::Address', 'addr')], 
                    is_virtual=True)
     ## uan-mac-cw.h (module 'uan'): void ns3::UanMacCw::SetCw(uint32_t cw) [member function]
     cls.add_method('SetCw', 
@@ -4579,10 +4631,10 @@ def register_Ns3UanMacRc_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## uan-mac-rc.h (module 'uan'): void ns3::UanMacRc::SetAddress(ns3::UanAddress addr) [member function]
+    ## uan-mac-rc.h (module 'uan'): void ns3::UanMacRc::SetAddress(ns3::Address addr) [member function]
     cls.add_method('SetAddress', 
                    'void', 
-                   [param('ns3::UanAddress', 'addr')], 
+                   [param('ns3::Address', 'addr')], 
                    is_virtual=True)
     ## uan-mac-rc.h (module 'uan'): void ns3::UanMacRc::SetForwardUpCb(ns3::Callback<void, ns3::Ptr<ns3::Packet>, ns3::UanAddress const&, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
     cls.add_method('SetForwardUpCb', 
@@ -4636,10 +4688,10 @@ def register_Ns3UanMacRcGw_methods(root_module, cls):
                    'ns3::TypeId', 
                    [], 
                    is_static=True)
-    ## uan-mac-rc-gw.h (module 'uan'): void ns3::UanMacRcGw::SetAddress(ns3::UanAddress addr) [member function]
+    ## uan-mac-rc-gw.h (module 'uan'): void ns3::UanMacRcGw::SetAddress(ns3::Address addr) [member function]
     cls.add_method('SetAddress', 
                    'void', 
-                   [param('ns3::UanAddress', 'addr')], 
+                   [param('ns3::Address', 'addr')], 
                    is_virtual=True)
     ## uan-mac-rc-gw.h (module 'uan'): void ns3::UanMacRcGw::SetForwardUpCb(ns3::Callback<void, ns3::Ptr<ns3::Packet>, ns3::UanAddress const&, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
     cls.add_method('SetForwardUpCb', 
@@ -7261,10 +7313,10 @@ def register_Ns3NetDevice_methods(root_module, cls):
                    'void', 
                    [param('ns3::Ptr< ns3::Node >', 'node')], 
                    is_pure_virtual=True, is_virtual=True)
-    ## net-device.h (module 'network'): void ns3::NetDevice::SetPromiscReceiveCallback(ns3::Callback<bool,ns3::Ptr<ns3::NetDevice>,ns3::Ptr<const ns3::Packet>,short unsigned int,const ns3::Address&,const ns3::Address&,ns3::NetDevice::PacketType,ns3::empty,ns3::empty,ns3::empty> cb) [member function]
+    ## net-device.h (module 'network'): void ns3::NetDevice::SetPromiscReceiveCallback(ns3::Callback<bool, ns3::Ptr<ns3::NetDevice>, ns3::Ptr<ns3::Packet const>, unsigned short, ns3::Address const&, ns3::Address const&, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
     cls.add_method('SetPromiscReceiveCallback', 
                    'void', 
-                   [param('ns3::Callback< bool, ns3::Ptr< ns3::NetDevice >, ns3::Ptr< ns3::Packet const >, short unsigned int, ns3::Address const &, ns3::Address const &, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty >', 'cb')], 
+                   [param('ns3::Callback< bool, ns3::Ptr< ns3::NetDevice >, ns3::Ptr< ns3::Packet const >, unsigned short, ns3::Address const &, ns3::Address const &, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty >', 'cb')], 
                    is_pure_virtual=True, is_virtual=True)
     ## net-device.h (module 'network'): void ns3::NetDevice::SetReceiveCallback(ns3::Callback<bool, ns3::Ptr<ns3::NetDevice>, ns3::Ptr<ns3::Packet const>, unsigned short, ns3::Address const&, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
     cls.add_method('SetReceiveCallback', 
@@ -8185,10 +8237,10 @@ def register_Ns3UanNetDevice_methods(root_module, cls):
     cls.add_method('SetPhy', 
                    'void', 
                    [param('ns3::Ptr< ns3::UanPhy >', 'phy')])
-    ## uan-net-device.h (module 'uan'): void ns3::UanNetDevice::SetPromiscReceiveCallback(ns3::Callback<bool,ns3::Ptr<ns3::NetDevice>,ns3::Ptr<const ns3::Packet>,short unsigned int,const ns3::Address&,const ns3::Address&,ns3::NetDevice::PacketType,ns3::empty,ns3::empty,ns3::empty> cb) [member function]
+    ## uan-net-device.h (module 'uan'): void ns3::UanNetDevice::SetPromiscReceiveCallback(ns3::Callback<bool, ns3::Ptr<ns3::NetDevice>, ns3::Ptr<ns3::Packet const>, unsigned short, ns3::Address const&, ns3::Address const&, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
     cls.add_method('SetPromiscReceiveCallback', 
                    'void', 
-                   [param('ns3::Callback< bool, ns3::Ptr< ns3::NetDevice >, ns3::Ptr< ns3::Packet const >, short unsigned int, ns3::Address const &, ns3::Address const &, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty >', 'cb')], 
+                   [param('ns3::Callback< bool, ns3::Ptr< ns3::NetDevice >, ns3::Ptr< ns3::Packet const >, unsigned short, ns3::Address const &, ns3::Address const &, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty >', 'cb')], 
                    is_virtual=True)
     ## uan-net-device.h (module 'uan'): void ns3::UanNetDevice::SetReceiveCallback(ns3::Callback<bool, ns3::Ptr<ns3::NetDevice>, ns3::Ptr<ns3::Packet const>, unsigned short, ns3::Address const&, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty> cb) [member function]
     cls.add_method('SetReceiveCallback', 
@@ -8217,6 +8269,11 @@ def register_Ns3UanNetDevice_methods(root_module, cls):
     cls.add_method('ForwardUp', 
                    'void', 
                    [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::UanAddress const &', 'src')], 
+                   visibility='private', is_virtual=True)
+    ## uan-net-device.h (module 'uan'): void ns3::UanNetDevice::PromiscForward(ns3::Ptr<ns3::Packet> pkt, ns3::Address const & src, ns3::Address const & dest, uint16_t protocol, ns3::NetDevice::PacketType packetType) [member function]
+    cls.add_method('PromiscForward', 
+                   'void', 
+                   [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::Address const &', 'src'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocol'), param('ns3::NetDevice::PacketType', 'packetType')], 
                    visibility='private', is_virtual=True)
     return
 

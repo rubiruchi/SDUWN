@@ -22,7 +22,7 @@
 #include "ns3/address.h"
 #include "uan-address.h"
 #include "ns3/mac48-address.h"
-#include <unordered_map>
+#include <map>
 
 namespace ns3 {
   class AddressTranslator{
@@ -55,8 +55,8 @@ namespace ns3 {
 
 
     private:
-      static std::unordered_map<std::string,UanAddress> storeMap;
-      static std::unordered_map<uint8_t,Mac48Address> getMap;
+      static std::map<std::string,UanAddress> storeMap;
+      static std::map<uint8_t,Mac48Address> getMap;
   }; //class AddressTranslator
 
 } // namespace ns3

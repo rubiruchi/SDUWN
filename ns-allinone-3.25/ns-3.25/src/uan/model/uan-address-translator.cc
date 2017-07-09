@@ -23,8 +23,8 @@
 
 namespace ns3 {
 
-  std::unordered_map<std::string,UanAddress> AddressTranslator::storeMap;
-  std::unordered_map<uint8_t,Mac48Address> AddressTranslator::getMap;
+  std::map<std::string,UanAddress> AddressTranslator::storeMap;
+  std::map<uint8_t,Mac48Address> AddressTranslator::getMap;
 
   NS_LOG_COMPONENT_DEFINE ("AddressTranslator");
 
@@ -46,7 +46,7 @@ namespace ns3 {
     char buff[6];
     addr.CopyTo((uint8_t*) buff);
     std::string key = buff;
-    std::unordered_map<std::string,UanAddress>::const_iterator got = storeMap.find (key);
+    std::map<std::string,UanAddress>::const_iterator got = storeMap.find (key);
     if ( got != storeMap.end() ){
       NS_LOG_DEBUG("Tanslated UanAddress: " << got->second);
       return got->second;
@@ -70,7 +70,7 @@ namespace ns3 {
 
     uint8_t key;
     addr.CopyTo(&key);
-    std::unordered_map<uint8_t,Mac48Address>::const_iterator got = getMap.find (key);
+    std::map<uint8_t,Mac48Address>::const_iterator got = getMap.find (key);
 
     if ( got != getMap.end() ){
       NS_LOG_DEBUG("Tanslated Mac48Address: " << got->second);
@@ -93,7 +93,7 @@ namespace ns3 {
     char buff[6];
     addr.CopyTo((uint8_t*) buff);
     std::string key = buff;
-    std::unordered_map<std::string,UanAddress>::const_iterator got = storeMap.find (key);
+    std::map<std::string,UanAddress>::const_iterator got = storeMap.find (key);
     if ( got != storeMap.end() ){
       storeMap.erase(key);
 

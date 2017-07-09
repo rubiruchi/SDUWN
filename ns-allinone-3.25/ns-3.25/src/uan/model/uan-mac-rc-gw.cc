@@ -177,9 +177,9 @@ UanMacRcGw::GetAddress (void)
 }
 
 void
-UanMacRcGw::SetAddress (UanAddress addr)
+UanMacRcGw::SetAddress (Address addr)
 {
-  m_address = addr;
+  m_address = UanAddress::ConvertFrom(addr);
 }
 
 bool

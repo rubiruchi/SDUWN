@@ -244,7 +244,6 @@ public:
   * \return The number of stream indices assigned by this helper.
   */
   int64_t AssignStreams (NetDeviceContainer c, int64_t stream);
-
   void TestForHelper();
 private:
   ObjectFactory m_device;      //!< The device.

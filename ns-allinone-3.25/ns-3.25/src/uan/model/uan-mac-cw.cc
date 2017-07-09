@@ -114,9 +114,9 @@ UanMacCw::GetAddress ()
 }
 
 void
-UanMacCw::SetAddress (UanAddress addr)
+UanMacCw::SetAddress (Address addr)
 {
-  m_address = addr;
+  m_address = UanAddress::ConvertFrom(addr);
 }
 
 bool

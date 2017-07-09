@@ -24,9 +24,8 @@
 #include "ns3/log.h"
 #include "uan-phy.h"
 #include "uan-header-common.h"
-
+#include "ns3/mac48-address.h"
 #include <iostream>
-
 namespace ns3
 {
 
@@ -78,64 +77,102 @@ UanMacAloha::GetTypeId (void)
 }
 
 Address
+UanMacAloha::GetMac48Address(void)
+{
+  Address addr = m_at.getM48(m_address);
+  NS_LOG_DEBUG("GetMac48Address: address is " << m_address << "; returning " << addr);
+  return addr;
+}
+
+Address
 UanMacAloha::GetAddress (void)
 {
   return m_address;
 }
 
 void
-UanMacAloha::SetAddress (UanAddress addr)
+UanMacAloha::SetAddress (Address addr)
 {
-  m_address=addr;
+  NS_LOG_DEBUG("SetAddress to " << addr);
+  if (Mac48Address::IsMatchingType (addr)){
+    m_address = m_at.translate(Mac48Address::ConvertFrom(addr));
+    NS_LOG_DEBUG("Translated: " << m_address);
+  }
+  else
+    m_address=UanAddress::ConvertFrom(addr);
 }
 bool
 UanMacAloha::Enqueue (Ptr<Packet> packet, const Address &dest, uint16_t protocolNumber)
 {
-  NS_LOG_DEBUG ("" << Simulator::Now ().GetSeconds () << " MAC " << UanAddress::ConvertFrom (GetAddress ()) << " Queueing packet for " << UanAddress::ConvertFrom (dest));
-
+  UanAddress udest;
+  if (Mac48Address::IsMatchingType (dest))
+    udest = m_at.translate(Mac48Address::ConvertFrom(dest));
+  else
+    udest = UanAddress::ConvertFrom (dest);
+  NS_LOG_DEBUG ("" << Simulator::Now ().GetSeconds () << " MAC " << UanAddress::ConvertFrom (GetAddress ()) << " Queueing packet for " << udest);
   if (!m_phy->IsStateTx ())
     {
+      NS_LOG_DEBUG("UanMacAloha Enqueue: sending packet out");
       UanAddress src = UanAddress::ConvertFrom (GetAddress ());
-      UanAddress udest = UanAddress::ConvertFrom (dest);
-
       UanHeaderCommon header;
       header.SetSrc (src);
       header.SetDest (udest);
       header.SetType (0);
-
+      header.SetLengthType (protocolNumber);
       packet->AddHeader (header);
       m_phy->SendPacket (packet, protocolNumber);
       return true;
     }
-  else
+  else{
+    NS_LOG_DEBUG("UanMacAloha Enqueue: phy is busy, packet may be dropped");
     return false;
+  }
 }
 
 void
-UanMacAloha::SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress& > cb)
+UanMacAloha::SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress&> cb)
 {
   m_forUpCb = cb;
 }
+
+
+void
+UanMacAloha::SetPromiscCb (Callback<void, Ptr<Packet>, const Address&, const Address&, uint16_t, NetDevice::PacketType> cb)
+{
+  m_promiscCb = cb;
+}
+
 void
 UanMacAloha::AttachPhy (Ptr<UanPhy> phy)
 {
   m_phy = phy;
   m_phy->SetReceiveOkCallback (MakeCallback (&UanMacAloha::RxPacketGood, this));
   m_phy->SetReceiveErrorCallback (MakeCallback (&UanMacAloha::RxPacketError, this));
-
 }
 void
-UanMacAloha::RxPacketGood (Ptr<Packet> pkt, double sinr, UanTxMode txMode)
-{
+UanMacAloha::RxPacketGood (Ptr<Packet> pkt, double sinr, UanTxMode txMode){
   UanHeaderCommon header;
   pkt->RemoveHeader (header);
-  NS_LOG_DEBUG ("Receiving packet from " << header.GetSrc () << " For " << header.GetDest ());
-
+  NS_LOG_DEBUG ("Receiving packet from " << header.GetSrc () << " For " << header.GetDest () << " m_address is " << m_address );
   if (header.GetDest () == GetAddress () || header.GetDest () == UanAddress::GetBroadcast ())
-    {
+  {
       m_forUpCb (pkt, header.GetSrc ());
-    }
-
+  }
+  if (pkt->ToString()!=""){
+     if (!m_promiscCb.IsNull()){
+        NetDevice::PacketType packetType;
+        if (header.GetDest () == UanAddress::GetBroadcast ()){
+                packetType = NetDevice::PACKET_BROADCAST;
+        }
+        else if (header.GetDest () == m_address){
+                packetType = NetDevice::PACKET_HOST;
+        }
+        else{
+                packetType = NetDevice::PACKET_OTHERHOST;
+        }
+        m_promiscCb (pkt, m_at.getM48(header.GetSrc()), m_at.getM48(header.GetDest()), header.GetLengthType(), packetType);
+      }
+   }
 }
 
 void

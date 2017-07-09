@@ -33,7 +33,8 @@ UanHeaderCommon::UanHeaderCommon (const UanAddress src, const UanAddress dest, u
   : Header (),
     m_dest (dest),
     m_src (src),
-    m_type (type)
+    m_type (type),
+    m_lengthType(0)
 {
 
 }
@@ -76,6 +77,12 @@ UanHeaderCommon::SetType (uint8_t type)
   m_type = type;
 }
 
+void
+UanHeaderCommon::SetLengthType (uint16_t lengthType)
+{
+  m_lengthType = lengthType;
+}
+
 UanAddress
 UanHeaderCommon::GetDest (void) const
 {
@@ -92,12 +99,18 @@ UanHeaderCommon::GetType (void) const
   return m_type;
 }
 
+uint16_t
+UanHeaderCommon::GetLengthType (void) const
+{
+  return m_lengthType;
+}
+
 // Inherrited methods
 
 uint32_t
 UanHeaderCommon::GetSerializedSize (void) const
 {
-  return 1 + 1 + 1;
+  return 1 + 1 + 1 + 2;
 }
 
 void
@@ -106,6 +119,7 @@ UanHeaderCommon::Serialize (Buffer::Iterator start) const
   start.WriteU8 (m_src.GetAsInt ());
   start.WriteU8 (m_dest.GetAsInt ());
   start.WriteU8 (m_type);
+  start.WriteU16 (m_lengthType);
 }
 
 uint32_t
@@ -116,6 +130,7 @@ UanHeaderCommon::Deserialize (Buffer::Iterator start)
   m_src = UanAddress (rbuf.ReadU8 ());
   m_dest = UanAddress (rbuf.ReadU8 ());
   m_type = rbuf.ReadU8 ();
+  m_lengthType = rbuf.ReadU16 ();
 
   return rbuf.GetDistanceFrom (start);
 }
@@ -123,7 +138,7 @@ UanHeaderCommon::Deserialize (Buffer::Iterator start)
 void
 UanHeaderCommon::Print (std::ostream &os) const
 {
-  os << "UAN src=" << m_src << " dest=" << m_dest << " type=" << (uint32_t) m_type;
+  os << "UAN src=" << m_src << " dest=" << m_dest << " type=" << (uint32_t) m_type << "length type=" << m_lengthType;
 }
 
 

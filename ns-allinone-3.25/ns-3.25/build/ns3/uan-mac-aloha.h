@@ -23,10 +23,10 @@
 
 #include "uan-mac.h"
 #include "uan-address.h"
+#include "uan-address-translator.h"
 
 namespace ns3
 {
-
 
 class UanPhy;
 class UanTxMode;
@@ -53,12 +53,13 @@ public:
    */
   static TypeId GetTypeId (void);
 
-
   // Inherited methods
-  Address GetAddress (void);
-  virtual void SetAddress (UanAddress addr);
+  virtual Address GetAddress (void);
+  virtual Address GetMac48Address(void);
+  virtual void SetAddress (Address addr);
   virtual bool Enqueue (Ptr<Packet> pkt, const Address &dest, uint16_t protocolNumber);
   virtual void SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress& > cb);
+  virtual void SetPromiscCb (Callback<void, Ptr<Packet>, const Address&, const Address&, uint16_t, NetDevice::PacketType> cb);
   virtual void AttachPhy (Ptr<UanPhy> phy);
   virtual Address GetBroadcast (void) const;
   virtual void Clear (void);
@@ -67,10 +68,14 @@ public:
 private:
   /** The MAC address. */
   UanAddress m_address;
+  /** Thr Mac address translator to Mac48. */
+  AddressTranslator m_at;
   /** PHY layer attached to this MAC. */
   Ptr<UanPhy> m_phy;
   /** Forwarding up callback. */
   Callback<void, Ptr<Packet>, const UanAddress& > m_forUpCb;
+  /** Forwarding up promisc callback. */
+  Callback<void, Ptr<Packet>, const Address&, const Address&, uint16_t, NetDevice::PacketType> m_promiscCb;
   /** Flag when we've been cleared. */
   bool m_cleared;
 

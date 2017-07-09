@@ -84,7 +84,7 @@ public:
 
   // Inherited methods from UanMac
   virtual Address GetAddress ();
-  virtual void SetAddress (UanAddress addr);
+  virtual void SetAddress (Address addr);
   virtual bool Enqueue (Ptr<Packet> pkt, const Address &dest, uint16_t protocolNumber);
   virtual void SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress&> cb);
   virtual void AttachPhy (Ptr<UanPhy> phy);

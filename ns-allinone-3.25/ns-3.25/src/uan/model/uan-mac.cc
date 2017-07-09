@@ -33,4 +33,16 @@ TypeId UanMac::GetTypeId (void)
   return tid;
 }
 
+
+void UanMac::SetPromiscCb (Callback<void, Ptr<Packet>, const Address&, const Address&, uint16_t, NetDevice::PacketType> cb)
+{
+    return;
+}
+
+Address UanMac::GetMac48Address(void){
+  Address addr;
+  return addr;
+}
+
+
 } // namespace ns3

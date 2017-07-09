@@ -2475,6 +2475,17 @@ extern std::map<void*, PyObject*> PyNs3UanTxModeFactory_wrapper_registry;
 
 typedef struct {
     PyObject_HEAD
+    ns3::AddressTranslator *obj;
+    PyBindGenWrapperFlags flags:8;
+} PyNs3AddressTranslator;
+
+
+extern PyTypeObject PyNs3AddressTranslator_Type;
+
+extern std::map<void*, PyObject*> PyNs3AddressTranslator_wrapper_registry;
+
+typedef struct {
+    PyObject_HEAD
     ns3::AcousticModemEnergyModelHelper *obj;
     PyObject *inst_dict;
     PyBindGenWrapperFlags flags:8;
@@ -2654,9 +2665,11 @@ public:
 
     virtual ns3::Address GetBroadcast() const;
 
-    virtual void SetAddress(ns3::UanAddress addr);
+    virtual void SetAddress(ns3::Address addr);
 
     virtual void DoDispose();
+
+    virtual ns3::Address GetMac48Address();
 
     virtual ns3::TypeId GetInstanceTypeId() const;
 
@@ -2758,13 +2771,15 @@ public:
 
     virtual void NotifyTxStart(ns3::Time duration);
 
-    virtual void SetAddress(ns3::UanAddress addr);
+    virtual void SetAddress(ns3::Address addr);
 
     virtual void SetCw(uint32_t cw);
 
     virtual void SetSlotTime(ns3::Time duration);
 
     virtual void DoDispose();
+
+    virtual ns3::Address GetMac48Address();
 
     virtual ns3::TypeId GetInstanceTypeId() const;
 
@@ -2850,9 +2865,11 @@ public:
 
     virtual ns3::Address GetBroadcast() const;
 
-    virtual void SetAddress(ns3::UanAddress addr);
+    virtual void SetAddress(ns3::Address addr);
 
     virtual void DoDispose();
+
+    virtual ns3::Address GetMac48Address();
 
     virtual ns3::TypeId GetInstanceTypeId() const;
 
@@ -2938,9 +2955,11 @@ public:
 
     virtual ns3::Address GetBroadcast() const;
 
-    virtual void SetAddress(ns3::UanAddress addr);
+    virtual void SetAddress(ns3::Address addr);
 
     virtual void DoDispose();
+
+    virtual ns3::Address GetMac48Address();
 
     virtual ns3::TypeId GetInstanceTypeId() const;
 

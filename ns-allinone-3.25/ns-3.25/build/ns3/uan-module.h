@@ -9,6 +9,7 @@
 // Module headers:
 #include "acoustic-modem-energy-model-helper.h"
 #include "acoustic-modem-energy-model.h"
+#include "uan-address-translator.h"
 #include "uan-address.h"
 #include "uan-channel.h"
 #include "uan-header-common.h"

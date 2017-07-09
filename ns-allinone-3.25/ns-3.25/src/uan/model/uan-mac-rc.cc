@@ -282,9 +282,9 @@ UanMacRc::GetAddress (void)
 }
 
 void
-UanMacRc::SetAddress (UanAddress addr)
+UanMacRc::SetAddress (Address addr)
 {
-  m_address = addr;
+  m_address = UanAddress::ConvertFrom(addr);
 }
 
 bool
