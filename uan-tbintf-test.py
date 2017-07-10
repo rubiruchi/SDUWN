@@ -27,7 +27,7 @@ if __name__ == '__main__':
                        }
 
     list_position = {'h0': opennet.createListPositionAllocate(x1=0,y1=10,z1=-10),
-                     'h1': opennet.createListPositionAllocate(x1=1000,y1=0,z1=-10)
+                     'h1': opennet.createListPositionAllocate(x1=50,y1=0,z1=-10)
                     }
 
     """ Mobility models of hosts """
