@@ -213,9 +213,6 @@ public:
    * \return The installed netdevices.
    */
   NetDeviceContainer Install (NodeContainer c, Ptr<UanChannel> channel) const;
-
-
-  NetDeviceContainer InstallThorp(NodeContainer c);
   /**
    * Create a default an stack.
    *

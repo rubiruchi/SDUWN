@@ -48,7 +48,7 @@ import ns.tap_bridge
 import ns.csma
 import ns.wifi
 import ns.mobility
-
+import ns.uan
 # Default duration of ns-3 simulation thread. You can freely modify this value.
 
 default_duration = 3600
@@ -837,3 +837,61 @@ class WIFIBridgeLink( WIFISegment, Link ):
         tb1.link = self
         tb2.link = self
         self.intf1, self.intf2 = tb1, tb2
+
+# UANSegment
+# UANLink
+class UanSegment( object ):
+    def __init__( self ):
+        rxThresh = 5
+        txPower = 140
+        self.uanhelper = ns.uan.UanHelper()
+        self.channel = ns.uan.UanChannel()
+        mode = ns.uan.UanTxModeFactory.CreateMode(ns.uan.UanTxMode.FSK,1624,1624,24000,6000,2,"Default mode")
+        modelist = ns.uan.UanModesList()
+        modelist.AppendMode(mode)
+        noise_object=ns.uan.UanNoiseModelDefault()
+        noise_ptr=noise_object.GetObject(ns.uan.UanNoiseModelDefault.GetTypeId())
+        self.channel.SetNoiseModel(noise_ptr)
+        prop_object=ns.uan.UanPropModelThorp()
+        prop_ptr = prop_object.GetObject(ns.uan.UanPropModelThorp.GetTypeId())
+        self.channel.SetPropagationModel(prop_ptr)
+        perModel = "ns3::UanPhyPerGenDefault"
+        sinrModel = "ns3::UanPhyCalcSinrDefault"
+        obf = ns.core.ObjectFactory()
+        obf.SetTypeId(perModel)
+        per = obf.Create()
+        obf.SetTypeId(sinrModel)
+        sinr = obf.Create()
+        self.uanhelper.SetPhy("ns3::UanPhyGen",
+            "PerModel", ns.core.PointerValue(per),
+            "SinrModel", ns.core.PointerValue(sinr),
+            "SupportedModes", ns.uan.UanModesListValue(modelist),
+            "RxThreshold", ns.core.DoubleValue(rxThresh),
+            "TxPower", ns.core.DoubleValue(txPower))
+
+        self.uanhelper.SetMac("ns3::UanMacAloha")
+
+    def add(self,node,port=None,intfName=None,mode=None):
+        if hasattr(node,'nsNode') and node.nsNode is not None:
+            pass
+        else:
+            node.nsNode=ns.network.Node()
+            allNodes.append( node )
+        device = self.uanhelper.Install(node.nsNode, self.channel)
+        mobilityhelper = ns.mobility.MobilityHelper()
+        mobilityhelper.Install( node.nsNode )
+        if port is None:
+            port = node.newPort()
+        if intfName is None:
+            intfName = node.name + '-eth' + repr( port )
+        tb = TBIntf( intfName, node, port, node.nsNode, device, mode )
+        return tb
+
+class UanLink( UanSegment, Link ):
+    def __init__( self, node1, node2, port1=None, port2=None,intfName1=None, intfName2=None ):
+        UanSegment.__init__( self )
+        intf1 = UanSegment.add( self, node1, port1, intfName1 )
+        intf2 = UanSegment.add( self, node2, port2, intfName2 )
+        intf1.link = self
+        intf2.link = self
+        self.intf1, self.intf2 = intf1, intf2
