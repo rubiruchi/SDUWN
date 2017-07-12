@@ -1,0 +1,32 @@
+39.0304s -1 TapBridge:DoRead()
+39.0304s -1 Calling read on tap device fd 8
+39.0304s -1 TapBridge:ReadCallback()
+39.0304s -1 TapBridge::ReadCallback(): Received packet on node 0
+39.0304s -1 TapBridge::ReadCallback(): Scheduling handler
+39.1331s 0 TapBridge:ForwardToBridgedDevice(�������B2, 42)
+39.1331s 0 Received packet from tap device
+39.1331s 0 TapBridge:Filter(0x7f0e68001330)
+39.1331s 0 Pkt source is 86:42:7f:32:01:5a
+39.1331s 0 Pkt destination is ff:ff:ff:ff:ff:ff
+39.1331s 0 Pkt LengthType is 2054
+39.1331s 0 Pkt source is 03-06-86:42:7f:32:01:5a
+39.1331s 0 Pkt destination is 03-06-ff:ff:ff:ff:ff:ff
+39.1331s 0 Pkt LengthType is 2054
+39.1331s 0 Forwarding packet to ns-3 device via Send()
+39.1331s 0 PHY 02-01-02: Transmitting packet of size 33
+39.1331s 0 Channel scheduling
+39.1331s 0 Scheduling 02-01-03
+39.1331s 0 txPowerDb=140dB, rxPowerDb=105.56dB, distance=50.9902m, delay=+33993463.0ns
+39.1331s 0 UanPhyGen:UpdatePowerConsumption(0x1dc7f30)
+39.1331s 0 PHY 02-01-02 notifying listeners
+39.1671s 1 Channel:  In sendup
+39.1671s 1 Calculating SINR:  RxPower = 105.56 dB.  Number of interferers = 1  Interference + noise power = 91.0994 dB.  SINR = 14.4607 dB.
+39.1671s 1 PHY 02-01-03: Starting RX in IDLE mode.  SINR = 14.4607
+39.1671s 1 UanPhyGen:UpdatePowerConsumption(0x1dd92d0)
+39.2957s 0 Transmission ended, m_state set back to IDLE
+39.2957s 0 UanPhyGen:UpdatePowerConsumption(0x1dc7f30)
+39.3297s 1 UanPhyGen:UpdatePowerConsumption(0x1dd92d0)
+39.3297s 1 Forwarding packet up to application
+39.3297s 1 TapBridge:DiscardFromBridgedDevice(0x1dd91d0, 0x7f0e68001f60, 0, 02-01-02)
+39.3297s 1 Discarding packet stolen from bridged device 0x1dd91d0
+

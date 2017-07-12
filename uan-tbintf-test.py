@@ -7,11 +7,15 @@ import opennet
 from opennet import *
 import ns
 if __name__ == '__main__':
-    ns.core.LogComponentEnable("UanChannel", ns.core.LOG_ALL)
-    ns.core.LogComponentEnable("UanHelper", ns.core.LOG_ALL)
-    ns.core.LogComponentEnable("UanNetDevice", ns.core.LOG_ALL)
-    ns.core.LogComponentEnable("UanPhyGen", ns.core.LOG_ALL)
-    # ns.core.LogComponentEnable("UanPhy", ns.core.LOG_ALL)
+    #ns.core.LogComponentEnable("UanChannel", ns.core.LOG_ALL)
+    #ns.core.LogComponentEnable("UanHelper",  ns.core.LOG_ALL)
+    #ns.core.LogComponentEnable("UanNetDevice", ns.core.LOG_ALL)
+    #ns.core.LogComponentEnable("UanPhyGen", ns.core.LOG_ALL)
+    ns.core.LogComponentEnable("TagBuffer", ns.core.LOG_ALL)
+    ns.core.LogComponentEnable("TapBridge", ns.core.LOG_ALL)
+    ns.core.LogComponentEnable("TapBridgeHelper", ns.core.LOG_ALL)
+    #ns.core.LogComponentEnable("TapFdNetDeviceHelper", ns.core.LOG_ALL)
+    #ns.core.LogComponentEnable("UanPhy", ns.core.LOG_ALL)
     ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_NODE)
     ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_TIME)
     setLogLevel( 'info' )
@@ -50,7 +54,7 @@ if __name__ == '__main__':
 
 #   NS part ------------------------------------------------------
 
-    #link = UanLink( h0, h1 )
+    #link = CSMALink( h0, h1 )
 
 #   NS part END --------------------------------------------------
     info( '*** Configuring hosts\n' )
@@ -63,5 +67,5 @@ if __name__ == '__main__':
         info( str( node ) + '\n' )
 
     info( '*** Running test\n' )
-    h0.cmdPrint( 'ping -c1 ' + h1.IP() )
+    h0.cmdPrint( 'ping -c1' + h1.IP() )
     CLI(net)

@@ -49,6 +49,7 @@ import ns.csma
 import ns.wifi
 import ns.mobility
 import ns.uan
+import ns.csma
 # Default duration of ns-3 simulation thread. You can freely modify this value.
 
 default_duration = 3600

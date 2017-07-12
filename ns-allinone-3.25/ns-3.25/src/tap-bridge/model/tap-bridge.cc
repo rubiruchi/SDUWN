@@ -146,6 +146,7 @@ TapBridge::TapBridge ()
     m_ns3AddressRewritten (false)
 {
   NS_LOG_FUNCTION_NOARGS ();
+  ns3::PacketMetadata::Enable ();
   m_packetBuffer = new uint8_t[65536];
   Start (m_tStart);
 }
