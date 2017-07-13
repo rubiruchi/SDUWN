@@ -25,6 +25,8 @@
 #include "ns3/attribute.h"
 #include "ns3/object.h"
 
+#include "ns3/core-module.h"
+
 namespace ns3 {
 
 /**
@@ -45,8 +47,7 @@ namespace ns3 {
  * Which uses the noise model also given in the book
  * "Principles of Underwater Sound" by Urick
  */
-class UanNoiseModelDefault : public UanNoiseModel
-{
+class UanNoiseModelDefault : public UanNoiseModel {
 public:
   UanNoiseModelDefault ();           //!< Default constructor.
   virtual ~UanNoiseModelDefault ();  //!< Dummy destructor, DoDispose.
@@ -58,7 +59,9 @@ public:
   static TypeId GetTypeId (void);
 
   // Inherited methods
-  virtual double GetNoiseDbHz (double fKhz) const;
+  double GetNoiseDbHz (double fKhz) const;
+  //double GetRandomNoiseDbHz (double fKhz) const;
+  //double GetRandomNoiseDbHz(double fKhz, Ptr<UniformRandomVariable> m_Rand) const;
 
   //void SetWind(double windspeed);
 
@@ -67,6 +70,7 @@ public:
 private:
   double m_wind;      //!< Wind speed in m/s.
   double m_shipping;  //!< Shipping contribution to noise between 0 and 1.
+  Ptr<UniformRandomVariable> m_Rand;
 
 };  // class UanNoiseModelDefault
 
