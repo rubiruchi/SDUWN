@@ -188,6 +188,12 @@ UanMacRcGw::Enqueue (Ptr<Packet> packet, const Address &dest, uint16_t protocolN
   NS_LOG_WARN ("RCMAC Gateway transmission to acoustic nodes is not yet implemented");
   return false;
 }
+bool
+UanMacRcGw::EnqueueWithSrc(Ptr<Packet> packet, const Address &src, const Address &dest, uint16_t protocolNumber)
+{
+  NS_LOG_WARN ("RCMAC Gateway transmission to acoustic nodes is not yet implemented");
+  return false;
+}
 
 void
 UanMacRcGw::SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress&> cb)
@@ -728,6 +734,10 @@ UanMacRcGw::AssignStreams (int64_t stream)
 {
   NS_LOG_FUNCTION (this << stream);
   return 0;
+}
+bool UanMacRcGw::SupportsSendFrom(void)const
+{
+  return false;
 }
 
 } // namespace ns3

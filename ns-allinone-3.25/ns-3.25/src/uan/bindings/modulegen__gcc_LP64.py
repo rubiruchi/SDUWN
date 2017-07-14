@@ -4369,6 +4369,11 @@ def register_Ns3UanMac_methods(root_module, cls):
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocolNumber')], 
                    is_pure_virtual=True, is_virtual=True)
+
+    cls.add_method('EnqueueWithSrc', 
+                   'bool', 
+                   [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::Address const &', 'src'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocolNumber')], 
+                   is_pure_virtual=True, is_virtual=True)
     ## uan-mac.h (module 'uan'): ns3::Address ns3::UanMac::GetAddress() [member function]
     cls.add_method('GetAddress', 
                    'ns3::Address', 
@@ -4402,6 +4407,10 @@ def register_Ns3UanMac_methods(root_module, cls):
                    'void', 
                    [param('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Address const &, ns3::Address const &, short unsigned int, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty, ns3::empty >', 'cb')], 
                    is_virtual=True)
+    cls.add_method('SupportsSendFrom',
+                   'bool',
+                   [],
+                   is_pure_virtual=True, is_const=True)
     return
 
 def register_Ns3UanMacAloha_methods(root_module, cls):
@@ -4428,6 +4437,10 @@ def register_Ns3UanMacAloha_methods(root_module, cls):
     cls.add_method('Enqueue', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocolNumber')], 
+                   is_virtual=True)
+    cls.add_method('EnqueueWithSrc', 
+                   'bool', 
+                   [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::Address const &', 'src'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocolNumber')],
                    is_virtual=True)
     ## uan-mac-aloha.h (module 'uan'): ns3::Address ns3::UanMacAloha::GetAddress() [member function]
     cls.add_method('GetAddress', 
@@ -4467,6 +4480,10 @@ def register_Ns3UanMacAloha_methods(root_module, cls):
                     'void',
                     [param('ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::Address const &, ns3::Address const &, short unsigned int, ns3::NetDevice::PacketType, ns3::empty, ns3::empty, ns3::empty, ns3::empty >','cb')],
                     is_virtual=True)
+    cls.add_method('SupportsSendFrom',
+                   'bool',
+                   [],
+                   is_const=True, is_virtual=True)
     return
 
 def register_Ns3UanMacCw_methods(root_module, cls):
@@ -4493,6 +4510,10 @@ def register_Ns3UanMacCw_methods(root_module, cls):
     cls.add_method('Enqueue', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocolNumber')], 
+                   is_virtual=True)
+    cls.add_method('EnqueueWithSrc', 
+                   'bool', 
+                   [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::Address const &', 'src'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocolNumber')], 
                    is_virtual=True)
     ## uan-mac-cw.h (module 'uan'): ns3::Address ns3::UanMacCw::GetAddress() [member function]
     cls.add_method('GetAddress', 
@@ -4574,6 +4595,10 @@ def register_Ns3UanMacCw_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
+    cls.add_method('SupportsSendFrom',
+                   'bool',
+                   [],
+                   is_const=True, is_virtual=True)
     return
 
 def register_Ns3UanMacRc_methods(root_module, cls):
@@ -4600,6 +4625,10 @@ def register_Ns3UanMacRc_methods(root_module, cls):
     cls.add_method('Enqueue', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocolNumber')], 
+                   is_virtual=True)
+    cls.add_method('EnqueueWithSrc', 
+                   'bool', 
+                   [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::Address const &', 'src'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocolNumber')], 
                    is_virtual=True)
     ## uan-mac-rc.h (module 'uan'): ns3::Address ns3::UanMacRc::GetAddress() [member function]
     cls.add_method('GetAddress', 
@@ -4631,6 +4660,10 @@ def register_Ns3UanMacRc_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
+    cls.add_method('SupportsSendFrom',
+                   'bool',
+                   [],
+                   is_const=True, is_virtual=True)
     return
 
 def register_Ns3UanMacRcGw_methods(root_module, cls):
@@ -4657,6 +4690,10 @@ def register_Ns3UanMacRcGw_methods(root_module, cls):
     cls.add_method('Enqueue', 
                    'bool', 
                    [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocolNumber')], 
+                   is_virtual=True)
+    cls.add_method('EnqueueWithSrc', 
+                   'bool', 
+                   [param('ns3::Ptr< ns3::Packet >', 'pkt'), param('ns3::Address const &', 'src'), param('ns3::Address const &', 'dest'), param('uint16_t', 'protocolNumber')], 
                    is_virtual=True)
     ## uan-mac-rc-gw.h (module 'uan'): ns3::Address ns3::UanMacRcGw::GetAddress() [member function]
     cls.add_method('GetAddress', 
@@ -4688,6 +4725,10 @@ def register_Ns3UanMacRcGw_methods(root_module, cls):
                    'void', 
                    [], 
                    visibility='protected', is_virtual=True)
+    cls.add_method('SupportsSendFrom',
+                   'bool',
+                   [],
+                   is_const=True, is_virtual=True)
     return
 
 def register_Ns3UanNoiseModel_methods(root_module, cls):

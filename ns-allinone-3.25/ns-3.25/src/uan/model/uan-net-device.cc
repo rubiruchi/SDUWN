@@ -314,19 +314,7 @@ UanNetDevice::Send (Ptr<Packet> packet, const Address &dest, uint16_t protocolNu
 bool
 UanNetDevice::SendFrom (Ptr<Packet> packet, const Address& source, const Address& dest, uint16_t protocolNumber)
 {
-  NS_ASSERT (Mac48Address::IsMatchingType (dest));
-  NS_ASSERT (Mac48Address::IsMatchingType (source));
-  Mac48Address realTo = Mac48Address::ConvertFrom (dest);
-  Mac48Address realFrom = Mac48Address::ConvertFrom (source);
-
-  //LlcSnapHeader llc;
-  //llc.SetType (protocolNumber);
-  //packet->AddHeader (llc);
-  
-  //m_mac->NotifyTx (packet);
-  
-  m_mac->Enqueue (packet, realTo, realFrom);
-  return true;
+  return m_mac->EnqueueWithSrc(packet, source, dest, protocolNumber);
 }
 Ptr<Node>
 UanNetDevice::GetNode () const
@@ -411,7 +399,7 @@ UanNetDevice::PromiscForward (Ptr<Packet> pkt, const Address& src, const Address
 bool
 UanNetDevice::SupportsSendFrom (void) const
 {
-  return m_mac->SupportsSendFrom()
+  return m_mac->SupportsSendFrom();
 }
 void
 UanNetDevice::SetAddress (Address address)

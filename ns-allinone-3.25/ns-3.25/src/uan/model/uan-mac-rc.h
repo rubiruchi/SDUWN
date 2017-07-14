@@ -129,6 +129,7 @@ public:
    */
   void SetTransmitted (bool t = true);
 
+
 private:
   /** Queued packets for each address. */
   std::list<std::pair <Ptr<Packet>, UanAddress > > m_pktList;
@@ -186,12 +187,13 @@ public:
   virtual Address GetAddress (void);
   virtual void SetAddress (Address addr);
   virtual bool Enqueue (Ptr<Packet> pkt, const Address &dest, uint16_t protocolNumber);
+  virtual bool EnqueueWithSrc (Ptr<Packet> pkt, const Address &src, const Address &dest, uint16_t protocolNumber);
   virtual void SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress&> cb);
   virtual void AttachPhy (Ptr<UanPhy> phy);
   virtual Address GetBroadcast (void) const;
   virtual void Clear (void);
   int64_t AssignStreams (int64_t stream);
-
+  virtual bool SupportsSendFrom(void)const;
   /**
    *  TracedCallback signature for dequeue of a packet.
    *

@@ -322,6 +322,40 @@ UanMacRc::Enqueue (Ptr<Packet> packet, const Address &dest, uint16_t protocolNum
 
   return true;
 }
+bool
+UanMacRc::EnqueueWithSrc (Ptr<Packet> packet, const Address &src, const Address &dest, uint16_t protocolNumber)
+{
+  if (protocolNumber > 0)
+    {
+      NS_LOG_WARN ("Warning: UanMacRc does not support multiple protocols.  protocolNumber argument to Enqueue is being ignored");
+    }
+  if (m_pktQueue.size () >= m_queueLimit)
+    {
+      return false;
+    }
+
+  m_pktQueue.push_back (std::make_pair (packet, UanAddress::ConvertFrom (dest)));
+
+  switch (m_state)
+    {
+    case UNASSOCIATED:
+      Associate ();
+      return true;
+    case IDLE:
+      if (!m_rtsEvent.IsRunning ())
+        {
+          SendRts ();
+        }
+      return true;
+    case GWPSENT:
+    case RTSSENT:
+    case DATATX:
+      return true;
+    }
+
+  return true;
+}
+
 
 void
 UanMacRc::SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress&> cb)
@@ -778,4 +812,9 @@ UanMacRc::BlockRtsing (void)
   m_rtsBlocked = true;
 }
 
+bool 
+UanMacRc::SupportsSendFrom(void)const
+{
+return true;
+}
 } // namespace ns3

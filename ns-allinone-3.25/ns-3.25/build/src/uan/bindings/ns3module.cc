@@ -7692,6 +7692,18 @@ _wrap_PyNs3UanMac_Clear(PyNs3UanMac *self)
 
 
 PyObject *
+_wrap_PyNs3UanMac_SupportsSendFrom(PyNs3UanMac *self)
+{
+    PyObject *py_retval;
+    bool retval;
+    
+    retval = self->obj->SupportsSendFrom();
+    py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
+    return py_retval;
+}
+
+
+PyObject *
 _wrap_PyNs3UanMac_GetAddress(PyNs3UanMac *self)
 {
     PyObject *py_retval;
@@ -7766,6 +7778,64 @@ _wrap_PyNs3UanMac_Enqueue(PyNs3UanMac *self, PyObject *args, PyObject *kwargs)
         return NULL;
     }
     retval = self->obj->Enqueue(ns3::Ptr< ns3::Packet  > (pkt_ptr), dest2, protocolNumber);
+    py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
+    return py_retval;
+}
+
+
+PyObject *
+_wrap_PyNs3UanMac_EnqueueWithSrc(PyNs3UanMac *self, PyObject *args, PyObject *kwargs)
+{
+    PyObject *py_retval;
+    bool retval;
+    PyNs3Packet *pkt;
+    ns3::Packet *pkt_ptr;
+    PyObject *src;
+    ns3::Address src2;
+    PyObject *dest;
+    ns3::Address dest2;
+    int protocolNumber;
+    const char *keywords[] = {"pkt", "src", "dest", "protocolNumber", NULL};
+    
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, (char *) "O!OOi", (char **) keywords, &PyNs3Packet_Type, &pkt, &src, &dest, &protocolNumber)) {
+        return NULL;
+    }
+    pkt_ptr = (pkt ? pkt->obj : NULL);
+    if (PyObject_IsInstance(src, (PyObject*) &PyNs3Address_Type)) {
+        src2 = *((PyNs3Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Ipv4Address_Type)) {
+        src2 = *((PyNs3Ipv4Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Ipv6Address_Type)) {
+        src2 = *((PyNs3Ipv6Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Mac48Address_Type)) {
+        src2 = *((PyNs3Mac48Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3UanAddress_Type)) {
+        src2 = *((PyNs3UanAddress *) src)->obj;
+    } else {
+    
+        PyErr_Format(PyExc_TypeError, "parameter must an instance of one of the types (Address, Ipv4Address, Ipv6Address, Mac48Address, UanAddress), not %s", Py_TYPE(src)->tp_name);
+        return NULL;
+    }
+    if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Address_Type)) {
+        dest2 = *((PyNs3Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Ipv4Address_Type)) {
+        dest2 = *((PyNs3Ipv4Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Ipv6Address_Type)) {
+        dest2 = *((PyNs3Ipv6Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Mac48Address_Type)) {
+        dest2 = *((PyNs3Mac48Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3UanAddress_Type)) {
+        dest2 = *((PyNs3UanAddress *) dest)->obj;
+    } else {
+    
+        PyErr_Format(PyExc_TypeError, "parameter must an instance of one of the types (Address, Ipv4Address, Ipv6Address, Mac48Address, UanAddress), not %s", Py_TYPE(dest)->tp_name);
+        return NULL;
+    }
+    if (protocolNumber > 0xffff) {
+        PyErr_SetString(PyExc_ValueError, "Out of range");
+        return NULL;
+    }
+    retval = self->obj->EnqueueWithSrc(ns3::Ptr< ns3::Packet  > (pkt_ptr), src2, dest2, protocolNumber);
     py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
     return py_retval;
 }
@@ -7874,9 +7944,11 @@ _wrap_PyNs3UanMac_GetTypeId(void)
 static PyMethodDef PyNs3UanMac_methods[] = {
     {(char *) "GetBroadcast", (PyCFunction) _wrap_PyNs3UanMac_GetBroadcast, METH_NOARGS, "GetBroadcast()\n\n" },
     {(char *) "Clear", (PyCFunction) _wrap_PyNs3UanMac_Clear, METH_NOARGS, "Clear()\n\n" },
+    {(char *) "SupportsSendFrom", (PyCFunction) _wrap_PyNs3UanMac_SupportsSendFrom, METH_NOARGS, "SupportsSendFrom()\n\n" },
     {(char *) "GetAddress", (PyCFunction) _wrap_PyNs3UanMac_GetAddress, METH_NOARGS, "GetAddress()\n\n" },
     {(char *) "SetForwardUpCb", (PyCFunction) _wrap_PyNs3UanMac_SetForwardUpCb, METH_KEYWORDS|METH_VARARGS, "SetForwardUpCb(cb)\n\ntype: cb: ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::UanAddress const &, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >" },
     {(char *) "Enqueue", (PyCFunction) _wrap_PyNs3UanMac_Enqueue, METH_KEYWORDS|METH_VARARGS, "Enqueue(pkt, dest, protocolNumber)\n\ntype: pkt: ns3::Ptr< ns3::Packet >\ntype: dest: ns3::Address const &\ntype: protocolNumber: uint16_t" },
+    {(char *) "EnqueueWithSrc", (PyCFunction) _wrap_PyNs3UanMac_EnqueueWithSrc, METH_KEYWORDS|METH_VARARGS, "EnqueueWithSrc(pkt, src, dest, protocolNumber)\n\ntype: pkt: ns3::Ptr< ns3::Packet >\ntype: src: ns3::Address const &\ntype: dest: ns3::Address const &\ntype: protocolNumber: uint16_t" },
     {(char *) "AttachPhy", (PyCFunction) _wrap_PyNs3UanMac_AttachPhy, METH_KEYWORDS|METH_VARARGS, "AttachPhy(phy)\n\ntype: phy: ns3::Ptr< ns3::UanPhy >" },
     {(char *) "AssignStreams", (PyCFunction) _wrap_PyNs3UanMac_AssignStreams, METH_KEYWORDS|METH_VARARGS, "AssignStreams(stream)\n\ntype: stream: int64_t" },
     {(char *) "SetAddress", (PyCFunction) _wrap_PyNs3UanMac_SetAddress, METH_KEYWORDS|METH_VARARGS, "SetAddress(addr)\n\ntype: addr: ns3::Address" },
@@ -8301,6 +8373,85 @@ PyNs3UanMacAloha__PythonHelper::Enqueue(ns3::Ptr< ns3::Packet > pkt, ns3::Addres
     return retval;
 }
 
+bool
+PyNs3UanMacAloha__PythonHelper::EnqueueWithSrc(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & src, ns3::Address const & dest, uint16_t protocolNumber)
+{
+    PyGILState_STATE __py_gil_state;
+    PyObject *py_method;
+    ns3::UanMacAloha *self_obj_before;
+    PyObject *py_retval;
+    bool retval;
+    PyNs3Packet *py_Packet;
+    std::map<void*, PyObject*>::const_iterator wrapper_lookup_iter;
+    PyTypeObject *wrapper_type = 0;
+    PyNs3Address *py_Address;
+    PyNs3Address *py_Address2;
+    PyObject *py_boolretval;
+    
+    __py_gil_state = (PyEval_ThreadsInitialized() ? PyGILState_Ensure() : (PyGILState_STATE) 0);
+    py_method = PyObject_GetAttrString(m_pyself, (char *) "EnqueueWithSrc"); PyErr_Clear();
+    if (py_method == NULL || Py_TYPE(py_method) == &PyCFunction_Type) {
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacAloha::EnqueueWithSrc(pkt, src, dest, protocolNumber);
+    }
+    self_obj_before = reinterpret_cast< PyNs3UanMacAloha* >(m_pyself)->obj;
+    reinterpret_cast< PyNs3UanMacAloha* >(m_pyself)->obj = (ns3::UanMacAloha*) this;
+    wrapper_lookup_iter = PyNs3Empty_wrapper_registry.find((void *) const_cast<ns3::Packet *> (ns3::PeekPointer (pkt)));
+    if (wrapper_lookup_iter == PyNs3Empty_wrapper_registry.end()) {
+        py_Packet = NULL;
+    } else {
+        py_Packet = (PyNs3Packet *) wrapper_lookup_iter->second;
+        Py_INCREF(py_Packet);
+    }
+    
+    if (py_Packet == NULL)
+    {
+        wrapper_type = PyNs3SimpleRefCount__Ns3Packet_Ns3Empty_Ns3DefaultDeleter__lt__ns3Packet__gt____typeid_map.lookup_wrapper(typeid(*const_cast<ns3::Packet *> (ns3::PeekPointer (pkt))), &PyNs3Packet_Type);
+        py_Packet = PyObject_New(PyNs3Packet, wrapper_type);
+    
+        py_Packet->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+        const_cast<ns3::Packet *> (ns3::PeekPointer (pkt))->Ref();
+        py_Packet->obj = const_cast<ns3::Packet *> (ns3::PeekPointer (pkt));
+        PyNs3Empty_wrapper_registry[(void *) py_Packet->obj] = (PyObject *) py_Packet;
+    }
+    py_Address = PyObject_New(PyNs3Address, &PyNs3Address_Type);
+    py_Address->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+    py_Address->obj = new ns3::Address(src);
+    PyNs3Address_wrapper_registry[(void *) py_Address->obj] = (PyObject *) py_Address;
+    py_Address2 = PyObject_New(PyNs3Address, &PyNs3Address_Type);
+    py_Address2->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+    py_Address2->obj = new ns3::Address(dest);
+    PyNs3Address_wrapper_registry[(void *) py_Address2->obj] = (PyObject *) py_Address2;
+    py_retval = PyObject_CallMethod(m_pyself, (char *) "EnqueueWithSrc", (char *) "NNNi", py_Packet, py_Address, py_Address2, (int) protocolNumber);
+    if (py_retval == NULL) {
+        PyErr_Print();
+        reinterpret_cast< PyNs3UanMacAloha* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacAloha::EnqueueWithSrc(pkt, src, dest, protocolNumber);
+    }
+    py_retval = Py_BuildValue((char*) "(N)", py_retval);
+    if (!PyArg_ParseTuple(py_retval, (char *) "O", &py_boolretval)) {
+        PyErr_Print();
+        Py_DECREF(py_retval);
+        reinterpret_cast< PyNs3UanMacAloha* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacAloha::EnqueueWithSrc(pkt, src, dest, protocolNumber);
+    }
+    retval = PyObject_IsTrue(py_boolretval);
+    Py_DECREF(py_retval);
+    reinterpret_cast< PyNs3UanMacAloha* >(m_pyself)->obj = self_obj_before;
+    Py_XDECREF(py_method);
+    if (PyEval_ThreadsInitialized())
+        PyGILState_Release(__py_gil_state);
+    return retval;
+}
+
 ns3::Address
 PyNs3UanMacAloha__PythonHelper::GetAddress()
 {
@@ -8538,6 +8689,54 @@ PyNs3UanMacAloha__PythonHelper::GetMac48Address()
     return retval;
 }
 
+
+bool
+PyNs3UanMacAloha__PythonHelper::SupportsSendFrom() const
+{
+    PyGILState_STATE __py_gil_state;
+    PyObject *py_method;
+    ns3::UanMacAloha *self_obj_before;
+    PyObject *py_retval;
+    bool retval;
+    PyObject *py_boolretval;
+    
+    __py_gil_state = (PyEval_ThreadsInitialized() ? PyGILState_Ensure() : (PyGILState_STATE) 0);
+    py_method = PyObject_GetAttrString(m_pyself, (char *) "SupportsSendFrom"); PyErr_Clear();
+    if (py_method == NULL || Py_TYPE(py_method) == &PyCFunction_Type) {
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacAloha::SupportsSendFrom();
+    }
+    self_obj_before = reinterpret_cast< PyNs3UanMacAloha* >(m_pyself)->obj;
+    reinterpret_cast< PyNs3UanMacAloha* >(m_pyself)->obj = const_cast< ns3::UanMacAloha* >((const ns3::UanMacAloha*) this);
+    py_retval = PyObject_CallMethod(m_pyself, (char *) "SupportsSendFrom", (char *) "");
+    if (py_retval == NULL) {
+        PyErr_Print();
+        reinterpret_cast< PyNs3UanMacAloha* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacAloha::SupportsSendFrom();
+    }
+    py_retval = Py_BuildValue((char*) "(N)", py_retval);
+    if (!PyArg_ParseTuple(py_retval, (char *) "O", &py_boolretval)) {
+        PyErr_Print();
+        Py_DECREF(py_retval);
+        reinterpret_cast< PyNs3UanMacAloha* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacAloha::SupportsSendFrom();
+    }
+    retval = PyObject_IsTrue(py_boolretval);
+    Py_DECREF(py_retval);
+    reinterpret_cast< PyNs3UanMacAloha* >(m_pyself)->obj = self_obj_before;
+    Py_XDECREF(py_method);
+    if (PyEval_ThreadsInitialized())
+        PyGILState_Release(__py_gil_state);
+    return retval;
+}
 
 ns3::TypeId
 PyNs3UanMacAloha__PythonHelper::GetInstanceTypeId() const
@@ -8842,6 +9041,19 @@ _wrap_PyNs3UanMacAloha_Clear(PyNs3UanMacAloha *self)
 
 
 PyObject *
+_wrap_PyNs3UanMacAloha_SupportsSendFrom(PyNs3UanMacAloha *self)
+{
+    PyObject *py_retval;
+    bool retval;
+    PyNs3UanMacAloha__PythonHelper *helper_class = dynamic_cast<PyNs3UanMacAloha__PythonHelper*> (self->obj);
+    
+    retval = (helper_class == NULL)? (self->obj->SupportsSendFrom()) : (self->obj->ns3::UanMacAloha::SupportsSendFrom());
+    py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
+    return py_retval;
+}
+
+
+PyObject *
 _wrap_PyNs3UanMacAloha_GetAddress(PyNs3UanMacAloha *self)
 {
     PyObject *py_retval;
@@ -8919,6 +9131,65 @@ _wrap_PyNs3UanMacAloha_Enqueue(PyNs3UanMacAloha *self, PyObject *args, PyObject 
         return NULL;
     }
     retval = (helper_class == NULL)? (self->obj->Enqueue(ns3::Ptr< ns3::Packet  > (pkt_ptr), dest2, protocolNumber)) : (self->obj->ns3::UanMacAloha::Enqueue(ns3::Ptr< ns3::Packet  > (pkt_ptr), dest2, protocolNumber));
+    py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
+    return py_retval;
+}
+
+
+PyObject *
+_wrap_PyNs3UanMacAloha_EnqueueWithSrc(PyNs3UanMacAloha *self, PyObject *args, PyObject *kwargs)
+{
+    PyObject *py_retval;
+    bool retval;
+    PyNs3Packet *pkt;
+    ns3::Packet *pkt_ptr;
+    PyObject *src;
+    ns3::Address src2;
+    PyObject *dest;
+    ns3::Address dest2;
+    int protocolNumber;
+    PyNs3UanMacAloha__PythonHelper *helper_class = dynamic_cast<PyNs3UanMacAloha__PythonHelper*> (self->obj);
+    const char *keywords[] = {"pkt", "src", "dest", "protocolNumber", NULL};
+    
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, (char *) "O!OOi", (char **) keywords, &PyNs3Packet_Type, &pkt, &src, &dest, &protocolNumber)) {
+        return NULL;
+    }
+    pkt_ptr = (pkt ? pkt->obj : NULL);
+    if (PyObject_IsInstance(src, (PyObject*) &PyNs3Address_Type)) {
+        src2 = *((PyNs3Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Ipv4Address_Type)) {
+        src2 = *((PyNs3Ipv4Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Ipv6Address_Type)) {
+        src2 = *((PyNs3Ipv6Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Mac48Address_Type)) {
+        src2 = *((PyNs3Mac48Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3UanAddress_Type)) {
+        src2 = *((PyNs3UanAddress *) src)->obj;
+    } else {
+    
+        PyErr_Format(PyExc_TypeError, "parameter must an instance of one of the types (Address, Ipv4Address, Ipv6Address, Mac48Address, UanAddress), not %s", Py_TYPE(src)->tp_name);
+        return NULL;
+    }
+    if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Address_Type)) {
+        dest2 = *((PyNs3Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Ipv4Address_Type)) {
+        dest2 = *((PyNs3Ipv4Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Ipv6Address_Type)) {
+        dest2 = *((PyNs3Ipv6Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Mac48Address_Type)) {
+        dest2 = *((PyNs3Mac48Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3UanAddress_Type)) {
+        dest2 = *((PyNs3UanAddress *) dest)->obj;
+    } else {
+    
+        PyErr_Format(PyExc_TypeError, "parameter must an instance of one of the types (Address, Ipv4Address, Ipv6Address, Mac48Address, UanAddress), not %s", Py_TYPE(dest)->tp_name);
+        return NULL;
+    }
+    if (protocolNumber > 0xffff) {
+        PyErr_SetString(PyExc_ValueError, "Out of range");
+        return NULL;
+    }
+    retval = (helper_class == NULL)? (self->obj->EnqueueWithSrc(ns3::Ptr< ns3::Packet  > (pkt_ptr), src2, dest2, protocolNumber)) : (self->obj->ns3::UanMacAloha::EnqueueWithSrc(ns3::Ptr< ns3::Packet  > (pkt_ptr), src2, dest2, protocolNumber));
     py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
     return py_retval;
 }
@@ -9047,9 +9318,11 @@ _wrap_PyNs3UanMacAloha__copy__(PyNs3UanMacAloha *self)
 static PyMethodDef PyNs3UanMacAloha_methods[] = {
     {(char *) "GetBroadcast", (PyCFunction) _wrap_PyNs3UanMacAloha_GetBroadcast, METH_NOARGS, "GetBroadcast()\n\n" },
     {(char *) "Clear", (PyCFunction) _wrap_PyNs3UanMacAloha_Clear, METH_NOARGS, "Clear()\n\n" },
+    {(char *) "SupportsSendFrom", (PyCFunction) _wrap_PyNs3UanMacAloha_SupportsSendFrom, METH_NOARGS, "SupportsSendFrom()\n\n" },
     {(char *) "GetAddress", (PyCFunction) _wrap_PyNs3UanMacAloha_GetAddress, METH_NOARGS, "GetAddress()\n\n" },
     {(char *) "SetForwardUpCb", (PyCFunction) _wrap_PyNs3UanMacAloha_SetForwardUpCb, METH_KEYWORDS|METH_VARARGS, "SetForwardUpCb(cb)\n\ntype: cb: ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::UanAddress const &, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >" },
     {(char *) "Enqueue", (PyCFunction) _wrap_PyNs3UanMacAloha_Enqueue, METH_KEYWORDS|METH_VARARGS, "Enqueue(pkt, dest, protocolNumber)\n\ntype: pkt: ns3::Ptr< ns3::Packet >\ntype: dest: ns3::Address const &\ntype: protocolNumber: uint16_t" },
+    {(char *) "EnqueueWithSrc", (PyCFunction) _wrap_PyNs3UanMacAloha_EnqueueWithSrc, METH_KEYWORDS|METH_VARARGS, "EnqueueWithSrc(pkt, src, dest, protocolNumber)\n\ntype: pkt: ns3::Ptr< ns3::Packet >\ntype: src: ns3::Address const &\ntype: dest: ns3::Address const &\ntype: protocolNumber: uint16_t" },
     {(char *) "AttachPhy", (PyCFunction) _wrap_PyNs3UanMacAloha_AttachPhy, METH_KEYWORDS|METH_VARARGS, "AttachPhy(phy)\n\ntype: phy: ns3::Ptr< ns3::UanPhy >" },
     {(char *) "AssignStreams", (PyCFunction) _wrap_PyNs3UanMacAloha_AssignStreams, METH_KEYWORDS|METH_VARARGS, "AssignStreams(stream)\n\ntype: stream: int64_t" },
     {(char *) "SetAddress", (PyCFunction) _wrap_PyNs3UanMacAloha_SetAddress, METH_KEYWORDS|METH_VARARGS, "SetAddress(addr)\n\ntype: addr: ns3::Address" },
@@ -9472,6 +9745,85 @@ PyNs3UanMacCw__PythonHelper::Enqueue(ns3::Ptr< ns3::Packet > pkt, ns3::Address c
         if (PyEval_ThreadsInitialized())
             PyGILState_Release(__py_gil_state);
         return ns3::UanMacCw::Enqueue(pkt, dest, protocolNumber);
+    }
+    retval = PyObject_IsTrue(py_boolretval);
+    Py_DECREF(py_retval);
+    reinterpret_cast< PyNs3UanMacCw* >(m_pyself)->obj = self_obj_before;
+    Py_XDECREF(py_method);
+    if (PyEval_ThreadsInitialized())
+        PyGILState_Release(__py_gil_state);
+    return retval;
+}
+
+bool
+PyNs3UanMacCw__PythonHelper::EnqueueWithSrc(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & src, ns3::Address const & dest, uint16_t protocolNumber)
+{
+    PyGILState_STATE __py_gil_state;
+    PyObject *py_method;
+    ns3::UanMacCw *self_obj_before;
+    PyObject *py_retval;
+    bool retval;
+    PyNs3Packet *py_Packet;
+    std::map<void*, PyObject*>::const_iterator wrapper_lookup_iter;
+    PyTypeObject *wrapper_type = 0;
+    PyNs3Address *py_Address;
+    PyNs3Address *py_Address2;
+    PyObject *py_boolretval;
+    
+    __py_gil_state = (PyEval_ThreadsInitialized() ? PyGILState_Ensure() : (PyGILState_STATE) 0);
+    py_method = PyObject_GetAttrString(m_pyself, (char *) "EnqueueWithSrc"); PyErr_Clear();
+    if (py_method == NULL || Py_TYPE(py_method) == &PyCFunction_Type) {
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacCw::EnqueueWithSrc(pkt, src, dest, protocolNumber);
+    }
+    self_obj_before = reinterpret_cast< PyNs3UanMacCw* >(m_pyself)->obj;
+    reinterpret_cast< PyNs3UanMacCw* >(m_pyself)->obj = (ns3::UanMacCw*) this;
+    wrapper_lookup_iter = PyNs3Empty_wrapper_registry.find((void *) const_cast<ns3::Packet *> (ns3::PeekPointer (pkt)));
+    if (wrapper_lookup_iter == PyNs3Empty_wrapper_registry.end()) {
+        py_Packet = NULL;
+    } else {
+        py_Packet = (PyNs3Packet *) wrapper_lookup_iter->second;
+        Py_INCREF(py_Packet);
+    }
+    
+    if (py_Packet == NULL)
+    {
+        wrapper_type = PyNs3SimpleRefCount__Ns3Packet_Ns3Empty_Ns3DefaultDeleter__lt__ns3Packet__gt____typeid_map.lookup_wrapper(typeid(*const_cast<ns3::Packet *> (ns3::PeekPointer (pkt))), &PyNs3Packet_Type);
+        py_Packet = PyObject_New(PyNs3Packet, wrapper_type);
+    
+        py_Packet->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+        const_cast<ns3::Packet *> (ns3::PeekPointer (pkt))->Ref();
+        py_Packet->obj = const_cast<ns3::Packet *> (ns3::PeekPointer (pkt));
+        PyNs3Empty_wrapper_registry[(void *) py_Packet->obj] = (PyObject *) py_Packet;
+    }
+    py_Address = PyObject_New(PyNs3Address, &PyNs3Address_Type);
+    py_Address->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+    py_Address->obj = new ns3::Address(src);
+    PyNs3Address_wrapper_registry[(void *) py_Address->obj] = (PyObject *) py_Address;
+    py_Address2 = PyObject_New(PyNs3Address, &PyNs3Address_Type);
+    py_Address2->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+    py_Address2->obj = new ns3::Address(dest);
+    PyNs3Address_wrapper_registry[(void *) py_Address2->obj] = (PyObject *) py_Address2;
+    py_retval = PyObject_CallMethod(m_pyself, (char *) "EnqueueWithSrc", (char *) "NNNi", py_Packet, py_Address, py_Address2, (int) protocolNumber);
+    if (py_retval == NULL) {
+        PyErr_Print();
+        reinterpret_cast< PyNs3UanMacCw* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacCw::EnqueueWithSrc(pkt, src, dest, protocolNumber);
+    }
+    py_retval = Py_BuildValue((char*) "(N)", py_retval);
+    if (!PyArg_ParseTuple(py_retval, (char *) "O", &py_boolretval)) {
+        PyErr_Print();
+        Py_DECREF(py_retval);
+        reinterpret_cast< PyNs3UanMacCw* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacCw::EnqueueWithSrc(pkt, src, dest, protocolNumber);
     }
     retval = PyObject_IsTrue(py_boolretval);
     Py_DECREF(py_retval);
@@ -10135,6 +10487,54 @@ PyNs3UanMacCw__PythonHelper::DoDispose()
     return;
 }
 
+bool
+PyNs3UanMacCw__PythonHelper::SupportsSendFrom() const
+{
+    PyGILState_STATE __py_gil_state;
+    PyObject *py_method;
+    ns3::UanMacCw *self_obj_before;
+    PyObject *py_retval;
+    bool retval;
+    PyObject *py_boolretval;
+    
+    __py_gil_state = (PyEval_ThreadsInitialized() ? PyGILState_Ensure() : (PyGILState_STATE) 0);
+    py_method = PyObject_GetAttrString(m_pyself, (char *) "SupportsSendFrom"); PyErr_Clear();
+    if (py_method == NULL || Py_TYPE(py_method) == &PyCFunction_Type) {
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacCw::SupportsSendFrom();
+    }
+    self_obj_before = reinterpret_cast< PyNs3UanMacCw* >(m_pyself)->obj;
+    reinterpret_cast< PyNs3UanMacCw* >(m_pyself)->obj = const_cast< ns3::UanMacCw* >((const ns3::UanMacCw*) this);
+    py_retval = PyObject_CallMethod(m_pyself, (char *) "SupportsSendFrom", (char *) "");
+    if (py_retval == NULL) {
+        PyErr_Print();
+        reinterpret_cast< PyNs3UanMacCw* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacCw::SupportsSendFrom();
+    }
+    py_retval = Py_BuildValue((char*) "(N)", py_retval);
+    if (!PyArg_ParseTuple(py_retval, (char *) "O", &py_boolretval)) {
+        PyErr_Print();
+        Py_DECREF(py_retval);
+        reinterpret_cast< PyNs3UanMacCw* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacCw::SupportsSendFrom();
+    }
+    retval = PyObject_IsTrue(py_boolretval);
+    Py_DECREF(py_retval);
+    reinterpret_cast< PyNs3UanMacCw* >(m_pyself)->obj = self_obj_before;
+    Py_XDECREF(py_method);
+    if (PyEval_ThreadsInitialized())
+        PyGILState_Release(__py_gil_state);
+    return retval;
+}
+
 
 ns3::Address
 PyNs3UanMacCw__PythonHelper::GetMac48Address()
@@ -10542,6 +10942,19 @@ _wrap_PyNs3UanMacCw_Clear(PyNs3UanMacCw *self)
 
 
 PyObject *
+_wrap_PyNs3UanMacCw_SupportsSendFrom(PyNs3UanMacCw *self)
+{
+    PyObject *py_retval;
+    bool retval;
+    PyNs3UanMacCw__PythonHelper *helper_class = dynamic_cast<PyNs3UanMacCw__PythonHelper*> (self->obj);
+    
+    retval = (helper_class == NULL)? (self->obj->SupportsSendFrom()) : (self->obj->ns3::UanMacCw::SupportsSendFrom());
+    py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
+    return py_retval;
+}
+
+
+PyObject *
 _wrap_PyNs3UanMacCw_GetAddress(PyNs3UanMacCw *self)
 {
     PyObject *py_retval;
@@ -10626,6 +11039,65 @@ _wrap_PyNs3UanMacCw_Enqueue(PyNs3UanMacCw *self, PyObject *args, PyObject *kwarg
         return NULL;
     }
     retval = (helper_class == NULL)? (self->obj->Enqueue(ns3::Ptr< ns3::Packet  > (pkt_ptr), dest2, protocolNumber)) : (self->obj->ns3::UanMacCw::Enqueue(ns3::Ptr< ns3::Packet  > (pkt_ptr), dest2, protocolNumber));
+    py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
+    return py_retval;
+}
+
+
+PyObject *
+_wrap_PyNs3UanMacCw_EnqueueWithSrc(PyNs3UanMacCw *self, PyObject *args, PyObject *kwargs)
+{
+    PyObject *py_retval;
+    bool retval;
+    PyNs3Packet *pkt;
+    ns3::Packet *pkt_ptr;
+    PyObject *src;
+    ns3::Address src2;
+    PyObject *dest;
+    ns3::Address dest2;
+    int protocolNumber;
+    PyNs3UanMacCw__PythonHelper *helper_class = dynamic_cast<PyNs3UanMacCw__PythonHelper*> (self->obj);
+    const char *keywords[] = {"pkt", "src", "dest", "protocolNumber", NULL};
+    
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, (char *) "O!OOi", (char **) keywords, &PyNs3Packet_Type, &pkt, &src, &dest, &protocolNumber)) {
+        return NULL;
+    }
+    pkt_ptr = (pkt ? pkt->obj : NULL);
+    if (PyObject_IsInstance(src, (PyObject*) &PyNs3Address_Type)) {
+        src2 = *((PyNs3Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Ipv4Address_Type)) {
+        src2 = *((PyNs3Ipv4Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Ipv6Address_Type)) {
+        src2 = *((PyNs3Ipv6Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Mac48Address_Type)) {
+        src2 = *((PyNs3Mac48Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3UanAddress_Type)) {
+        src2 = *((PyNs3UanAddress *) src)->obj;
+    } else {
+    
+        PyErr_Format(PyExc_TypeError, "parameter must an instance of one of the types (Address, Ipv4Address, Ipv6Address, Mac48Address, UanAddress), not %s", Py_TYPE(src)->tp_name);
+        return NULL;
+    }
+    if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Address_Type)) {
+        dest2 = *((PyNs3Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Ipv4Address_Type)) {
+        dest2 = *((PyNs3Ipv4Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Ipv6Address_Type)) {
+        dest2 = *((PyNs3Ipv6Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Mac48Address_Type)) {
+        dest2 = *((PyNs3Mac48Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3UanAddress_Type)) {
+        dest2 = *((PyNs3UanAddress *) dest)->obj;
+    } else {
+    
+        PyErr_Format(PyExc_TypeError, "parameter must an instance of one of the types (Address, Ipv4Address, Ipv6Address, Mac48Address, UanAddress), not %s", Py_TYPE(dest)->tp_name);
+        return NULL;
+    }
+    if (protocolNumber > 0xffff) {
+        PyErr_SetString(PyExc_ValueError, "Out of range");
+        return NULL;
+    }
+    retval = (helper_class == NULL)? (self->obj->EnqueueWithSrc(ns3::Ptr< ns3::Packet  > (pkt_ptr), src2, dest2, protocolNumber)) : (self->obj->ns3::UanMacCw::EnqueueWithSrc(ns3::Ptr< ns3::Packet  > (pkt_ptr), src2, dest2, protocolNumber));
     py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
     return py_retval;
 }
@@ -11056,10 +11528,12 @@ static PyMethodDef PyNs3UanMacCw_methods[] = {
     {(char *) "SetSlotTime", (PyCFunction) _wrap_PyNs3UanMacCw_SetSlotTime, METH_KEYWORDS|METH_VARARGS, "SetSlotTime(duration)\n\ntype: duration: ns3::Time" },
     {(char *) "NotifyCcaEnd", (PyCFunction) _wrap_PyNs3UanMacCw_NotifyCcaEnd, METH_NOARGS, "NotifyCcaEnd()\n\n" },
     {(char *) "Clear", (PyCFunction) _wrap_PyNs3UanMacCw_Clear, METH_NOARGS, "Clear()\n\n" },
+    {(char *) "SupportsSendFrom", (PyCFunction) _wrap_PyNs3UanMacCw_SupportsSendFrom, METH_NOARGS, "SupportsSendFrom()\n\n" },
     {(char *) "GetAddress", (PyCFunction) _wrap_PyNs3UanMacCw_GetAddress, METH_NOARGS, "GetAddress()\n\n" },
     {(char *) "NotifyRxEndError", (PyCFunction) _wrap_PyNs3UanMacCw_NotifyRxEndError, METH_NOARGS, "NotifyRxEndError()\n\n" },
     {(char *) "NotifyTxStart", (PyCFunction) _wrap_PyNs3UanMacCw_NotifyTxStart, METH_KEYWORDS|METH_VARARGS, "NotifyTxStart(duration)\n\ntype: duration: ns3::Time" },
     {(char *) "Enqueue", (PyCFunction) _wrap_PyNs3UanMacCw_Enqueue, METH_KEYWORDS|METH_VARARGS, "Enqueue(pkt, dest, protocolNumber)\n\ntype: pkt: ns3::Ptr< ns3::Packet >\ntype: dest: ns3::Address const &\ntype: protocolNumber: uint16_t" },
+    {(char *) "EnqueueWithSrc", (PyCFunction) _wrap_PyNs3UanMacCw_EnqueueWithSrc, METH_KEYWORDS|METH_VARARGS, "EnqueueWithSrc(pkt, src, dest, protocolNumber)\n\ntype: pkt: ns3::Ptr< ns3::Packet >\ntype: src: ns3::Address const &\ntype: dest: ns3::Address const &\ntype: protocolNumber: uint16_t" },
     {(char *) "AttachPhy", (PyCFunction) _wrap_PyNs3UanMacCw_AttachPhy, METH_KEYWORDS|METH_VARARGS, "AttachPhy(phy)\n\ntype: phy: ns3::Ptr< ns3::UanPhy >" },
     {(char *) "SetForwardUpCb", (PyCFunction) _wrap_PyNs3UanMacCw_SetForwardUpCb, METH_KEYWORDS|METH_VARARGS, "SetForwardUpCb(cb)\n\ntype: cb: ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::UanAddress const &, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >" },
     {(char *) "AssignStreams", (PyCFunction) _wrap_PyNs3UanMacCw_AssignStreams, METH_KEYWORDS|METH_VARARGS, "AssignStreams(stream)\n\ntype: stream: int64_t" },
@@ -11510,6 +11984,85 @@ PyNs3UanMacRc__PythonHelper::Enqueue(ns3::Ptr< ns3::Packet > pkt, ns3::Address c
     return retval;
 }
 
+bool
+PyNs3UanMacRc__PythonHelper::EnqueueWithSrc(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & src, ns3::Address const & dest, uint16_t protocolNumber)
+{
+    PyGILState_STATE __py_gil_state;
+    PyObject *py_method;
+    ns3::UanMacRc *self_obj_before;
+    PyObject *py_retval;
+    bool retval;
+    PyNs3Packet *py_Packet;
+    std::map<void*, PyObject*>::const_iterator wrapper_lookup_iter;
+    PyTypeObject *wrapper_type = 0;
+    PyNs3Address *py_Address;
+    PyNs3Address *py_Address2;
+    PyObject *py_boolretval;
+    
+    __py_gil_state = (PyEval_ThreadsInitialized() ? PyGILState_Ensure() : (PyGILState_STATE) 0);
+    py_method = PyObject_GetAttrString(m_pyself, (char *) "EnqueueWithSrc"); PyErr_Clear();
+    if (py_method == NULL || Py_TYPE(py_method) == &PyCFunction_Type) {
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRc::EnqueueWithSrc(pkt, src, dest, protocolNumber);
+    }
+    self_obj_before = reinterpret_cast< PyNs3UanMacRc* >(m_pyself)->obj;
+    reinterpret_cast< PyNs3UanMacRc* >(m_pyself)->obj = (ns3::UanMacRc*) this;
+    wrapper_lookup_iter = PyNs3Empty_wrapper_registry.find((void *) const_cast<ns3::Packet *> (ns3::PeekPointer (pkt)));
+    if (wrapper_lookup_iter == PyNs3Empty_wrapper_registry.end()) {
+        py_Packet = NULL;
+    } else {
+        py_Packet = (PyNs3Packet *) wrapper_lookup_iter->second;
+        Py_INCREF(py_Packet);
+    }
+    
+    if (py_Packet == NULL)
+    {
+        wrapper_type = PyNs3SimpleRefCount__Ns3Packet_Ns3Empty_Ns3DefaultDeleter__lt__ns3Packet__gt____typeid_map.lookup_wrapper(typeid(*const_cast<ns3::Packet *> (ns3::PeekPointer (pkt))), &PyNs3Packet_Type);
+        py_Packet = PyObject_New(PyNs3Packet, wrapper_type);
+    
+        py_Packet->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+        const_cast<ns3::Packet *> (ns3::PeekPointer (pkt))->Ref();
+        py_Packet->obj = const_cast<ns3::Packet *> (ns3::PeekPointer (pkt));
+        PyNs3Empty_wrapper_registry[(void *) py_Packet->obj] = (PyObject *) py_Packet;
+    }
+    py_Address = PyObject_New(PyNs3Address, &PyNs3Address_Type);
+    py_Address->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+    py_Address->obj = new ns3::Address(src);
+    PyNs3Address_wrapper_registry[(void *) py_Address->obj] = (PyObject *) py_Address;
+    py_Address2 = PyObject_New(PyNs3Address, &PyNs3Address_Type);
+    py_Address2->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+    py_Address2->obj = new ns3::Address(dest);
+    PyNs3Address_wrapper_registry[(void *) py_Address2->obj] = (PyObject *) py_Address2;
+    py_retval = PyObject_CallMethod(m_pyself, (char *) "EnqueueWithSrc", (char *) "NNNi", py_Packet, py_Address, py_Address2, (int) protocolNumber);
+    if (py_retval == NULL) {
+        PyErr_Print();
+        reinterpret_cast< PyNs3UanMacRc* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRc::EnqueueWithSrc(pkt, src, dest, protocolNumber);
+    }
+    py_retval = Py_BuildValue((char*) "(N)", py_retval);
+    if (!PyArg_ParseTuple(py_retval, (char *) "O", &py_boolretval)) {
+        PyErr_Print();
+        Py_DECREF(py_retval);
+        reinterpret_cast< PyNs3UanMacRc* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRc::EnqueueWithSrc(pkt, src, dest, protocolNumber);
+    }
+    retval = PyObject_IsTrue(py_boolretval);
+    Py_DECREF(py_retval);
+    reinterpret_cast< PyNs3UanMacRc* >(m_pyself)->obj = self_obj_before;
+    Py_XDECREF(py_method);
+    if (PyEval_ThreadsInitialized())
+        PyGILState_Release(__py_gil_state);
+    return retval;
+}
+
 ns3::Address
 PyNs3UanMacRc__PythonHelper::GetAddress()
 {
@@ -11698,6 +12251,54 @@ PyNs3UanMacRc__PythonHelper::DoDispose()
     if (PyEval_ThreadsInitialized())
         PyGILState_Release(__py_gil_state);
     return;
+}
+
+bool
+PyNs3UanMacRc__PythonHelper::SupportsSendFrom() const
+{
+    PyGILState_STATE __py_gil_state;
+    PyObject *py_method;
+    ns3::UanMacRc *self_obj_before;
+    PyObject *py_retval;
+    bool retval;
+    PyObject *py_boolretval;
+    
+    __py_gil_state = (PyEval_ThreadsInitialized() ? PyGILState_Ensure() : (PyGILState_STATE) 0);
+    py_method = PyObject_GetAttrString(m_pyself, (char *) "SupportsSendFrom"); PyErr_Clear();
+    if (py_method == NULL || Py_TYPE(py_method) == &PyCFunction_Type) {
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRc::SupportsSendFrom();
+    }
+    self_obj_before = reinterpret_cast< PyNs3UanMacRc* >(m_pyself)->obj;
+    reinterpret_cast< PyNs3UanMacRc* >(m_pyself)->obj = const_cast< ns3::UanMacRc* >((const ns3::UanMacRc*) this);
+    py_retval = PyObject_CallMethod(m_pyself, (char *) "SupportsSendFrom", (char *) "");
+    if (py_retval == NULL) {
+        PyErr_Print();
+        reinterpret_cast< PyNs3UanMacRc* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRc::SupportsSendFrom();
+    }
+    py_retval = Py_BuildValue((char*) "(N)", py_retval);
+    if (!PyArg_ParseTuple(py_retval, (char *) "O", &py_boolretval)) {
+        PyErr_Print();
+        Py_DECREF(py_retval);
+        reinterpret_cast< PyNs3UanMacRc* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRc::SupportsSendFrom();
+    }
+    retval = PyObject_IsTrue(py_boolretval);
+    Py_DECREF(py_retval);
+    reinterpret_cast< PyNs3UanMacRc* >(m_pyself)->obj = self_obj_before;
+    Py_XDECREF(py_method);
+    if (PyEval_ThreadsInitialized())
+        PyGILState_Release(__py_gil_state);
+    return retval;
 }
 
 
@@ -12050,6 +12651,19 @@ _wrap_PyNs3UanMacRc_Clear(PyNs3UanMacRc *self)
 
 
 PyObject *
+_wrap_PyNs3UanMacRc_SupportsSendFrom(PyNs3UanMacRc *self)
+{
+    PyObject *py_retval;
+    bool retval;
+    PyNs3UanMacRc__PythonHelper *helper_class = dynamic_cast<PyNs3UanMacRc__PythonHelper*> (self->obj);
+    
+    retval = (helper_class == NULL)? (self->obj->SupportsSendFrom()) : (self->obj->ns3::UanMacRc::SupportsSendFrom());
+    py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
+    return py_retval;
+}
+
+
+PyObject *
 _wrap_PyNs3UanMacRc_GetAddress(PyNs3UanMacRc *self)
 {
     PyObject *py_retval;
@@ -12127,6 +12741,65 @@ _wrap_PyNs3UanMacRc_Enqueue(PyNs3UanMacRc *self, PyObject *args, PyObject *kwarg
         return NULL;
     }
     retval = (helper_class == NULL)? (self->obj->Enqueue(ns3::Ptr< ns3::Packet  > (pkt_ptr), dest2, protocolNumber)) : (self->obj->ns3::UanMacRc::Enqueue(ns3::Ptr< ns3::Packet  > (pkt_ptr), dest2, protocolNumber));
+    py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
+    return py_retval;
+}
+
+
+PyObject *
+_wrap_PyNs3UanMacRc_EnqueueWithSrc(PyNs3UanMacRc *self, PyObject *args, PyObject *kwargs)
+{
+    PyObject *py_retval;
+    bool retval;
+    PyNs3Packet *pkt;
+    ns3::Packet *pkt_ptr;
+    PyObject *src;
+    ns3::Address src2;
+    PyObject *dest;
+    ns3::Address dest2;
+    int protocolNumber;
+    PyNs3UanMacRc__PythonHelper *helper_class = dynamic_cast<PyNs3UanMacRc__PythonHelper*> (self->obj);
+    const char *keywords[] = {"pkt", "src", "dest", "protocolNumber", NULL};
+    
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, (char *) "O!OOi", (char **) keywords, &PyNs3Packet_Type, &pkt, &src, &dest, &protocolNumber)) {
+        return NULL;
+    }
+    pkt_ptr = (pkt ? pkt->obj : NULL);
+    if (PyObject_IsInstance(src, (PyObject*) &PyNs3Address_Type)) {
+        src2 = *((PyNs3Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Ipv4Address_Type)) {
+        src2 = *((PyNs3Ipv4Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Ipv6Address_Type)) {
+        src2 = *((PyNs3Ipv6Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Mac48Address_Type)) {
+        src2 = *((PyNs3Mac48Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3UanAddress_Type)) {
+        src2 = *((PyNs3UanAddress *) src)->obj;
+    } else {
+    
+        PyErr_Format(PyExc_TypeError, "parameter must an instance of one of the types (Address, Ipv4Address, Ipv6Address, Mac48Address, UanAddress), not %s", Py_TYPE(src)->tp_name);
+        return NULL;
+    }
+    if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Address_Type)) {
+        dest2 = *((PyNs3Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Ipv4Address_Type)) {
+        dest2 = *((PyNs3Ipv4Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Ipv6Address_Type)) {
+        dest2 = *((PyNs3Ipv6Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Mac48Address_Type)) {
+        dest2 = *((PyNs3Mac48Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3UanAddress_Type)) {
+        dest2 = *((PyNs3UanAddress *) dest)->obj;
+    } else {
+    
+        PyErr_Format(PyExc_TypeError, "parameter must an instance of one of the types (Address, Ipv4Address, Ipv6Address, Mac48Address, UanAddress), not %s", Py_TYPE(dest)->tp_name);
+        return NULL;
+    }
+    if (protocolNumber > 0xffff) {
+        PyErr_SetString(PyExc_ValueError, "Out of range");
+        return NULL;
+    }
+    retval = (helper_class == NULL)? (self->obj->EnqueueWithSrc(ns3::Ptr< ns3::Packet  > (pkt_ptr), src2, dest2, protocolNumber)) : (self->obj->ns3::UanMacRc::EnqueueWithSrc(ns3::Ptr< ns3::Packet  > (pkt_ptr), src2, dest2, protocolNumber));
     py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
     return py_retval;
 }
@@ -12238,9 +12911,11 @@ _wrap_PyNs3UanMacRc__copy__(PyNs3UanMacRc *self)
 static PyMethodDef PyNs3UanMacRc_methods[] = {
     {(char *) "GetBroadcast", (PyCFunction) _wrap_PyNs3UanMacRc_GetBroadcast, METH_NOARGS, "GetBroadcast()\n\n" },
     {(char *) "Clear", (PyCFunction) _wrap_PyNs3UanMacRc_Clear, METH_NOARGS, "Clear()\n\n" },
+    {(char *) "SupportsSendFrom", (PyCFunction) _wrap_PyNs3UanMacRc_SupportsSendFrom, METH_NOARGS, "SupportsSendFrom()\n\n" },
     {(char *) "GetAddress", (PyCFunction) _wrap_PyNs3UanMacRc_GetAddress, METH_NOARGS, "GetAddress()\n\n" },
     {(char *) "SetForwardUpCb", (PyCFunction) _wrap_PyNs3UanMacRc_SetForwardUpCb, METH_KEYWORDS|METH_VARARGS, "SetForwardUpCb(cb)\n\ntype: cb: ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::UanAddress const &, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >" },
     {(char *) "Enqueue", (PyCFunction) _wrap_PyNs3UanMacRc_Enqueue, METH_KEYWORDS|METH_VARARGS, "Enqueue(pkt, dest, protocolNumber)\n\ntype: pkt: ns3::Ptr< ns3::Packet >\ntype: dest: ns3::Address const &\ntype: protocolNumber: uint16_t" },
+    {(char *) "EnqueueWithSrc", (PyCFunction) _wrap_PyNs3UanMacRc_EnqueueWithSrc, METH_KEYWORDS|METH_VARARGS, "EnqueueWithSrc(pkt, src, dest, protocolNumber)\n\ntype: pkt: ns3::Ptr< ns3::Packet >\ntype: src: ns3::Address const &\ntype: dest: ns3::Address const &\ntype: protocolNumber: uint16_t" },
     {(char *) "AttachPhy", (PyCFunction) _wrap_PyNs3UanMacRc_AttachPhy, METH_KEYWORDS|METH_VARARGS, "AttachPhy(phy)\n\ntype: phy: ns3::Ptr< ns3::UanPhy >" },
     {(char *) "AssignStreams", (PyCFunction) _wrap_PyNs3UanMacRc_AssignStreams, METH_KEYWORDS|METH_VARARGS, "AssignStreams(stream)\n\ntype: stream: int64_t" },
     {(char *) "SetAddress", (PyCFunction) _wrap_PyNs3UanMacRc_SetAddress, METH_KEYWORDS|METH_VARARGS, "SetAddress(addr)\n\ntype: addr: ns3::Address" },
@@ -12672,6 +13347,85 @@ PyNs3UanMacRcGw__PythonHelper::Enqueue(ns3::Ptr< ns3::Packet > pkt, ns3::Address
     return retval;
 }
 
+bool
+PyNs3UanMacRcGw__PythonHelper::EnqueueWithSrc(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & src, ns3::Address const & dest, uint16_t protocolNumber)
+{
+    PyGILState_STATE __py_gil_state;
+    PyObject *py_method;
+    ns3::UanMacRcGw *self_obj_before;
+    PyObject *py_retval;
+    bool retval;
+    PyNs3Packet *py_Packet;
+    std::map<void*, PyObject*>::const_iterator wrapper_lookup_iter;
+    PyTypeObject *wrapper_type = 0;
+    PyNs3Address *py_Address;
+    PyNs3Address *py_Address2;
+    PyObject *py_boolretval;
+    
+    __py_gil_state = (PyEval_ThreadsInitialized() ? PyGILState_Ensure() : (PyGILState_STATE) 0);
+    py_method = PyObject_GetAttrString(m_pyself, (char *) "EnqueueWithSrc"); PyErr_Clear();
+    if (py_method == NULL || Py_TYPE(py_method) == &PyCFunction_Type) {
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRcGw::EnqueueWithSrc(pkt, src, dest, protocolNumber);
+    }
+    self_obj_before = reinterpret_cast< PyNs3UanMacRcGw* >(m_pyself)->obj;
+    reinterpret_cast< PyNs3UanMacRcGw* >(m_pyself)->obj = (ns3::UanMacRcGw*) this;
+    wrapper_lookup_iter = PyNs3Empty_wrapper_registry.find((void *) const_cast<ns3::Packet *> (ns3::PeekPointer (pkt)));
+    if (wrapper_lookup_iter == PyNs3Empty_wrapper_registry.end()) {
+        py_Packet = NULL;
+    } else {
+        py_Packet = (PyNs3Packet *) wrapper_lookup_iter->second;
+        Py_INCREF(py_Packet);
+    }
+    
+    if (py_Packet == NULL)
+    {
+        wrapper_type = PyNs3SimpleRefCount__Ns3Packet_Ns3Empty_Ns3DefaultDeleter__lt__ns3Packet__gt____typeid_map.lookup_wrapper(typeid(*const_cast<ns3::Packet *> (ns3::PeekPointer (pkt))), &PyNs3Packet_Type);
+        py_Packet = PyObject_New(PyNs3Packet, wrapper_type);
+    
+        py_Packet->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+        const_cast<ns3::Packet *> (ns3::PeekPointer (pkt))->Ref();
+        py_Packet->obj = const_cast<ns3::Packet *> (ns3::PeekPointer (pkt));
+        PyNs3Empty_wrapper_registry[(void *) py_Packet->obj] = (PyObject *) py_Packet;
+    }
+    py_Address = PyObject_New(PyNs3Address, &PyNs3Address_Type);
+    py_Address->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+    py_Address->obj = new ns3::Address(src);
+    PyNs3Address_wrapper_registry[(void *) py_Address->obj] = (PyObject *) py_Address;
+    py_Address2 = PyObject_New(PyNs3Address, &PyNs3Address_Type);
+    py_Address2->flags = PYBINDGEN_WRAPPER_FLAG_NONE;
+    py_Address2->obj = new ns3::Address(dest);
+    PyNs3Address_wrapper_registry[(void *) py_Address2->obj] = (PyObject *) py_Address2;
+    py_retval = PyObject_CallMethod(m_pyself, (char *) "EnqueueWithSrc", (char *) "NNNi", py_Packet, py_Address, py_Address2, (int) protocolNumber);
+    if (py_retval == NULL) {
+        PyErr_Print();
+        reinterpret_cast< PyNs3UanMacRcGw* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRcGw::EnqueueWithSrc(pkt, src, dest, protocolNumber);
+    }
+    py_retval = Py_BuildValue((char*) "(N)", py_retval);
+    if (!PyArg_ParseTuple(py_retval, (char *) "O", &py_boolretval)) {
+        PyErr_Print();
+        Py_DECREF(py_retval);
+        reinterpret_cast< PyNs3UanMacRcGw* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRcGw::EnqueueWithSrc(pkt, src, dest, protocolNumber);
+    }
+    retval = PyObject_IsTrue(py_boolretval);
+    Py_DECREF(py_retval);
+    reinterpret_cast< PyNs3UanMacRcGw* >(m_pyself)->obj = self_obj_before;
+    Py_XDECREF(py_method);
+    if (PyEval_ThreadsInitialized())
+        PyGILState_Release(__py_gil_state);
+    return retval;
+}
+
 ns3::Address
 PyNs3UanMacRcGw__PythonHelper::GetAddress()
 {
@@ -12860,6 +13614,54 @@ PyNs3UanMacRcGw__PythonHelper::DoDispose()
     if (PyEval_ThreadsInitialized())
         PyGILState_Release(__py_gil_state);
     return;
+}
+
+bool
+PyNs3UanMacRcGw__PythonHelper::SupportsSendFrom() const
+{
+    PyGILState_STATE __py_gil_state;
+    PyObject *py_method;
+    ns3::UanMacRcGw *self_obj_before;
+    PyObject *py_retval;
+    bool retval;
+    PyObject *py_boolretval;
+    
+    __py_gil_state = (PyEval_ThreadsInitialized() ? PyGILState_Ensure() : (PyGILState_STATE) 0);
+    py_method = PyObject_GetAttrString(m_pyself, (char *) "SupportsSendFrom"); PyErr_Clear();
+    if (py_method == NULL || Py_TYPE(py_method) == &PyCFunction_Type) {
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRcGw::SupportsSendFrom();
+    }
+    self_obj_before = reinterpret_cast< PyNs3UanMacRcGw* >(m_pyself)->obj;
+    reinterpret_cast< PyNs3UanMacRcGw* >(m_pyself)->obj = const_cast< ns3::UanMacRcGw* >((const ns3::UanMacRcGw*) this);
+    py_retval = PyObject_CallMethod(m_pyself, (char *) "SupportsSendFrom", (char *) "");
+    if (py_retval == NULL) {
+        PyErr_Print();
+        reinterpret_cast< PyNs3UanMacRcGw* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRcGw::SupportsSendFrom();
+    }
+    py_retval = Py_BuildValue((char*) "(N)", py_retval);
+    if (!PyArg_ParseTuple(py_retval, (char *) "O", &py_boolretval)) {
+        PyErr_Print();
+        Py_DECREF(py_retval);
+        reinterpret_cast< PyNs3UanMacRcGw* >(m_pyself)->obj = self_obj_before;
+        Py_XDECREF(py_method);
+        if (PyEval_ThreadsInitialized())
+            PyGILState_Release(__py_gil_state);
+        return ns3::UanMacRcGw::SupportsSendFrom();
+    }
+    retval = PyObject_IsTrue(py_boolretval);
+    Py_DECREF(py_retval);
+    reinterpret_cast< PyNs3UanMacRcGw* >(m_pyself)->obj = self_obj_before;
+    Py_XDECREF(py_method);
+    if (PyEval_ThreadsInitialized())
+        PyGILState_Release(__py_gil_state);
+    return retval;
 }
 
 
@@ -13212,6 +14014,19 @@ _wrap_PyNs3UanMacRcGw_Clear(PyNs3UanMacRcGw *self)
 
 
 PyObject *
+_wrap_PyNs3UanMacRcGw_SupportsSendFrom(PyNs3UanMacRcGw *self)
+{
+    PyObject *py_retval;
+    bool retval;
+    PyNs3UanMacRcGw__PythonHelper *helper_class = dynamic_cast<PyNs3UanMacRcGw__PythonHelper*> (self->obj);
+    
+    retval = (helper_class == NULL)? (self->obj->SupportsSendFrom()) : (self->obj->ns3::UanMacRcGw::SupportsSendFrom());
+    py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
+    return py_retval;
+}
+
+
+PyObject *
 _wrap_PyNs3UanMacRcGw_GetAddress(PyNs3UanMacRcGw *self)
 {
     PyObject *py_retval;
@@ -13289,6 +14104,65 @@ _wrap_PyNs3UanMacRcGw_Enqueue(PyNs3UanMacRcGw *self, PyObject *args, PyObject *k
         return NULL;
     }
     retval = (helper_class == NULL)? (self->obj->Enqueue(ns3::Ptr< ns3::Packet  > (pkt_ptr), dest2, protocolNumber)) : (self->obj->ns3::UanMacRcGw::Enqueue(ns3::Ptr< ns3::Packet  > (pkt_ptr), dest2, protocolNumber));
+    py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
+    return py_retval;
+}
+
+
+PyObject *
+_wrap_PyNs3UanMacRcGw_EnqueueWithSrc(PyNs3UanMacRcGw *self, PyObject *args, PyObject *kwargs)
+{
+    PyObject *py_retval;
+    bool retval;
+    PyNs3Packet *pkt;
+    ns3::Packet *pkt_ptr;
+    PyObject *src;
+    ns3::Address src2;
+    PyObject *dest;
+    ns3::Address dest2;
+    int protocolNumber;
+    PyNs3UanMacRcGw__PythonHelper *helper_class = dynamic_cast<PyNs3UanMacRcGw__PythonHelper*> (self->obj);
+    const char *keywords[] = {"pkt", "src", "dest", "protocolNumber", NULL};
+    
+    if (!PyArg_ParseTupleAndKeywords(args, kwargs, (char *) "O!OOi", (char **) keywords, &PyNs3Packet_Type, &pkt, &src, &dest, &protocolNumber)) {
+        return NULL;
+    }
+    pkt_ptr = (pkt ? pkt->obj : NULL);
+    if (PyObject_IsInstance(src, (PyObject*) &PyNs3Address_Type)) {
+        src2 = *((PyNs3Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Ipv4Address_Type)) {
+        src2 = *((PyNs3Ipv4Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Ipv6Address_Type)) {
+        src2 = *((PyNs3Ipv6Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3Mac48Address_Type)) {
+        src2 = *((PyNs3Mac48Address *) src)->obj;
+    } else if (PyObject_IsInstance(src, (PyObject*) &PyNs3UanAddress_Type)) {
+        src2 = *((PyNs3UanAddress *) src)->obj;
+    } else {
+    
+        PyErr_Format(PyExc_TypeError, "parameter must an instance of one of the types (Address, Ipv4Address, Ipv6Address, Mac48Address, UanAddress), not %s", Py_TYPE(src)->tp_name);
+        return NULL;
+    }
+    if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Address_Type)) {
+        dest2 = *((PyNs3Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Ipv4Address_Type)) {
+        dest2 = *((PyNs3Ipv4Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Ipv6Address_Type)) {
+        dest2 = *((PyNs3Ipv6Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3Mac48Address_Type)) {
+        dest2 = *((PyNs3Mac48Address *) dest)->obj;
+    } else if (PyObject_IsInstance(dest, (PyObject*) &PyNs3UanAddress_Type)) {
+        dest2 = *((PyNs3UanAddress *) dest)->obj;
+    } else {
+    
+        PyErr_Format(PyExc_TypeError, "parameter must an instance of one of the types (Address, Ipv4Address, Ipv6Address, Mac48Address, UanAddress), not %s", Py_TYPE(dest)->tp_name);
+        return NULL;
+    }
+    if (protocolNumber > 0xffff) {
+        PyErr_SetString(PyExc_ValueError, "Out of range");
+        return NULL;
+    }
+    retval = (helper_class == NULL)? (self->obj->EnqueueWithSrc(ns3::Ptr< ns3::Packet  > (pkt_ptr), src2, dest2, protocolNumber)) : (self->obj->ns3::UanMacRcGw::EnqueueWithSrc(ns3::Ptr< ns3::Packet  > (pkt_ptr), src2, dest2, protocolNumber));
     py_retval = Py_BuildValue((char *) "N", PyBool_FromLong(retval));
     return py_retval;
 }
@@ -13400,9 +14274,11 @@ _wrap_PyNs3UanMacRcGw__copy__(PyNs3UanMacRcGw *self)
 static PyMethodDef PyNs3UanMacRcGw_methods[] = {
     {(char *) "GetBroadcast", (PyCFunction) _wrap_PyNs3UanMacRcGw_GetBroadcast, METH_NOARGS, "GetBroadcast()\n\n" },
     {(char *) "Clear", (PyCFunction) _wrap_PyNs3UanMacRcGw_Clear, METH_NOARGS, "Clear()\n\n" },
+    {(char *) "SupportsSendFrom", (PyCFunction) _wrap_PyNs3UanMacRcGw_SupportsSendFrom, METH_NOARGS, "SupportsSendFrom()\n\n" },
     {(char *) "GetAddress", (PyCFunction) _wrap_PyNs3UanMacRcGw_GetAddress, METH_NOARGS, "GetAddress()\n\n" },
     {(char *) "SetForwardUpCb", (PyCFunction) _wrap_PyNs3UanMacRcGw_SetForwardUpCb, METH_KEYWORDS|METH_VARARGS, "SetForwardUpCb(cb)\n\ntype: cb: ns3::Callback< void, ns3::Ptr< ns3::Packet >, ns3::UanAddress const &, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty, ns3::empty >" },
     {(char *) "Enqueue", (PyCFunction) _wrap_PyNs3UanMacRcGw_Enqueue, METH_KEYWORDS|METH_VARARGS, "Enqueue(pkt, dest, protocolNumber)\n\ntype: pkt: ns3::Ptr< ns3::Packet >\ntype: dest: ns3::Address const &\ntype: protocolNumber: uint16_t" },
+    {(char *) "EnqueueWithSrc", (PyCFunction) _wrap_PyNs3UanMacRcGw_EnqueueWithSrc, METH_KEYWORDS|METH_VARARGS, "EnqueueWithSrc(pkt, src, dest, protocolNumber)\n\ntype: pkt: ns3::Ptr< ns3::Packet >\ntype: src: ns3::Address const &\ntype: dest: ns3::Address const &\ntype: protocolNumber: uint16_t" },
     {(char *) "AttachPhy", (PyCFunction) _wrap_PyNs3UanMacRcGw_AttachPhy, METH_KEYWORDS|METH_VARARGS, "AttachPhy(phy)\n\ntype: phy: ns3::Ptr< ns3::UanPhy >" },
     {(char *) "AssignStreams", (PyCFunction) _wrap_PyNs3UanMacRcGw_AssignStreams, METH_KEYWORDS|METH_VARARGS, "AssignStreams(stream)\n\ntype: stream: int64_t" },
     {(char *) "SetAddress", (PyCFunction) _wrap_PyNs3UanMacRcGw_SetAddress, METH_KEYWORDS|METH_VARARGS, "SetAddress(addr)\n\ntype: addr: ns3::Address" },

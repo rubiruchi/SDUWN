@@ -84,6 +84,8 @@ public:
    * \return True if packet was successfully enqueued.
    */
   virtual bool Enqueue (Ptr<Packet> pkt, const Address &dest, uint16_t protocolNumber) = 0;
+  
+  virtual bool EnqueueWithSrc (Ptr<Packet> pkt, const Address &src, const Address &dest, uint16_t protocolNumber) = 0;
   /**
    * Set the callback to forward packets up to higher layers.
    * 
@@ -91,6 +93,8 @@ public:
    * \pname{packet} The packet.
    * \pname{address} The source address.
    */
+
+
   virtual void SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress&> cb) = 0;
 
   /**
@@ -120,7 +124,7 @@ public:
    * \return The broadcast address.
    */
   virtual Address GetBroadcast (void) const = 0;
-
+  virtual bool SupportsSendFrom(void)const=0;
   /** Clears all pointer references. */
   virtual void Clear (void) = 0;
 

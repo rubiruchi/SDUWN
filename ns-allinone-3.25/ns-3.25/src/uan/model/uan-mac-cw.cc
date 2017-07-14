@@ -120,6 +120,74 @@ UanMacCw::SetAddress (Address addr)
 }
 
 bool
+UanMacCw::EnqueueWithSrc (Ptr<Packet> packet, const Address &src, const Address &dest, uint16_t protocolNumber)
+{
+
+  switch (m_state)
+    {
+    case CCABUSY:
+      NS_LOG_DEBUG ("Time " << Simulator::Now ().GetSeconds () << " MAC " << GetAddress () << " Starting enqueue CCABUSY");
+      if (m_txEndEvent.IsRunning ())
+        {
+          NS_LOG_DEBUG ("State is TX");
+        }
+      else
+        {
+          NS_LOG_DEBUG ("State is not TX");
+        }
+
+      NS_ASSERT (m_phy->GetTransducer ()->GetArrivalList ().size () >= 1 || m_phy->IsStateTx ());
+      return false;
+    case RUNNING:
+      NS_LOG_DEBUG ("MAC " << GetAddress () << " Starting enqueue RUNNING");
+      NS_ASSERT (m_phy->GetTransducer ()->GetArrivalList ().size () == 0 && !m_phy->IsStateTx ());
+      return false;
+    case TX:
+    case IDLE:
+      {
+        NS_ASSERT (!m_pktTx);
+
+        UanHeaderCommon header;
+        header.SetDest (UanAddress::ConvertFrom (dest));
+        header.SetSrc (UanAddress::ConvertFrom(src));
+        header.SetType (0);
+        packet->AddHeader (header);
+
+        m_enqueueLogger (packet, protocolNumber);
+
+        if (m_phy->IsStateBusy ())
+          {
+            m_pktTx = packet;
+            m_pktTxProt = protocolNumber;
+            m_state = CCABUSY;
+            uint32_t cw = (uint32_t) m_rv->GetValue (0,m_cw);
+            m_savedDelayS = Seconds ((double)(cw) * m_slotTime.GetSeconds ());
+            m_sendTime = Simulator::Now () + m_savedDelayS;
+            NS_LOG_DEBUG ("Time " << Simulator::Now ().GetSeconds () << ": Addr " << GetAddress () << ": Enqueuing new packet while busy:  (Chose CW " << cw << ", Sending at " << m_sendTime.GetSeconds () << " Packet size: " << packet->GetSize ());
+            NS_ASSERT (m_phy->GetTransducer ()->GetArrivalList ().size () >= 1 || m_phy->IsStateTx ());
+          }
+        else
+          {
+            NS_ASSERT (m_state != TX);
+            NS_LOG_DEBUG ("Time " << Simulator::Now ().GetSeconds () << ": Addr " << GetAddress () << ": Enqueuing new packet while idle (sending)");
+            NS_ASSERT (m_phy->GetTransducer ()->GetArrivalList ().size () == 0 && !m_phy->IsStateTx ());
+            m_state = TX;
+            m_phy->SendPacket (packet,protocolNumber);
+
+          }
+        break;
+      }
+    default:
+      NS_LOG_DEBUG ("MAC " << GetAddress () << " Starting enqueue SOMETHING ELSE");
+      return false;
+    }
+
+  return true;
+
+
+}
+
+bool
 UanMacCw::Enqueue (Ptr<Packet> packet, const Address &dest, uint16_t protocolNumber)
 {
 
@@ -393,6 +461,11 @@ UanMacCw::SendPacket (void)
   m_pktTx = 0;
   m_sendTime = Seconds (0);
   m_savedDelayS = Seconds (0);
+}
+bool 
+UanMacCw::SupportsSendFrom(void)const
+{
+return true;
 }
 
 } // namespace ns3

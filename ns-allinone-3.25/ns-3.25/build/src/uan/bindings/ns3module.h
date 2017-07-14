@@ -2661,6 +2661,8 @@ public:
 
     virtual bool Enqueue(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & dest, uint16_t protocolNumber);
 
+    virtual bool EnqueueWithSrc(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & src, ns3::Address const & dest, uint16_t protocolNumber);
+
     virtual ns3::Address GetAddress();
 
     virtual ns3::Address GetBroadcast() const;
@@ -2670,6 +2672,8 @@ public:
     virtual void DoDispose();
 
     virtual ns3::Address GetMac48Address();
+
+    virtual bool SupportsSendFrom() const;
 
     virtual ns3::TypeId GetInstanceTypeId() const;
 
@@ -2751,6 +2755,8 @@ public:
 
     virtual bool Enqueue(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & dest, uint16_t protocolNumber);
 
+    virtual bool EnqueueWithSrc(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & src, ns3::Address const & dest, uint16_t protocolNumber);
+
     virtual ns3::Address GetAddress();
 
     virtual ns3::Address GetBroadcast() const;
@@ -2778,6 +2784,8 @@ public:
     virtual void SetSlotTime(ns3::Time duration);
 
     virtual void DoDispose();
+
+    virtual bool SupportsSendFrom() const;
 
     virtual ns3::Address GetMac48Address();
 
@@ -2861,6 +2869,8 @@ public:
 
     virtual bool Enqueue(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & dest, uint16_t protocolNumber);
 
+    virtual bool EnqueueWithSrc(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & src, ns3::Address const & dest, uint16_t protocolNumber);
+
     virtual ns3::Address GetAddress();
 
     virtual ns3::Address GetBroadcast() const;
@@ -2868,6 +2878,8 @@ public:
     virtual void SetAddress(ns3::Address addr);
 
     virtual void DoDispose();
+
+    virtual bool SupportsSendFrom() const;
 
     virtual ns3::Address GetMac48Address();
 
@@ -2951,6 +2963,8 @@ public:
 
     virtual bool Enqueue(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & dest, uint16_t protocolNumber);
 
+    virtual bool EnqueueWithSrc(ns3::Ptr< ns3::Packet > pkt, ns3::Address const & src, ns3::Address const & dest, uint16_t protocolNumber);
+
     virtual ns3::Address GetAddress();
 
     virtual ns3::Address GetBroadcast() const;
@@ -2958,6 +2972,8 @@ public:
     virtual void SetAddress(ns3::Address addr);
 
     virtual void DoDispose();
+
+    virtual bool SupportsSendFrom() const;
 
     virtual ns3::Address GetMac48Address();
 

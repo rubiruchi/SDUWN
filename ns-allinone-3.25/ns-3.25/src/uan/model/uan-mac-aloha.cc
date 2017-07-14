@@ -101,6 +101,7 @@ UanMacAloha::SetAddress (Address addr)
   else
     m_address=UanAddress::ConvertFrom(addr);
 }
+
 bool
 UanMacAloha::Enqueue (Ptr<Packet> packet, const Address &dest, uint16_t protocolNumber)
 {
@@ -128,6 +129,35 @@ UanMacAloha::Enqueue (Ptr<Packet> packet, const Address &dest, uint16_t protocol
     return false;
   }
 }
+
+bool 
+UanMacAloha::EnqueueWithSrc(Ptr<Packet> packet, const Address &src, const Address &dest, uint16_t protocolNumber)
+{
+  UanAddress udest;
+  if (Mac48Address::IsMatchingType (dest))
+    udest = m_at.translate(Mac48Address::ConvertFrom(dest));
+  else
+    udest = UanAddress::ConvertFrom (dest);
+  NS_LOG_DEBUG ("" << Simulator::Now ().GetSeconds () << " MAC " << UanAddress::ConvertFrom (GetAddress ()) << " Queueing packet for " << udest);
+  if (!m_phy->IsStateTx ())
+    {
+      NS_LOG_DEBUG("UanMacAloha Enqueue: sending packet out");
+      UanAddress usrc = UanAddress::ConvertFrom (src);
+      UanHeaderCommon header;
+      header.SetSrc (usrc);
+      header.SetDest (udest);
+      header.SetType (0);
+      header.SetLengthType (protocolNumber);
+      packet->AddHeader (header);
+      m_phy->SendPacket (packet, protocolNumber);
+      return true;
+    }
+  else{
+    NS_LOG_DEBUG("UanMacAloha Enqueue: phy is busy, packet may be dropped");
+    return false;
+  }
+}
+
 
 void
 UanMacAloha::SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress&> cb)
