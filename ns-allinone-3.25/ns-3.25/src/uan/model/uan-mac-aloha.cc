@@ -188,6 +188,13 @@ UanMacAloha::GetBroadcast (void) const
   return broadcast;
 }
 
+
+bool
+UanMacAloha::SupportsSendFrom(void) const
+{
+  return true;
+}
+
 int64_t
 UanMacAloha::AssignStreams (int64_t stream)
 {

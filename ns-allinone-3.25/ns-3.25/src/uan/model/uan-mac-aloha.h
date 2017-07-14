@@ -63,6 +63,7 @@ public:
   virtual void AttachPhy (Ptr<UanPhy> phy);
   virtual Address GetBroadcast (void) const;
   virtual void Clear (void);
+  virtual bool SupportsSendFrom(void)const;
   int64_t AssignStreams (int64_t stream);
 
 private:
