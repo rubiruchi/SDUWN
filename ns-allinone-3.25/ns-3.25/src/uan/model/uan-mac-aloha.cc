@@ -134,15 +134,22 @@ bool
 UanMacAloha::EnqueueWithSrc(Ptr<Packet> packet, const Address &src, const Address &dest, uint16_t protocolNumber)
 {
   UanAddress udest;
+  UanAddress usrc;
   if (Mac48Address::IsMatchingType (dest))
     udest = m_at.translate(Mac48Address::ConvertFrom(dest));
   else
     udest = UanAddress::ConvertFrom (dest);
-  NS_LOG_DEBUG ("" << Simulator::Now ().GetSeconds () << " MAC " << UanAddress::ConvertFrom (GetAddress ()) << " Queueing packet for " << udest);
+  
+  if (Mac48Address::IsMatchingType (src))
+    usrc = m_at.translate(Mac48Address::ConvertFrom(src));
+  else
+    usrc = UanAddress::ConvertFrom (src);
+
+  NS_LOG_DEBUG ("" << Simulator::Now ().GetSeconds () << " MAC " << usrc << " Queueing packet for " << udest);
   if (!m_phy->IsStateTx ())
     {
       NS_LOG_DEBUG("UanMacAloha Enqueue: sending packet out");
-      UanAddress usrc = UanAddress::ConvertFrom (src);
+      //UanAddress usrc = UanAddress::ConvertFrom (src);
       UanHeaderCommon header;
       header.SetSrc (usrc);
       header.SetDest (udest);
