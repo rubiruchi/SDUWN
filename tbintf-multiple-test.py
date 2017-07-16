@@ -8,30 +8,29 @@ import opennet
 from opennet import *
 import ns
 def emptyNet():
-    ns.core.LogComponentEnable("UanChannel", ns.core.LOG_ALL)
-    ns.core.LogComponentEnable("UanHelper",  ns.core.LOG_ALL)
-    ns.core.LogComponentEnable("UanNetDevice", ns.core.LOG_ALL)
-    ns.core.LogComponentEnable("UanPhyGen", ns.core.LOG_ALL)
-    ns.core.LogComponentEnable("TagBuffer", ns.core.LOG_ALL)
+    #ns.core.LogComponentEnable("UanChannel", ns.core.LOG_ALL)
+    #ns.core.LogComponentEnable("UanHelper",  ns.core.LOG_ALL)
+    #ns.core.LogComponentEnable("UanNetDevice", ns.core.LOG_ALL)
+    #ns.core.LogComponentEnable("UanPhyGen", ns.core.LOG_ALL)
+    #ns.core.LogComponentEnable("TagBuffer", ns.core.LOG_ALL)
     #ns.core.LogComponentEnable("TapBridge", ns.core.LOG_ALL)
     #ns.core.LogComponentEnable("TapBridgeHelper", ns.core.LOG_ALL)
     #ns.core.LogComponentEnable("TapFdNetDeviceHelper", ns.core.LOG_ALL)
     #ns.core.LogComponentEnable("UanPhy", ns.core.LOG_ALL)
-    ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_NODE)
-    ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_TIME)
+    #ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_NODE)
+    #ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_TIME)
     net = Mininet()
-    net.addController('c0', controller=RemoteController, ip="127.0.0.1", port=6633)
+    net.addController('c0', controller=RemoteController, ip="127.0.0.1", port=6634)
 
     info( '*** Adding hosts\n' )
     h0 = net.addHost( 'h0' )
     h1 = net.addHost( 'h1' )
     h2 = net.addHost( 'h2' )
 
-    s0 = net.addSwitch( 's0' )
-    s1 = net.addSwitch( 's1' )
-    s2 = net.addSwitch( 's2' )
-     
-
+    s0 = net.addSwitch( 's0', ip=None, failMode='standalone')
+    s1 = net.addSwitch( 's1', ip=None, failMode='standalone')
+    s2 = net.addSwitch( 's2', ip=None, failMode='standalone' )
+    
     info( '*** Creating links\n' )
     Uan=UanSegment()
     Uan.add(s0)
