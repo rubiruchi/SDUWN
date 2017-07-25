@@ -109,10 +109,6 @@ def main():
     p=multiprocessing.Process(target=startHostController,args=(hc,))
     p.start()
 
-    time.sleep(20)
-
-    print "Log: can add the controller"
-
     
     net.addController('c0', controller=RemoteController, ip="192.168.123.4", port=6653)
     

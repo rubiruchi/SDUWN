@@ -23,7 +23,7 @@ def main():
     net = Mininet()
 
     info( '*** Adding controller\n' )
-    #net.addController('c0', controller=RemoteController, ip="127.0.0.1", port=6653)
+    net.addController('c0', controller=RemoteController, ip="10.0.2.15", port=6653)
     
     info( '*** Adding hosts\n' )
     h0 = net.addHost( 'h0' ,ip = '192.168.123.1')
@@ -101,5 +101,5 @@ def main():
     opennet.clear()
     net.stop()
 if __name__ == '__main__':
-    setLogLevel( 'info' )
+    setLogLevel( 'debug' )
     main()
