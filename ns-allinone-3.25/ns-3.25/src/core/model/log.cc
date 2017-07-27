@@ -464,7 +464,7 @@ LogComponentPrintList (void)
         {
           if (i->second->IsEnabled (LOG_PREFIX_FUNC))
             {
-              std::cout << "|func";
+              std::cout << "|level";
             }
           if (i->second->IsEnabled (LOG_PREFIX_TIME))
             {
@@ -476,7 +476,7 @@ LogComponentPrintList (void)
             }
           if (i->second->IsEnabled (LOG_PREFIX_LEVEL))
             {
-              std::cout << "|level";
+              std::cout << "|func";
             }
         }
       std::cout << std::endl;

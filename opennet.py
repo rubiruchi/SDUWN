@@ -606,7 +606,7 @@ class CSMASegment( object ):
         tb = TBIntf( intfName, node, port, node.nsNode, device, mode )
         return tb
     def addController(self, tapDeviceName):
-        self.conNode = ns.Network.Node()
+        self.conNode = ns.network.Node()
         device = ns.csma.CsmaNetDevice()
         queue = ns.network.DropTailQueue()
         device.Attach(self.channel)
@@ -616,6 +616,7 @@ class CSMASegment( object ):
         self.contapbridge = ns.tap_bridge.TapBridge()
         self.contapbridge.SetAttribute("Mode", ns.core.StringValue("UseLocal"))
         self.contapbridge.SetAttribute("DeviceName", ns.core.StringValue(tapDeviceName))
+        self.contapbridge.SetAttributeFailSafe ( "Instant", ns.core.BooleanValue( True ) )
         self.conNode.AddDevice(self.contapbridge)
         self.contapbridge.SetBridgedNetDevice(device)
 
@@ -900,15 +901,17 @@ class UanSegment( object ):
         tb = TBIntf( intfName, node, port, node.nsNode, device, mode )
         return tb
     def addController(self,tapDeviceName):
-        self.conNode = ns.Network.Node()
+        self.conNode = ns.network.Node()
         device = self.uanhelper.Install(self.conNode,self.channel)
         mobilityhelper = ns.mobility.MobilityHelper()
         mobilityhelper.Install(self.conNode)
         self.contapbridge = ns.tap_bridge.TapBridge()
         self.contapbridge.SetAttribute("Mode", ns.core.StringValue("UseLocal"))
         self.contapbridge.SetAttribute("DeviceName", ns.core.StringValue(tapDeviceName))
-        self.conNode.AddDevice(self.contapbrisdge)
+        self.contapbridge.SetAttributeFailSafe ( "Instant", ns.core.BooleanValue( True ) )
+        self.conNode.AddDevice(self.contapbridge)
         self.contapbridge.SetBridgedNetDevice(device)
+
 class UanLink( UanSegment, Link ):
     def __init__( self, node1, node2, port1=None, port2=None,intfName1=None, intfName2=None ):
         UanSegment.__init__( self )

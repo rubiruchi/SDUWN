@@ -24,25 +24,15 @@ def main():
     net = Mininet()
 
     info( '*** Adding controller\n' )
-    net.addController('c0', controller=RemoteController, ip="127.0.0.1", port=6655)
-    
-
+    #net.addController('c0', controller=RemoteController, ip="127.0.0.1", port=6655)
     info( '*** Adding hosts\n' )
     h0 = net.addHost( 'h0' ,ip = '192.168.123.1')
     h1 = net.addHost( 'h1' ,ip = '192.168.123.2')
-    
     info( '*** Adding switch\n')
     s0 = net.addSwitch( 's0' )
-    
     info( '*** Creating links\n' )
-    
-    #Uan=UanSegment()
-    #Uan.add(h0)
-    #Uan.add(h1)
-    
-    link0=UanLink(s0,h0)
-    link1=UanLink(s0,h1)
-    
+    link0=CSMALink(s0,h0)
+    link1=CSMALink(s0,h1)
     mobility_helpers={'h0':opennet.createMobilityHelper("ns3::ConstantPositionMobilityModel"),
                      'h1':opennet.createMobilityHelper("ns3::ConstantPositionMobilityModel"),
                      's0':opennet.createMobilityHelper("ns3::ConstantPositionMobilityModel")
@@ -63,12 +53,7 @@ def main():
     }
     opennet.setMobilityModel(h0, mobility_models.get('h0'))
     opennet.setMobilityModel(h1, mobility_models.get('h1')) 
-    opennet.setMobilityModel(s0, mobility_models.get('s0'))  
-
-    #info( '*** Configuring hosts\n' )
-    #h0.setIP( '192.168.123.1/24')
-    #h1.setIP( '192.168.123.2/24')
-
+    opennet.setMobilityModel(s0, mobility_models.get('s0'))
     info( '*** Starting network\n')
     net.start()
     opennet.start()

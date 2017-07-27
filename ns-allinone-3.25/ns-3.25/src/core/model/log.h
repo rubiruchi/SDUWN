@@ -111,10 +111,10 @@ enum LogLevel {
   LOG_ALL            = 0x0fffffff, //!< Print everything.
   LOG_LEVEL_ALL      = LOG_ALL,    //!< Print everything.
 
-  LOG_PREFIX_FUNC    = 0x80000000, //!< Prefix all trace prints with function.
+  LOG_PREFIX_FUNC    = 0x10000000, //!< Prefix all trace prints with function.
   LOG_PREFIX_TIME    = 0x40000000, //!< Prefix all trace prints with simulation time.
   LOG_PREFIX_NODE    = 0x20000000, //!< Prefix all trace prints with simulation node.
-  LOG_PREFIX_LEVEL   = 0x10000000, //!< Prefix all trace prints with log level (severity).
+  LOG_PREFIX_LEVEL   = 0x80000000, //!< Prefix all trace prints with log level (severity).
   LOG_PREFIX_ALL     = 0xf0000000  //!< All prefixes.
 };
 
