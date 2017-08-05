@@ -1,0 +1,479 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Testing &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="Open vSwitch Deep Dive" href="index.html" />
+    <link rel="next" title="OVN Gateway High Availability Plan" href="high-availability.html" />
+    <link rel="prev" title="Language Bindings" href="language-bindings.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="high-availability.html" title="OVN Gateway High Availability Plan"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="language-bindings.html" title="Language Bindings"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Open vSwitch Deep Dive</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="testing">
+<h1>Testing<a class="headerlink" href="#testing" title="Permalink to this headline">¶</a></h1>
+<p>It is possible to test Open vSwitch using both tooling provided with Open
+vSwitch and using a variety of third party tooling.</p>
+<div class="section" id="built-in-tooling">
+<h2>Built-in Tooling<a class="headerlink" href="#built-in-tooling" title="Permalink to this headline">¶</a></h2>
+<p>Open vSwitch provides a number of different test suites and other tooling for
+validating basic functionality of OVS. Before running any of the tests
+described here, you must bootstrap, configure and build Open vSwitch as
+described in <a class="reference internal" href="../intro/install/general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a>. You do not need to install Open
+vSwitch or to build or load the kernel module to run these test suites. You do
+not need supervisor privilege to run these test suites.</p>
+<div class="section" id="unit-tests">
+<span id="testing-unit-tests"></span><h3>Unit Tests<a class="headerlink" href="#unit-tests" title="Permalink to this headline">¶</a></h3>
+<p>Open vSwitch includes a suite of self-tests. Before you submit patches
+upstream, we advise that you run the tests and ensure that they pass. If you
+add new features to Open vSwitch, then adding tests for those features will
+ensure your features don&#8217;t break as developers modify other areas of Open
+vSwitch.</p>
+<p>To run all the unit tests in Open vSwitch, one at a time, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check
+</pre></div>
+</div>
+<p>This takes under 5 minutes on a modern desktop system.</p>
+<p>To run all the unit tests in Open vSwitch in parallel, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check TESTSUITEFLAGS=-j8
+</pre></div>
+</div>
+<p>You can run up to eight threads. This takes under a minute on a modern 4-core
+desktop system.</p>
+<p>To see a list of all the available tests, run:</p>
+<blockquote>
+<div>$ make check TESTSUITEFLAGS=&#8211;list</div></blockquote>
+<p>To run only a subset of tests, e.g. test 123 and tests 477 through 484, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check TESTSUITEFLAGS=&#39;123 477-484&#39;
+</pre></div>
+</div>
+<p>Tests do not have inter-dependencies, so you may run any subset.</p>
+<p>To run tests matching a keyword, e.g. <tt class="docutils literal"><span class="pre">ovsdb</span></tt>, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check TESTSUITEFLAGS=&#39;-k ovsdb&#39;
+</pre></div>
+</div>
+<p>To see a complete list of test options, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check TESTSUITEFLAGS=--help
+</pre></div>
+</div>
+<p>The results of a testing run are reported in <tt class="docutils literal"><span class="pre">tests/testsuite.log</span></tt>. Report
+report test failures as bugs and include the <tt class="docutils literal"><span class="pre">testsuite.log</span></tt> in your report.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p>Sometimes a few tests may fail on some runs but not others. This is usually a
+bug in the testsuite, not a bug in Open vSwitch itself. If you find that a
+test fails intermittently, please report it, since the developers may not
+have noticed. You can make the testsuite automatically rerun tests that fail,
+by adding <tt class="docutils literal"><span class="pre">RECHECK=yes</span></tt> to the <tt class="docutils literal"><span class="pre">make</span></tt> command line, e.g.:</p>
+<div class="last highlight-python"><div class="highlight"><pre>$ make check TESTSUITEFLAGS=-j8 RECHECK=yes
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="coverage">
+<span id="testing-coverage"></span><h3>Coverage<a class="headerlink" href="#coverage" title="Permalink to this headline">¶</a></h3>
+<p>If the build was configured with <tt class="docutils literal"><span class="pre">--enable-coverage</span></tt> and the <tt class="docutils literal"><span class="pre">lcov</span></tt> utility
+is installed, you can run the testsuite and generate a code coverage report by
+using the <tt class="docutils literal"><span class="pre">check-lcov</span></tt> target:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check-lcov
+</pre></div>
+</div>
+<p>All the same options are avaiable via TESTSUITEFLAGS. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check-lcov TESTSUITEFLAGS=-j8 -k ovn
+</pre></div>
+</div>
+</div>
+<div class="section" id="valgrind">
+<span id="testing-valgrind"></span><h3>Valgrind<a class="headerlink" href="#valgrind" title="Permalink to this headline">¶</a></h3>
+<p>If you have <tt class="docutils literal"><span class="pre">valgrind</span></tt> installed, you can run the testsuite under
+valgrind by using the <tt class="docutils literal"><span class="pre">check-valgrind</span></tt> target:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check-valgrind
+</pre></div>
+</div>
+<p>When you do this, the &#8220;valgrind&#8221; results for test <tt class="docutils literal"><span class="pre">&lt;N&gt;</span></tt> are reported in files
+named <tt class="docutils literal"><span class="pre">tests/testsuite.dir/&lt;N&gt;/valgrind.*</span></tt>.</p>
+<p>All the same options are available via TESTSUITEFLAGS.</p>
+<div class="admonition hint">
+<p class="first admonition-title">Hint</p>
+<p class="last">You may find that the valgrind results are easier to interpret if you put
+<tt class="docutils literal"><span class="pre">-q</span></tt> in <tt class="docutils literal"><span class="pre">~/.valgrindrc</span></tt>, since that reduces the amount of output.</p>
+</div>
+</div>
+<div class="section" id="oftest">
+<span id="testing-oftest"></span><h3>OFTest<a class="headerlink" href="#oftest" title="Permalink to this headline">¶</a></h3>
+<p>OFTest is an OpenFlow protocol testing suite. Open vSwitch includes a Makefile
+target to run OFTest with Open vSwitch in &#8220;dummy mode&#8221;. In this mode of
+testing, no packets travel across physical or virtual networks.  Instead, Unix
+domain sockets stand in as simulated networks. This simulation is imperfect,
+but it is much easier to set up, does not require extra physical or virtual
+hardware, and does not require supervisor privileges.</p>
+<p>To run OFTest with Open vSwitch, you must obtain a copy of OFTest and install
+its prerequisites. You need a copy of OFTest that includes commit 406614846c5
+(make ovs-dummy platform work again). This commit was merged into the OFTest
+repository on Feb 1, 2013, so any copy of OFTest more recent than that should
+work. Testing OVS in dummy mode does not require root privilege, so you may
+ignore that requirement.</p>
+<p>Optionally, add the top-level OFTest directory (containing the <tt class="docutils literal"><span class="pre">oft</span></tt> program)
+to your <tt class="docutils literal"><span class="pre">$PATH</span></tt>. This slightly simplifies running OFTest later.</p>
+<p>To run OFTest in dummy mode, run the following command from your Open vSwitch
+build directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check-oftest OFT=&lt;oft-binary&gt;
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">&lt;oft-binary&gt;</span></tt> is the absolute path to the <tt class="docutils literal"><span class="pre">oft</span></tt> program in OFTest.
+If you added &#8220;oft&#8221; to your $PATH, you may omit the OFT variable
+assignment</p>
+<p>By default, <tt class="docutils literal"><span class="pre">check-oftest</span></tt> passes <tt class="docutils literal"><span class="pre">oft</span></tt> just enough options to enable dummy
+mode. You can use <tt class="docutils literal"><span class="pre">OFTFLAGS</span></tt> to pass additional options. For example, to run
+just the <tt class="docutils literal"><span class="pre">basic.Echo</span></tt> test instead of all tests (the default) and enable
+verbose logging, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check-oftest OFT=&lt;oft-binary&gt; OFTFLAGS=&#39;--verbose -T basic.Echo&#39;
+</pre></div>
+</div>
+<p>If you use OFTest that does not include commit 4d1f3eb2c792 (oft: change
+default port to 6653), merged into the OFTest repository in October 2013, then
+you need to add an option to use the IETF-assigned controller port:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check-oftest OFT=&lt;oft-binary&gt; OFTFLAGS=&#39;--port=6653&#39;
+</pre></div>
+</div>
+<p>Interpret OFTest results cautiously. Open vSwitch can fail a given test in
+OFTest for many reasons, including bugs in Open vSwitch, bugs in OFTest, bugs
+in the &#8220;dummy mode&#8221; integration, and differing interpretations of the OpenFlow
+standard and other standards.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Open vSwitch has not been validated against OFTest. Report test failures that
+you believe to represent bugs in Open vSwitch. Include the precise versions
+of Open vSwitch and OFTest in your bug report, plus any other information
+needed to reproduce the problem.</p>
+</div>
+</div>
+<div class="section" id="ryu">
+<span id="id1"></span><h3>Ryu<a class="headerlink" href="#ryu" title="Permalink to this headline">¶</a></h3>
+<p>Ryu is an OpenFlow controller written in Python that includes an extensive
+OpenFlow testsuite. Open vSwitch includes a Makefile target to run Ryu in
+&#8220;dummy mode&#8221;. See <a class="reference internal" href="#testing-oftest"><em>OFTest</em></a> above for an explanation of dummy mode.</p>
+<p>To run Ryu tests with Open vSwitch, first read and follow the instructions
+under <strong>Testing</strong> above. Second, obtain a copy of Ryu, install its
+prerequisites, and build it. You do not need to install Ryu (some of the tests
+do not get installed, so it does not help).</p>
+<p>To run Ryu tests, run the following command from your Open vSwitch build
+directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check-ryu RYUDIR=&lt;ryu-source-dir&gt;``
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">&lt;ryu-source-dir&gt;</span></tt> is the absolute path to the root of the Ryu source
+distribution. The default <tt class="docutils literal"><span class="pre">&lt;ryu-source-dir&gt;</span></tt> is <tt class="docutils literal"><span class="pre">$srcdir/../ryu</span></tt>
+where <tt class="docutils literal"><span class="pre">$srcdir</span></tt> is your Open vSwitch source directory. If this is correct,
+omit <tt class="docutils literal"><span class="pre">RYUDIR</span></tt></p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Open vSwitch has not been validated against Ryu. Report test failures that
+you believe to represent bugs in Open vSwitch. Include the precise versions
+of Open vSwitch and Ryu in your bug report, plus any other information
+needed to reproduce the problem.</p>
+</div>
+</div>
+<div class="section" id="datapath-testing">
+<h3>Datapath testing<a class="headerlink" href="#datapath-testing" title="Permalink to this headline">¶</a></h3>
+<p>Open vSwitch includes a suite of tests specifically for datapath functionality,
+which can be run against the userspace or kernel datapaths. If you are
+developing datapath features, it is recommended that you use these tests and
+build upon them to verify your implementation.</p>
+<p>The datapath tests make some assumptions about the environment. They must be
+run under root privileges on a Linux system with support for network
+namespaces. For ease of use, the OVS source tree includes a vagrant box to
+invoke these tests. Running the tests inside Vagrant provides kernel isolation,
+protecting your development host from kernel panics or configuration conflicts
+in the testsuite. If you wish to run the tests without using the vagrant box,
+there are further instructions below.</p>
+<div class="section" id="vagrant">
+<h4>Vagrant<a class="headerlink" href="#vagrant" title="Permalink to this headline">¶</a></h4>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last">Requires Vagrant (version 1.7.0 or later) and a compatible hypervisor</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You must <strong>Bootstrap</strong> and <strong>Configure</strong> the sources before you run the steps
+described here.</p>
+</div>
+<p>A Vagrantfile is provided allowing to compile and provision the source tree as
+found locally in a virtual machine using the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ vagrant up
+</pre></div>
+</div>
+<p>This will bring up a Fedora 23 VM by default. If you wish to use a different
+box or a vagrant backend not supported by the default box, the <tt class="docutils literal"><span class="pre">Vagrantfile</span></tt>
+can be modified to use a different box as base.</p>
+<p>The VM can be reprovisioned at any time:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ vagrant provision
+</pre></div>
+</div>
+<p>OVS out-of-tree compilation environment can be set up with:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./boot.sh
+$ vagrant provision --provision-with configure_ovs,build_ovs
+</pre></div>
+</div>
+<p>This will set up an out-of-tree build environment inside the VM in
+<tt class="docutils literal"><span class="pre">/root/build</span></tt>.  The source code can be found in <tt class="docutils literal"><span class="pre">/vagrant</span></tt>.</p>
+<p>To recompile and reinstall OVS in the VM using RPM:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./boot.sh
+$ vagrant provision --provision-with configure_ovs,install_rpm
+</pre></div>
+</div>
+<p>Two provisioners are included to run system tests with the OVS kernel module or
+with a userspace datapath. This tests are different from the self-tests
+mentioned above. To run them:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./boot.sh
+$ vagrant provision --provision-with \
+    configure_ovs,test_ovs_kmod,test_ovs_system_userspace
+</pre></div>
+</div>
+<p>The results of the testsuite reside in the VM root user&#8217;s home directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ vagrant ssh
+$ sudo -s
+$ cd /root/build
+$ ls tests/system*
+</pre></div>
+</div>
+</div>
+<div class="section" id="native">
+<h4>Native<a class="headerlink" href="#native" title="Permalink to this headline">¶</a></h4>
+<p>The datapath testsuite as invoked by Vagrant above may also be run manually on
+a Linux system with root privileges. These tests may take several minutes to
+complete, and cannot be run in parallel.</p>
+<div class="section" id="userspace-datapath">
+<h5>Userspace datapath<a class="headerlink" href="#userspace-datapath" title="Permalink to this headline">¶</a></h5>
+<p>To invoke the datapath testsuite with the userspace datapath, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check-system-userspace
+</pre></div>
+</div>
+<p>The results of the testsuite are in <tt class="docutils literal"><span class="pre">tests/system-userspace-traffic.dir</span></tt>.</p>
+</div>
+<div class="section" id="kernel-datapath">
+<h5>Kernel datapath<a class="headerlink" href="#kernel-datapath" title="Permalink to this headline">¶</a></h5>
+<p>Make targets are also provided for testing the Linux kernel module. Note that
+these tests operate by inserting modules into the running Linux kernel, so if
+the tests are able to trigger a bug in the OVS kernel module or in the upstream
+kernel then the kernel may panic.</p>
+<p>To run the testsuite against the kernel module which is currently installed on
+your system, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check-kernel
+</pre></div>
+</div>
+<p>To install the kernel module from the current build directory and run the
+testsuite against that kernel module:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ make check-kmod
+</pre></div>
+</div>
+<p>The results of the testsuite are in <tt class="docutils literal"><span class="pre">tests/system-kmod-traffic.dir</span></tt>.</p>
+</div>
+</div>
+</div>
+<div class="section" id="static-code-analysis">
+<span id="testing-static-analysis"></span><h3>Static Code Analysis<a class="headerlink" href="#static-code-analysis" title="Permalink to this headline">¶</a></h3>
+<p>Static Analysis is a method of debugging Software by examining code rather than
+actually executing it. This can be done through &#8216;scan-build&#8217; commandline
+utility which internally uses clang (or) gcc to compile the code and also
+invokes a static analyzer to do the code analysis. At the end of the build, the
+reports are aggregated in to a common folder and can later be analyzed using
+&#8216;scan-view&#8217;.</p>
+<p>Open vSwitch includes a Makefile target to trigger static code analysis:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./boot.sh
+$ ./configure CC=clang  # clang
+# or
+$ ./configure CC=gcc CFLAGS=&quot;-std=gnu99&quot;  # gcc
+$ make clang-analyze
+</pre></div>
+</div>
+<p>You should invoke scan-view to view analysis results. The last line of output
+from <tt class="docutils literal"><span class="pre">clang-analyze</span></tt> will list the command (containing results directory)
+that you should invoke to view the results on a browser.</p>
+</div>
+</div>
+<div class="section" id="continuous-integration-with-travis-ci">
+<span id="testing-ci"></span><h2>Continuous Integration with Travis CI<a class="headerlink" href="#continuous-integration-with-travis-ci" title="Permalink to this headline">¶</a></h2>
+<p>A .travis.yml file is provided to automatically build Open vSwitch with various
+build configurations and run the testsuite using Travis CI. Builds will be
+performed with gcc, sparse and clang with the -Werror compiler flag included,
+therefore the build will fail if a new warning has been introduced.</p>
+<p>The CI build is triggered via git push (regardless of the specific branch) or
+pull request against any Open vSwitch GitHub repository that is linked to
+travis-ci.</p>
+<p>Instructions to setup travis-ci for your GitHub repository:</p>
+<ol class="arabic">
+<li><p class="first">Go to <a class="reference external" href="https://travis-ci.org/">https://travis-ci.org/</a> and sign in using your GitHub ID.</p>
+</li>
+<li><p class="first">Go to the &#8220;Repositories&#8221; tab and enable the ovs repository. You may disable
+builds for pushes or pull requests.</p>
+</li>
+<li><p class="first">In order to avoid forks sending build failures to the upstream mailing list,
+the notification email recipient is encrypted. If you want to receive email
+notification for build failures, replace the the encrypted string:</p>
+<ol class="arabic">
+<li><p class="first">Install the travis-ci CLI (Requires ruby &gt;=2.0): gem install travis</p>
+</li>
+<li><p class="first">In your Open vSwitch repository: travis encrypt <a class="reference external" href="mailto:mylist&#37;&#52;&#48;mydomain&#46;org">mylist<span>&#64;</span>mydomain<span>&#46;</span>org</a></p>
+</li>
+<li><p class="first">Add/replace the notifications section in .travis.yml and fill in the
+secure string as returned by travis encrypt:</p>
+<div class="highlight-python"><div class="highlight"><pre>notifications:
+  email:
+    recipients:
+      - secure: &quot;.....&quot;
+</pre></div>
+</div>
+</li>
+</ol>
+</li>
+</ol>
+<blockquote>
+<div><div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">You may remove/omit the notifications section to fall back to default
+notification behaviour which is to send an email directly to the author and
+committer of the failing commit. Note that the email is only sent if the
+author/committer have commit rights for the particular GitHub repository.</p>
+</div>
+</div></blockquote>
+<ol class="arabic simple" start="4">
+<li>Pushing a commit to the repository which breaks the build or the
+testsuite will now trigger a email sent to <a class="reference external" href="mailto:mylist&#37;&#52;&#48;mydomain&#46;org">mylist<span>&#64;</span>mydomain<span>&#46;</span>org</a></li>
+</ol>
+</div>
+<div class="section" id="vsperf">
+<span id="testing-vsperf"></span><h2>vsperf<a class="headerlink" href="#vsperf" title="Permalink to this headline">¶</a></h2>
+<p>The vsperf project aims to develop a vSwitch test framework that can be used to
+validate the suitability of different vSwitch implementations in a telco
+deployment environment. More information can be found on the <a class="reference external" href="https://wiki.opnfv.org/display/vsperf/VSperf+Home">OPNFV wiki</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Testing</a><ul>
+<li><a class="reference internal" href="#built-in-tooling">Built-in Tooling</a><ul>
+<li><a class="reference internal" href="#unit-tests">Unit Tests</a></li>
+<li><a class="reference internal" href="#coverage">Coverage</a></li>
+<li><a class="reference internal" href="#valgrind">Valgrind</a></li>
+<li><a class="reference internal" href="#oftest">OFTest</a></li>
+<li><a class="reference internal" href="#ryu">Ryu</a></li>
+<li><a class="reference internal" href="#datapath-testing">Datapath testing</a><ul>
+<li><a class="reference internal" href="#vagrant">Vagrant</a></li>
+<li><a class="reference internal" href="#native">Native</a><ul>
+<li><a class="reference internal" href="#userspace-datapath">Userspace datapath</a></li>
+<li><a class="reference internal" href="#kernel-datapath">Kernel datapath</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#static-code-analysis">Static Code Analysis</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#continuous-integration-with-travis-ci">Continuous Integration with Travis CI</a></li>
+<li><a class="reference internal" href="#vsperf">vsperf</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="language-bindings.html"
+                        title="previous chapter">Language Bindings</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="high-availability.html"
+                        title="next chapter">OVN Gateway High Availability Plan</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/topics/testing.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="high-availability.html" title="OVN Gateway High Availability Plan"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="language-bindings.html" title="Language Bindings"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Open vSwitch Deep Dive</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

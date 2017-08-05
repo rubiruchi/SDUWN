@@ -1,0 +1,580 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Releases &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="Open vSwitch FAQ" href="index.html" />
+    <link rel="next" title="Terminology" href="terminology.html" />
+    <link rel="prev" title="Quality of Service (QoS)" href="qos.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="terminology.html" title="Terminology"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="qos.html" title="Quality of Service (QoS)"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Open vSwitch FAQ</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="releases">
+<h1>Releases<a class="headerlink" href="#releases" title="Permalink to this headline">¶</a></h1>
+<p>Q: What does it mean for an Open vSwitch release to be LTS (long-term support)?</p>
+<blockquote>
+<div><p>A: All official releases have been through a comprehensive testing process
+and are suitable for production use.  Planned releases occur twice a year.
+If a significant bug is identified in an LTS release, we will provide an
+updated release that includes the fix.  Releases that are not LTS may not
+be fixed and may just be supplanted by the next major release.  The current
+LTS release is 2.5.x.</p>
+<p>For more information on the Open vSwitch release process, refer to
+<a class="reference internal" href="../internals/release-process.html"><em>Open vSwitch Release Process</em></a>.</p>
+</div></blockquote>
+<p>Q: What Linux kernel versions does each Open vSwitch release work with?</p>
+<blockquote>
+<div><p>A: The following table lists the Linux kernel versions against which the
+given versions of the Open vSwitch kernel module will successfully build.
+The Linux kernel versions are upstream kernel versions, so Linux kernels
+modified from the upstream sources may not build in some cases even if they
+are based on a supported version.  This is most notably true of Red Hat
+Enterprise Linux (RHEL) kernels, which are extensively modified from
+upstream.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="46%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Open vSwitch</th>
+<th class="head">Linux kernel</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1.4.x</td>
+<td>2.6.18 to 3.2</td>
+</tr>
+<tr class="row-odd"><td>1.5.x</td>
+<td>2.6.18 to 3.2</td>
+</tr>
+<tr class="row-even"><td>1.6.x</td>
+<td>2.6.18 to 3.2</td>
+</tr>
+<tr class="row-odd"><td>1.7.x</td>
+<td>2.6.18 to 3.3</td>
+</tr>
+<tr class="row-even"><td>1.8.x</td>
+<td>2.6.18 to 3.4</td>
+</tr>
+<tr class="row-odd"><td>1.9.x</td>
+<td>2.6.18 to 3.8</td>
+</tr>
+<tr class="row-even"><td>1.10.x</td>
+<td>2.6.18 to 3.8</td>
+</tr>
+<tr class="row-odd"><td>1.11.x</td>
+<td>2.6.18 to 3.8</td>
+</tr>
+<tr class="row-even"><td>2.0.x</td>
+<td>2.6.32 to 3.10</td>
+</tr>
+<tr class="row-odd"><td>2.1.x</td>
+<td>2.6.32 to 3.11</td>
+</tr>
+<tr class="row-even"><td>2.3.x</td>
+<td>2.6.32 to 3.14</td>
+</tr>
+<tr class="row-odd"><td>2.4.x</td>
+<td>2.6.32 to 4.0</td>
+</tr>
+<tr class="row-even"><td>2.5.x</td>
+<td>2.6.32 to 4.3</td>
+</tr>
+<tr class="row-odd"><td>2.6.x</td>
+<td>3.10 to 4.7</td>
+</tr>
+<tr class="row-even"><td>2.7.x</td>
+<td>3.10 to 4.9</td>
+</tr>
+</tbody>
+</table>
+<p>Open vSwitch userspace should also work with the Linux kernel module built
+into Linux 3.3 and later.</p>
+<p>Open vSwitch userspace is not sensitive to the Linux kernel version.  It
+should build against almost any kernel, certainly against 2.6.32 and later.</p>
+</div></blockquote>
+<p>Q: Are all features available with all datapaths?</p>
+<blockquote>
+<div><p>A: Open vSwitch supports different datapaths on different platforms.  Each
+datapath has a different feature set: the following tables try to summarize
+the status.</p>
+<p>Supported datapaths:</p>
+<dl class="docutils">
+<dt>Linux upstream</dt>
+<dd>The datapath implemented by the kernel module shipped with Linux
+upstream.  Since features have been gradually introduced into the kernel,
+the table mentions the first Linux release whose OVS module supports the
+feature.</dd>
+<dt>Linux OVS tree</dt>
+<dd>The datapath implemented by the Linux kernel module distributed with the
+OVS source tree.</dd>
+<dt>Userspace</dt>
+<dd>Also known as DPDK, dpif-netdev or dummy datapath. It is the only
+datapath that works on NetBSD, FreeBSD and Mac OSX.</dd>
+<dt>Hyper-V</dt>
+<dd>Also known as the Windows datapath.</dd>
+</dl>
+<p>The following table lists the datapath supported features from an Open
+vSwitch user&#8217;s perspective.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="22%" />
+<col width="22%" />
+<col width="14%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Feature</th>
+<th class="head">Linux upstream</th>
+<th class="head">Linux OVS tree</th>
+<th class="head">Userspace</th>
+<th class="head">Hyper-V</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>NAT</td>
+<td>4.6</td>
+<td>YES</td>
+<td>NO</td>
+<td>NO</td>
+</tr>
+<tr class="row-odd"><td>Connection tracking</td>
+<td>4.3</td>
+<td>YES</td>
+<td>PARTIAL</td>
+<td>PARTIAL</td>
+</tr>
+<tr class="row-even"><td>Tunnel - LISP</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+<td>NO</td>
+</tr>
+<tr class="row-odd"><td>Tunnel - STT</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+<td>YES</td>
+</tr>
+<tr class="row-even"><td>Tunnel - GRE</td>
+<td>3.11</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr class="row-odd"><td>Tunnel - VXLAN</td>
+<td>3.12</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr class="row-even"><td>Tunnel - Geneve</td>
+<td>3.18</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr class="row-odd"><td>Tunnel - GRE-IPv6</td>
+<td>NO</td>
+<td>NO</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-even"><td>Tunnel - VXLAN-IPv6</td>
+<td>4.3</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-odd"><td>Tunnel - Geneve-IPv6</td>
+<td>4.4</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-even"><td>QoS - Policing</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-odd"><td>QoS - Shaping</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+<td>NO</td>
+</tr>
+<tr class="row-even"><td>sFlow</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-odd"><td>IPFIX</td>
+<td>3.10</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-even"><td>Set action</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+<td>PARTIAL</td>
+</tr>
+<tr class="row-odd"><td>NIC Bonding</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr class="row-even"><td>Multiple VTEPs</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+<p>Do note, however:</p>
+<ul class="simple">
+<li>Only a limited set of flow fields is modifiable via the set action by the
+Hyper-V datapath.</li>
+</ul>
+<p>The following table lists features that do not <em>directly</em> impact an Open
+vSwitch user, e.g. because their absence can be hidden by the ofproto layer
+(usually this comes with a performance penalty).</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="22%" />
+<col width="22%" />
+<col width="14%" />
+<col width="11%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Feature</th>
+<th class="head">Linux upstream</th>
+<th class="head">Linux OVS tree</th>
+<th class="head">Userspace</th>
+<th class="head">Hyper-V</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>SCTP flows</td>
+<td>3.12</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr class="row-odd"><td>MPLS</td>
+<td>3.19</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr class="row-even"><td>UFID</td>
+<td>4.0</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-odd"><td>Megaflows</td>
+<td>3.12</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-even"><td>Masked set action</td>
+<td>4.0</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-odd"><td>Recirculation</td>
+<td>3.19</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+</tr>
+<tr class="row-even"><td>TCP flags matching</td>
+<td>3.13</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-odd"><td>Validate flow actions</td>
+<td>YES</td>
+<td>YES</td>
+<td>N/A</td>
+<td>NO</td>
+</tr>
+<tr class="row-even"><td>Multiple datapaths</td>
+<td>YES</td>
+<td>YES</td>
+<td>YES</td>
+<td>NO</td>
+</tr>
+<tr class="row-odd"><td>Tunnel TSO - STT</td>
+<td>N/A</td>
+<td>YES</td>
+<td>NO</td>
+<td>YES</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Q: What DPDK version does each Open vSwitch release work with?</p>
+<blockquote>
+<div><p>A: The following table lists the DPDK version against which the given
+versions of Open vSwitch will successfully build.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="63%" />
+<col width="37%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Open vSwitch</th>
+<th class="head">DPDK</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>2.2.x</td>
+<td>1.6</td>
+</tr>
+<tr class="row-odd"><td>2.3.x</td>
+<td>1.6</td>
+</tr>
+<tr class="row-even"><td>2.4.x</td>
+<td>2.0</td>
+</tr>
+<tr class="row-odd"><td>2.5.x</td>
+<td>2.2</td>
+</tr>
+<tr class="row-even"><td>2.6.x</td>
+<td>16.07.2</td>
+</tr>
+<tr class="row-odd"><td>2.7.x</td>
+<td>16.11.2</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+<p>Q: I get an error like this when I configure Open vSwitch:</p>
+<div class="highlight-python"><div class="highlight"><pre>configure: error: Linux kernel in &lt;dir&gt; is version &lt;x&gt;, but
+version newer than &lt;y&gt; is not supported (please refer to the
+FAQ for advice)
+</pre></div>
+</div>
+<p>What should I do?</p>
+<blockquote>
+<div><p>A: You have the following options:</p>
+<ul class="simple">
+<li>Use the Linux kernel module supplied with the kernel that you are using.
+(See also the following FAQ.)</li>
+<li>If there is a newer released version of Open vSwitch, consider building
+that one, because it may support the kernel that you are building
+against.  (To find out, consult the table in the previous FAQ.)</li>
+<li>The Open vSwitch &#8220;master&#8221; branch may support the kernel that you are
+using, so consider building the kernel module from &#8220;master&#8221;.</li>
+</ul>
+<p>All versions of Open vSwitch userspace are compatible with all versions of
+the Open vSwitch kernel module, so you do not have to use the kernel module
+from one source along with the userspace programs from the same source.</p>
+</div></blockquote>
+<p>Q: What features are not available in the Open vSwitch kernel datapath that
+ships as part of the upstream Linux kernel?</p>
+<blockquote>
+<div><p>A: The kernel module in upstream Linux does not include support for LISP.
+Work is in progress to add support for LISP to the upstream Linux version
+of the Open vSwitch kernel module. For now, if you need this feature, use
+the kernel module from the Open vSwitch distribution instead of the
+upstream Linux kernel module.</p>
+<p>Certain features require kernel support to function or to have reasonable
+performance. If the ovs-vswitchd log file indicates that a feature is not
+supported, consider upgrading to a newer upstream Linux release or using
+the kernel module paired with the userspace distribution.</p>
+</div></blockquote>
+<p>Q: Why do tunnels not work when using a kernel module other than the one
+packaged with Open vSwitch?</p>
+<blockquote>
+<div><p>A: Support for tunnels was added to the upstream Linux kernel module after
+the rest of Open vSwitch. As a result, some kernels may contain support for
+Open vSwitch but not tunnels. The minimum kernel version that supports each
+tunnel protocol is:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="40%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Protocol</th>
+<th class="head">Linux Kernel</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>GRE</td>
+<td>3.11</td>
+</tr>
+<tr class="row-odd"><td>VXLAN</td>
+<td>3.12</td>
+</tr>
+<tr class="row-even"><td>Geneve</td>
+<td>3.18</td>
+</tr>
+<tr class="row-odd"><td>LISP</td>
+<td>not upstream</td>
+</tr>
+<tr class="row-even"><td>STT</td>
+<td>not upstream</td>
+</tr>
+</tbody>
+</table>
+<p>If you are using a version of the kernel that is older than the one listed
+above, it is still possible to use that tunnel protocol. However, you must
+compile and install the kernel module included with the Open vSwitch
+distribution rather than the one on your machine. If problems persist after
+doing this, check to make sure that the module that is loaded is the one
+you expect.</p>
+</div></blockquote>
+<p>Q: Why are UDP tunnel checksums not computed for VXLAN or Geneve?</p>
+<blockquote>
+<div>A: Generating outer UDP checksums requires kernel support that was not part
+of the initial implementation of these protocols. If using the upstream
+Linux Open vSwitch module, you must use kernel 4.0 or newer. The
+out-of-tree modules from Open vSwitch release 2.4 and later support UDP
+checksums.</div></blockquote>
+<p>Q: What features are not available when using the userspace datapath?</p>
+<blockquote>
+<div>A: Tunnel virtual ports are not supported, as described in the previous
+answer.  It is also not possible to use queue-related actions.  On Linux
+kernels before 2.6.39, maximum-sized VLAN packets may not be transmitted.</div></blockquote>
+<p>Q: Should userspace or kernel be upgraded first to minimize downtime?</p>
+<blockquote>
+<div>A. In general, the Open vSwitch userspace should be used with the kernel
+version included in the same release or with the version from upstream
+Linux.  However, when upgrading between two releases of Open vSwitch it is
+best to migrate userspace first to reduce the possibility of
+incompatibilities.</div></blockquote>
+<p>Q: What happened to the bridge compatibility feature?</p>
+<blockquote>
+<div><p>A: Bridge compatibility was a feature of Open vSwitch 1.9 and earlier.
+When it was enabled, Open vSwitch imitated the interface of the Linux
+kernel &#8220;bridge&#8221; module.  This allowed users to drop Open vSwitch into
+environments designed to use the Linux kernel bridge module without
+adapting the environment to use Open vSwitch.</p>
+<p>Open vSwitch 1.10 and later do not support bridge compatibility.  The
+feature was dropped because version 1.10 adopted a new internal
+architecture that made bridge compatibility difficult to maintain.  Now
+that many environments use OVS directly, it would be rarely useful in any
+case.</p>
+<p>To use bridge compatibility, install OVS 1.9 or earlier, including the
+accompanying kernel modules (both the main and bridge compatibility
+modules), following the instructions that come with the release.  Be sure
+to start the ovs-brcompatd daemon.</p>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="qos.html"
+                        title="previous chapter">Quality of Service (QoS)</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="terminology.html"
+                        title="next chapter">Terminology</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/faq/releases.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="terminology.html" title="Terminology"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="qos.html" title="Quality of Service (QoS)"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Open vSwitch FAQ</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

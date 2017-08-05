@@ -1,0 +1,210 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>General &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="Open vSwitch FAQ" href="index.html" />
+    <link rel="next" title="Common Configuration Issues" href="issues.html" />
+    <link rel="prev" title="Implementation Details" href="design.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="issues.html" title="Common Configuration Issues"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="design.html" title="Implementation Details"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Open vSwitch FAQ</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="general">
+<h1>General<a class="headerlink" href="#general" title="Permalink to this headline">¶</a></h1>
+<p>Q: What is Open vSwitch?</p>
+<blockquote>
+<div><p>A: Open vSwitch is a production quality open source software switch
+designed to be used as a vswitch in virtualized server environments.  A
+vswitch forwards traffic between different VMs on the same physical host
+and also forwards traffic between VMs and the physical network.  Open
+vSwitch supports standard management interfaces (e.g. sFlow, NetFlow,
+IPFIX, RSPAN, CLI), and is open to programmatic extension and control using
+OpenFlow and the OVSDB management protocol.</p>
+<p>Open vSwitch as designed to be compatible with modern switching chipsets.
+This means that it can be ported to existing high-fanout switches allowing
+the same flexible control of the physical infrastructure as the virtual
+infrastructure.  It also means that Open vSwitch will be able to take
+advantage of on-NIC switching chipsets as their functionality matures.</p>
+</div></blockquote>
+<p>Q: What virtualization platforms can use Open vSwitch?</p>
+<blockquote>
+<div>A: Open vSwitch can currently run on any Linux-based virtualization
+platform (kernel 3.10 and newer), including: KVM, VirtualBox, Xen, Xen
+Cloud Platform, XenServer. As of Linux 3.3 it is part of the mainline
+kernel.  The bulk of the code is written in platform- independent C and is
+easily ported to other environments.  We welcome inquires about integrating
+Open vSwitch with other virtualization platforms.</div></blockquote>
+<p>Q: How can I try Open vSwitch?</p>
+<blockquote>
+<div><p>A: The Open vSwitch source code can be built on a Linux system.  You can
+build and experiment with Open vSwitch on any Linux machine.  Packages for
+various Linux distributions are available on many platforms, including:
+Debian, Ubuntu, Fedora.</p>
+<p>You may also download and run a virtualization platform that already has
+Open vSwitch integrated.  For example, download a recent ISO for XenServer
+or Xen Cloud Platform.  Be aware that the version integrated with a
+particular platform may not be the most recent Open vSwitch release.</p>
+</div></blockquote>
+<p>Q: Does Open vSwitch only work on Linux?</p>
+<blockquote>
+<div><p>A: No, Open vSwitch has been ported to a number of different operating
+systems and hardware platforms.  Most of the development work occurs on
+Linux, but the code should be portable to any POSIX system.  We&#8217;ve seen
+Open vSwitch ported to a number of different platforms, including FreeBSD,
+Windows, and even non-POSIX embedded systems.</p>
+<p>By definition, the Open vSwitch Linux kernel module only works on Linux and
+will provide the highest performance.  However, a userspace datapath is
+available that should be very portable.</p>
+</div></blockquote>
+<p>Q: What&#8217;s involved with porting Open vSwitch to a new platform or switching ASIC?</p>
+<blockquote>
+<div>A: <a class="reference internal" href="../topics/porting.html"><em>Porting Open vSwitch to New Software or Hardware</em></a> describes how one would go about porting Open
+vSwitch to a new operating system or hardware platform.</div></blockquote>
+<p>Q: Why would I use Open vSwitch instead of the Linux bridge?</p>
+<blockquote>
+<div>A: Open vSwitch is specially designed to make it easier to manage VM
+network configuration and monitor state spread across many physical hosts
+in dynamic virtualized environments.  Refer to <a class="reference internal" href="../intro/why-ovs.html"><em>Why Open vSwitch?</em></a> for a
+more detailed description of how Open vSwitch relates to the Linux Bridge.</div></blockquote>
+<p>Q: How is Open vSwitch related to distributed virtual switches like the VMware
+vNetwork distributed switch or the Cisco Nexus 1000V?</p>
+<blockquote>
+<div><p>A: Distributed vswitch applications (e.g., VMware vNetwork distributed
+switch, Cisco Nexus 1000V) provide a centralized way to configure and
+monitor the network state of VMs that are spread across many physical
+hosts.  Open vSwitch is not a distributed vswitch itself, rather it runs on
+each physical host and supports remote management in a way that makes it
+easier for developers of virtualization/cloud management platforms to offer
+distributed vswitch capabilities.</p>
+<p>To aid in distribution, Open vSwitch provides two open protocols that are
+specially designed for remote management in virtualized network
+environments: OpenFlow, which exposes flow-based forwarding state, and the
+OVSDB management protocol, which exposes switch port state.  In addition to
+the switch implementation itself, Open vSwitch includes tools (ovs-ofctl,
+ovs-vsctl) that developers can script and extend to provide distributed
+vswitch capabilities that are closely integrated with their virtualization
+management platform.</p>
+</div></blockquote>
+<p>Q: Why doesn&#8217;t Open vSwitch support distribution?</p>
+<blockquote>
+<div>A: Open vSwitch is intended to be a useful component for building flexible
+network infrastructure. There are many different approaches to distribution
+which balance trade-offs between simplicity, scalability, hardware
+compatibility, convergence times, logical forwarding model, etc. The goal
+of Open vSwitch is to be able to support all as a primitive building block
+rather than choose a particular point in the distributed design space.</div></blockquote>
+<p>Q: How can I contribute to the Open vSwitch Community?</p>
+<blockquote>
+<div>A: You can start by joining the mailing lists and helping to answer
+questions.  You can also suggest improvements to documentation.  If you
+have a feature or bug you would like to work on, send a mail to one of the
+<a class="reference internal" href="../internals/mailing-lists.html"><em>mailing lists</em></a>.</div></blockquote>
+<p>Q: Why can I no longer connect to my OpenFlow controller or OVSDB manager?</p>
+<blockquote>
+<div>A: Starting in OVS 2.4, we switched the default ports to the IANA-specified
+port numbers for OpenFlow (6633-&gt;6653) and OVSDB (6632-&gt;6640).  We
+recommend using these port numbers, but if you cannot, all the programs
+allow overriding the default port.  See the appropriate man page.</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="design.html"
+                        title="previous chapter">Implementation Details</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="issues.html"
+                        title="next chapter">Common Configuration Issues</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/faq/general.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="issues.html" title="Common Configuration Issues"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="design.html" title="Implementation Details"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Open vSwitch FAQ</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

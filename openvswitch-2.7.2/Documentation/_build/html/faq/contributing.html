@@ -1,0 +1,162 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Development &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="Open vSwitch FAQ" href="index.html" />
+    <link rel="next" title="Implementation Details" href="design.html" />
+    <link rel="prev" title="Basic Configuration" href="configuration.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="design.html" title="Implementation Details"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Basic Configuration"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Open vSwitch FAQ</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
+<p>Q: How do I implement a new OpenFlow message?</p>
+<blockquote>
+<div><p>A: Add your new message to <tt class="docutils literal"><span class="pre">enum</span> <span class="pre">ofpraw</span></tt> and <tt class="docutils literal"><span class="pre">enum</span> <span class="pre">ofptype</span></tt> in
+<tt class="docutils literal"><span class="pre">lib/ofp-msgs.h</span></tt>, following the existing pattern.  Then recompile and fix
+all of the new warnings, implementing new functionality for the new message
+as needed.  (If you configure with <tt class="docutils literal"><span class="pre">--enable-Werror</span></tt>, as described in
+<a class="reference internal" href="../intro/install/general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a>, then it is impossible to miss any warnings.)</p>
+<p>If you need to add an OpenFlow vendor extension message for a vendor that
+doesn&#8217;t yet have any extension messages, then you will also need to edit
+<tt class="docutils literal"><span class="pre">build-aux/extract-ofp-msgs</span></tt>.</p>
+</div></blockquote>
+<p>Q: How do I add support for a new field or header?</p>
+<blockquote>
+<div><p>A: Add new members for your field to <tt class="docutils literal"><span class="pre">struct</span> <span class="pre">flow</span></tt> in <tt class="docutils literal"><span class="pre">lib/flow.h</span></tt>, and
+add new enumerations for your new field to <tt class="docutils literal"><span class="pre">enum</span> <span class="pre">mf_field_id</span></tt> in
+<tt class="docutils literal"><span class="pre">lib/meta-flow.h</span></tt>, following the existing pattern.  Also, add support to
+<tt class="docutils literal"><span class="pre">miniflow_extract()</span></tt> in <tt class="docutils literal"><span class="pre">lib/flow.c</span></tt> for extracting your new field from
+a packet into struct miniflow, and to <tt class="docutils literal"><span class="pre">nx_put_raw()</span></tt> in
+<tt class="docutils literal"><span class="pre">lib/nx-match.c</span></tt> to output your new field in OXM matches.  Then recompile
+and fix all of the new warnings, implementing new functionality for the new
+field or header as needed.  (If you configure with <tt class="docutils literal"><span class="pre">--enable-Werror</span></tt>, as
+described in <a class="reference internal" href="../intro/install/general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a>, then it is impossible to miss
+any warnings.)</p>
+<p>If you want kernel datapath support for your new field, you also need to
+modify the kernel module for the operating systems you are interested in.
+This isn&#8217;t mandatory, since fields understood only by userspace work too
+(with a performance penalty), so it&#8217;s reasonable to start development
+without it.  If you implement kernel module support for Linux, then the
+Linux kernel &#8220;netdev&#8221; mailing list is the place to submit that support
+first; please read up on the Linux kernel development process separately.
+The Windows datapath kernel module support, on the other hand, is
+maintained within the OVS tree, so patches for that can go directly to
+ovs-dev.</p>
+</div></blockquote>
+<p>Q: How do I add support for a new OpenFlow action?</p>
+<blockquote>
+<div><p>A: Add your new action to <tt class="docutils literal"><span class="pre">enum</span> <span class="pre">ofp_raw_action_type</span></tt> in
+<tt class="docutils literal"><span class="pre">lib/ofp-actions.c</span></tt>, following the existing pattern.  Then recompile and
+fix all of the new warnings, implementing new functionality for the new
+action as needed.  (If you configure with <tt class="docutils literal"><span class="pre">--enable-Werror</span></tt>, as described
+in the <a class="reference internal" href="../intro/install/general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a>, then it is impossible to miss any
+warnings.)</p>
+<p>If you need to add an OpenFlow vendor extension action for a vendor that
+doesn&#8217;t yet have any extension actions, then you will also need to edit
+<tt class="docutils literal"><span class="pre">build-aux/extract-ofp-actions</span></tt>.</p>
+</div></blockquote>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="configuration.html"
+                        title="previous chapter">Basic Configuration</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="design.html"
+                        title="next chapter">Implementation Details</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/faq/contributing.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="design.html" title="Implementation Details"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="configuration.html" title="Basic Configuration"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Open vSwitch FAQ</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

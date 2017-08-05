@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>How-to Guides &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="next" title="Open vSwitch with KVM" href="kvm.html" />
+    <link rel="prev" title="OVN Gateway High Availability Plan" href="../topics/high-availability.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="kvm.html" title="Open vSwitch with KVM"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../topics/high-availability.html" title="OVN Gateway High Availability Plan"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="how-to-guides">
+<h1>How-to Guides<a class="headerlink" href="#how-to-guides" title="Permalink to this headline">¶</a></h1>
+<p>Answers to common &#8220;How do I?&#8221;-style questions. For more information on the
+topics covered herein, refer to <a class="reference internal" href="../topics/index.html"><em>Open vSwitch Deep Dive</em></a>.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="kvm.html">Open vSwitch with KVM</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kvm.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kvm.html#bug-reporting">Bug Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="selinux.html">Open vSwitch with SELinux</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="selinux.html#limitations">Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selinux.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selinux.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selinux.html#contributing-selinux-policy-patches">Contributing SELinux policy patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="selinux.html#reporting-bugs">Reporting Bugs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="libvirt.html">Open vSwitch with Libvirt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="libvirt.html#limitations">Limitations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libvirt.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libvirt.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libvirt.html#bug-reporting">Bug Reporting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ssl.html">Open vSwitch with SSL</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ssl.html#ssl-concepts-for-openflow">SSL Concepts for OpenFlow</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssl.html#establishing-a-public-key-infrastructure">Establishing a Public Key Infrastructure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssl.html#configuring-ssl-support">Configuring SSL Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ssl.html#reporting-bugs">Reporting Bugs</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="lisp.html">Using LISP tunneling</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tunneling.html">Connecting VMs Using Tunnels</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html#configuration-steps">Configuration Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tunneling.html#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="userspace-tunneling.html">Connecting VMs Using Tunnels (Userspace)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="userspace-tunneling.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userspace-tunneling.html#configuration-steps">Configuration Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userspace-tunneling.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userspace-tunneling.html#tunneling-related-commands">Tunneling-related Commands</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vlan.html">Isolating VM Traffic Using VLANs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vlan.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vlan.html#configuration-steps">Configuration Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vlan.html#validation">Validation</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="qos.html">Quality of Service (QoS) Rate Limiting</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qos.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qos.html#configuration-steps">Configuration Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qos.html#testing">Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qos.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qos.html#additional-information">Additional Information</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="vtep.html">How to Use the VTEP Emulator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="vtep.html#requirements">Requirements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vtep.html#design">Design</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vtep.html#startup">Startup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="vtep.html#simulating-an-nvc">Simulating an NVC</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="sflow.html">Monitoring VM Trafic Using sFlow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="sflow.html#setup">Setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sflow.html#configuration-steps">Configuration Steps</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sflow.html#troubleshooting">Troubleshooting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="sflow.html#credit">Credit</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="dpdk.html">Using Open vSwitch with DPDK</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#ports-and-bridges">Ports and Bridges</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#pmd-thread-statistics">PMD Thread Statistics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#port-rxq-assigment-to-pmd-threads">Port/RXQ Assigment to PMD Threads</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#qos">QoS</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#rate-limiting">Rate Limiting</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#flow-control">Flow Control</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#pdump">pdump</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#jumbo-frames">Jumbo Frames</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#rx-checksum-offload">Rx Checksum Offload</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#port-hotplug">Port Hotplug</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#vdev-support">Vdev Support</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#ovs-with-dpdk-inside-vms">OVS with DPDK Inside VMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#phy-phy">PHY-PHY</a></li>
+<li class="toctree-l2"><a class="reference internal" href="dpdk.html#phy-vm-phy-vhost-loopback">PHY-VM-PHY (vHost Loopback)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Open Virtual Networking With Docker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="openstack-containers.html">Integration of Containers with OVN and OpenStack</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../topics/high-availability.html"
+                        title="previous chapter">OVN Gateway High Availability Plan</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="kvm.html"
+                        title="next chapter">Open vSwitch with KVM</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/howto/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="kvm.html" title="Open vSwitch with KVM"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../topics/high-availability.html" title="OVN Gateway High Availability Plan"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

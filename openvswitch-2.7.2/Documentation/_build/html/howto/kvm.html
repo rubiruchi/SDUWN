@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Open vSwitch with KVM &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="How-to Guides" href="index.html" />
+    <link rel="next" title="Open vSwitch with SELinux" href="selinux.html" />
+    <link rel="prev" title="How-to Guides" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="selinux.html" title="Open vSwitch with SELinux"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="How-to Guides"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">How-to Guides</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="open-vswitch-with-kvm">
+<h1>Open vSwitch with KVM<a class="headerlink" href="#open-vswitch-with-kvm" title="Permalink to this headline">¶</a></h1>
+<p>This document describes how to use Open vSwitch with the Kernel-based Virtual
+Machine (KVM).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This document assumes that you have Open vSwitch set up on a Linux system.</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>KVM uses tunctl to handle various bridging modes, which you can install with
+the Debian/Ubuntu package <tt class="docutils literal"><span class="pre">uml-utilities</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ apt-get install uml-utilities
+</pre></div>
+</div>
+<p>Next, you will need to modify or create custom versions of the <tt class="docutils literal"><span class="pre">qemu-ifup</span></tt>
+and <tt class="docutils literal"><span class="pre">qemu-ifdown</span></tt> scripts. In this guide, we&#8217;ll create custom versions that
+make use of example Open vSwitch bridges that we&#8217;ll describe in this guide.</p>
+<p>Create the following two files and store them in known locations. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cat &lt;&lt; &#39;EOF&#39; &gt; /etc/ovs-ifup
+#!/bin/sh
+
+switch=&#39;br0&#39;
+/sbin/ifconfig $1 0.0.0.0 up
+ovs-vsctl add-port ${switch} $1
+EOF
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>$ cat &lt;&lt; &#39;EOF&#39; &gt; /etc/ovs-ifdown
+#!/bin/sh
+
+switch=&#39;br0&#39;
+/sbin/ifconfig $1 0.0.0.0 down
+ovs-vsctl del-port ${switch} $1
+EOF
+</pre></div>
+</div>
+<p>The basic usage of Open vSwitch is described at the end of
+<a class="reference internal" href="../intro/install/general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a>. If you haven&#8217;t already, create a bridge named
+<tt class="docutils literal"><span class="pre">br0</span></tt> with the following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl add-br br0
+</pre></div>
+</div>
+<p>Then, add a port to the bridge for the NIC that you want your guests to
+communicate over (e.g. <tt class="docutils literal"><span class="pre">eth0</span></tt>):</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl add-port br0 eth0
+</pre></div>
+</div>
+<p>Refer to ovs-vsctl(8) for more details.</p>
+<p>Next, we&#8217;ll start a guest that will use our ifup and ifdown scripts:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ kvm -m 512 -net nic,macaddr=00:11:22:EE:EE:EE -net \
+    tap,script=/etc/ovs-ifup,downscript=/etc/ovs-ifdown -drive \
+    file=/path/to/disk-image,boot=on
+</pre></div>
+</div>
+<p>This will start the guest and associate a tap device with it. The <tt class="docutils literal"><span class="pre">ovs-ifup</span></tt>
+script will add a port on the br0 bridge so that the guest will be able to
+communicate over that bridge.</p>
+<p>To get some more information and for debugging you can use Open vSwitch
+utilities such as ovs-dpctl and ovs-ofctl, For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-dpctl show
+$ ovs-ofctl show br0
+</pre></div>
+</div>
+<p>You should see tap devices for each KVM guest added as ports to the bridge
+(e.g. tap0)</p>
+<p>Refer to ovs-dpctl(8) and ovs-ofctl(8) for more details.</p>
+</div>
+<div class="section" id="bug-reporting">
+<h2>Bug Reporting<a class="headerlink" href="#bug-reporting" title="Permalink to this headline">¶</a></h2>
+<p>Please report problems to <a class="reference external" href="mailto:bugs&#37;&#52;&#48;openvswitch&#46;org">bugs<span>&#64;</span>openvswitch<span>&#46;</span>org</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Open vSwitch with KVM</a><ul>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#bug-reporting">Bug Reporting</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">How-to Guides</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="selinux.html"
+                        title="next chapter">Open vSwitch with SELinux</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/howto/kvm.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="selinux.html" title="Open vSwitch with SELinux"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="How-to Guides"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >How-to Guides</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

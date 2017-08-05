@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Distributions packaging Open vSwitch &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Installing Open vSwitch" href="index.html" />
+    <link rel="next" title="Debian Packaging for Open vSwitch" href="debian.html" />
+    <link rel="prev" title="Open vSwitch with DPDK" href="dpdk.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="debian.html" title="Debian Packaging for Open vSwitch"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="dpdk.html" title="Open vSwitch with DPDK"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Installing Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="distributions-packaging-open-vswitch">
+<h1>Distributions packaging Open vSwitch<a class="headerlink" href="#distributions-packaging-open-vswitch" title="Permalink to this headline">¶</a></h1>
+<p>This document lists various popular distributions packaging Open vSwitch.
+Open vSwitch is packaged by various distributions for multiple platforms and
+architectures.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The packaged version available with distributions may not be latest
+Open vSwitch release.</p>
+</div>
+<div class="section" id="debian">
+<h2>Debian<a class="headerlink" href="#debian" title="Permalink to this headline">¶</a></h2>
+<p>You can use <tt class="docutils literal"><span class="pre">apt-get</span></tt> or <tt class="docutils literal"><span class="pre">aptitude</span></tt> to install the .deb packages and must
+be superuser.</p>
+<p>1. Debian has <tt class="docutils literal"><span class="pre">openvswitch-switch</span></tt> and <tt class="docutils literal"><span class="pre">openvswitch-common</span></tt> .deb packages
+that includes the core userspace components of the switch.</p>
+<p>2. For kernel datapath, <tt class="docutils literal"><span class="pre">openvswitch-datapath-dkms</span></tt> can be installed to
+automatically build and install Open vSwitch kernel module for your running
+kernel.</p>
+<p>3. For DPDK datapath, Open vSwitch with DPDK support is bundled in the package
+<tt class="docutils literal"><span class="pre">openvswitch-switch-dpdk</span></tt>.</p>
+</div>
+<div class="section" id="fedora">
+<h2>Fedora<a class="headerlink" href="#fedora" title="Permalink to this headline">¶</a></h2>
+<p>Fedora provides <tt class="docutils literal"><span class="pre">openvswitch</span></tt>, <tt class="docutils literal"><span class="pre">openvswitch-devel</span></tt>, <tt class="docutils literal"><span class="pre">openvswitch-test</span></tt>
+and <tt class="docutils literal"><span class="pre">openvswitch-debuginfo</span></tt> rpm packages. You can install <tt class="docutils literal"><span class="pre">openvswitch</span></tt>
+package in minimum installation. Use <tt class="docutils literal"><span class="pre">yum</span></tt> or <tt class="docutils literal"><span class="pre">dnf</span></tt> to install the rpm
+packages and must be superuser.</p>
+</div>
+<div class="section" id="red-hat">
+<h2>Red Hat<a class="headerlink" href="#red-hat" title="Permalink to this headline">¶</a></h2>
+<p>RHEL distributes <tt class="docutils literal"><span class="pre">openvswitch</span></tt> rpm package that supports kernel datapath.
+DPDK accelerated Open vSwitch can be installed using <tt class="docutils literal"><span class="pre">openvswitch-dpdk</span></tt>
+package.</p>
+</div>
+<div class="section" id="opensuse">
+<h2>OpenSuSE<a class="headerlink" href="#opensuse" title="Permalink to this headline">¶</a></h2>
+<p>OpenSUSE provides <tt class="docutils literal"><span class="pre">openvswitch</span></tt>, <tt class="docutils literal"><span class="pre">openvswitch-switch</span></tt> rpm packages. Also
+<tt class="docutils literal"><span class="pre">openvswitch-dpdk</span></tt> and <tt class="docutils literal"><span class="pre">openvswitch-dpdk-switch</span></tt> can be installed for
+Open vSwitch using DPDK accelerated datapath.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../contents.html">
+              <img class="logo" src="../../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Distributions packaging Open vSwitch</a><ul>
+<li><a class="reference internal" href="#debian">Debian</a></li>
+<li><a class="reference internal" href="#fedora">Fedora</a></li>
+<li><a class="reference internal" href="#red-hat">Red Hat</a></li>
+<li><a class="reference internal" href="#opensuse">OpenSuSE</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dpdk.html"
+                        title="previous chapter">Open vSwitch with DPDK</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="debian.html"
+                        title="next chapter">Debian Packaging for Open vSwitch</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/intro/install/distributions.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="debian.html" title="Debian Packaging for Open vSwitch"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="dpdk.html" title="Open vSwitch with DPDK"
+             >previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="index.html" >Installing Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

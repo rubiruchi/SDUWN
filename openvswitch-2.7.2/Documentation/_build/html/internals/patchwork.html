@@ -1,0 +1,147 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Patchwork &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="Open vSwitch Internals" href="index.html" />
+    <link rel="next" title="Open vSwitch Release Process" href="release-process.html" />
+    <link rel="prev" title="Mailing Lists" href="mailing-lists.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="release-process.html" title="Open vSwitch Release Process"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="mailing-lists.html" title="Mailing Lists"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Open vSwitch Internals</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="patchwork">
+<h1>Patchwork<a class="headerlink" href="#patchwork" title="Permalink to this headline">¶</a></h1>
+<p>Open vSwitch uses <a class="reference external" href="https://github.com/getpatchwork/patchwork">Patchwork</a> to track the status of patches sent to the
+<a class="reference internal" href="mailing-lists.html"><em>ovs-dev mailing list</em></a>. The Open vSwitch Patchwork
+instance can be found on <a class="reference external" href="https://patchwork.ozlabs.org/project/openvswitch/list/">ozlabs.org</a>. The <tt class="docutils literal"><span class="pre">pwclientrc</span></tt> file, required for
+<em>pwclient</em>, can be found on the <a class="reference external" href="https://patchwork.ozlabs.org/project/openvswitch/">project page</a></p>
+<p>Patchwork provides a number of useful features for developers working on Open
+vSwitch:</p>
+<ul class="simple">
+<li>Tracking the lifecycle of patches (accepted, rejected, under-review, ...)</li>
+<li>Assigning reviewers (delegates) to patches</li>
+<li>Downloading/applying patches via the web UI or the XML-RPC API (see
+<a class="reference internal" href="#pwclient"><em>pwclient</em></a>)</li>
+<li>A usable UI for viewing patch discussions</li>
+</ul>
+<div class="section" id="pwclient">
+<span id="id4"></span><h2>pwclient<a class="headerlink" href="#pwclient" title="Permalink to this headline">¶</a></h2>
+<p>The <em>pwclient</em> tool provides an way to download and apply patches, change the
+state of patches in Patchwork, and more. You can download <em>pwclient</em> from
+<a class="reference external" href="https://patchwork.ozlabs.org/pwclient/">here</a>. Once downloaded, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ pwclient help
+</pre></div>
+</div>
+<p>to get more information about the functionality pwclient provides.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Patchwork</a><ul>
+<li><a class="reference internal" href="#pwclient">pwclient</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mailing-lists.html"
+                        title="previous chapter">Mailing Lists</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="release-process.html"
+                        title="next chapter">Open vSwitch Release Process</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/internals/patchwork.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="release-process.html" title="Open vSwitch Release Process"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="mailing-lists.html" title="Mailing Lists"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Open vSwitch Internals</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

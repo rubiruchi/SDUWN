@@ -1,0 +1,500 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Submitting Patches &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Contributing to Open vSwitch" href="index.html" />
+    <link rel="next" title="Open vSwitch Coding Style" href="coding-style.html" />
+    <link rel="prev" title="Contributing to Open vSwitch" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="coding-style.html" title="Open vSwitch Coding Style"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Contributing to Open vSwitch"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Open vSwitch Internals</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Contributing to Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="submitting-patches">
+<h1>Submitting Patches<a class="headerlink" href="#submitting-patches" title="Permalink to this headline">¶</a></h1>
+<p>Send changes to Open vSwitch as patches to <a class="reference external" href="mailto:dev&#37;&#52;&#48;openvswitch&#46;org">dev<span>&#64;</span>openvswitch<span>&#46;</span>org</a>.  One patch per
+email.  More details are included below.</p>
+<p>If you are using Git, then <cite>git format-patch</cite> takes care of most of the
+mechanics described below for you.</p>
+<div class="section" id="before-you-start">
+<h2>Before You Start<a class="headerlink" href="#before-you-start" title="Permalink to this headline">¶</a></h2>
+<p>Before you send patches at all, make sure that each patch makes sense.  In
+particular:</p>
+<ul class="simple">
+<li>A given patch should not break anything, even if later patches fix the
+problems that it causes.  The source tree should still build and work after
+each patch is applied.  (This enables <cite>git bisect</cite> to work best.)</li>
+<li>A patch should make one logical change.  Don&#8217;t make multiple, logically
+unconnected changes to disparate subsystems in a single patch.</li>
+<li>A patch that adds or removes user-visible features should also update the
+appropriate user documentation or manpages.  Check &#8220;Feature Deprecation
+Guidelines&#8221; section in this document if you intend to remove user-visible
+feature.</li>
+</ul>
+<p>Testing is also important:</p>
+<ul class="simple">
+<li>A patch that modifies existing code should be tested with <tt class="docutils literal"><span class="pre">make</span>
+<span class="pre">check</span></tt> before submission.  Refer to the <cite>install guide</cite>, under &#8220;Self-Tests&#8221;,
+for more information.</li>
+<li>A patch that adds or deletes files should also be tested with <tt class="docutils literal"><span class="pre">make</span>
+<span class="pre">distcheck</span></tt> before submission.</li>
+<li>A patch that modifies Linux kernel code should be at least build-tested on
+various Linux kernel versions before submission.  I suggest versions 3.10 and
+whatever the current latest release version is at the time.</li>
+<li>A patch that modifies the ofproto or vswitchd code should be tested in at
+least simple cases before submission.</li>
+<li>A patch that modifies xenserver code should be tested on XenServer before
+submission.</li>
+</ul>
+<p>If you are using GitHub, then you may utilize the travis-ci.org CI build system
+by linking your GitHub repository to it. This will run some of the above tests
+automatically when you push changes to your repository.  See the &#8220;Continuous
+Integration with Travis-CI&#8221; in the <cite>install guide</cite> for details on how to set it
+up.</p>
+</div>
+<div class="section" id="email-subject">
+<h2>Email Subject<a class="headerlink" href="#email-subject" title="Permalink to this headline">¶</a></h2>
+<p>The subject line of your email should be in the following format:</p>
+<blockquote>
+<div>[PATCH &lt;n&gt;/&lt;m&gt;] &lt;area&gt;: &lt;summary&gt;</div></blockquote>
+<p>Where:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">[PATCH</span> <span class="pre">&lt;n&gt;/&lt;m&gt;]</span></tt>:</dt>
+<dd>indicates that this is the nth of a series of m patches.  It helps reviewers
+to read patches in the correct order.  You may omit this prefix if you are
+sending only one patch.</dd>
+<dt><tt class="docutils literal"><span class="pre">&lt;area&gt;</span></tt>:</dt>
+<dd>indicates the area of the Open vSwitch to which the change applies (often the
+name of a source file or a directory).  You may omit it if the change crosses
+multiple distinct pieces of code.</dd>
+</dl>
+<p><tt class="docutils literal"><span class="pre">&lt;summary&gt;</span></tt>:</p>
+<blockquote>
+<div>briefly describes the change.  Use the the imperative form,
+e.g. &#8220;Force SNAT for multiple gateway routers.&#8221; or &#8220;Fix daemon exit
+for bad datapaths or flows.&#8221;  Try to keep the summary short, about
+50 characters wide.</div></blockquote>
+<p>The subject, minus the <tt class="docutils literal"><span class="pre">[PATCH</span> <span class="pre">&lt;n&gt;/&lt;m&gt;]</span></tt> prefix, becomes the first line of
+the commit&#8217;s change log message.</p>
+</div>
+<div class="section" id="description">
+<h2>Description<a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>The body of the email should start with a more thorough description of the
+change.  This becomes the body of the commit message, following the subject.
+There is no need to duplicate the summary given in the subject.</p>
+<p>Please limit lines in the description to 75 characters in width.  That
+allows the description to format properly even when indented (e.g. by
+&#8220;git log&#8221; or in email quotations).</p>
+<p>The description should include:</p>
+<ul class="simple">
+<li>The rationale for the change.</li>
+<li>Design description and rationale (but this might be better added as code
+comments).</li>
+<li>Testing that you performed (or testing that should be done but you could not
+for whatever reason).</li>
+<li>Tags (see below).</li>
+</ul>
+<p>There is no need to describe what the patch actually changed, if the reader can
+see it for himself.</p>
+<p>If the patch refers to a commit already in the Open vSwitch repository, please
+include both the commit number and the subject of the patch, e.g. &#8216;commit
+632d136c (vswitch: Remove restriction on datapath names.)&#8217;.</p>
+<p>If you, the person sending the patch, did not write the patch yourself, then
+the very first line of the body should take the form <tt class="docutils literal"><span class="pre">From:</span> <span class="pre">&lt;author</span> <span class="pre">name&gt;</span>
+<span class="pre">&lt;author</span> <span class="pre">email&gt;</span></tt>, followed by a blank line.  This will automatically cause the
+named author to be credited with authorship in the repository.</p>
+</div>
+<div class="section" id="tags">
+<h2>Tags<a class="headerlink" href="#tags" title="Permalink to this headline">¶</a></h2>
+<p>The description ends with a series of tags, written one to a line as the last
+paragraph of the email.  Each tag indicates some property of the patch in an
+easily machine-parseable manner.</p>
+<p>Examples of common tags follow.</p>
+<p><tt class="docutils literal"><span class="pre">Signed-off-by:</span> <span class="pre">Author</span> <span class="pre">Name</span> <span class="pre">&lt;author.name&#64;email.address...&gt;</span></tt></p>
+<blockquote>
+<div><p>Informally, this indicates that Author Name is the author or submitter of a
+patch and has the authority to submit it under the terms of the license.  The
+formal meaning is to agree to the Developer&#8217;s Certificate of Origin (see
+below).</p>
+<p>If the author and submitter are different, each must sign off.  If the patch
+has more than one author, all must sign off.</p>
+<div class="highlight-python"><div class="highlight"><pre>Signed-off-by: Author Name &lt;author.name@email.address...&gt;
+Signed-off-by: Submitter Name &lt;submitter.name@email.address...&gt;
+</pre></div>
+</div>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Co-authored-by:</span> <span class="pre">Author</span> <span class="pre">Name</span> <span class="pre">&lt;author.name&#64;email.address...&gt;</span></tt></p>
+<blockquote>
+<div>Git can only record a single person as the author of a given patch.  In the
+rare event that a patch has multiple authors, one must be given the credit in
+Git and the others must be credited via Co-authored-by: tags.  (All
+co-authors must also sign off.)</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Acked-by:</span> <span class="pre">Reviewer</span> <span class="pre">Name</span> <span class="pre">&lt;reviewer.name&#64;email.address...&gt;</span></tt></p>
+<blockquote>
+<div><p>Reviewers will often give an <tt class="docutils literal"><span class="pre">Acked-by:</span></tt> tag to code of which they approve.
+It is polite for the submitter to add the tag before posting the next version
+of the patch or applying the patch to the repository.  Quality reviewing is
+hard work, so this gives a small amount of credit to the reviewer.</p>
+<p>Not all reviewers give <tt class="docutils literal"><span class="pre">Acked-by:</span></tt> tags when they provide positive reviews.
+It&#8217;s customary only to add tags from reviewers who actually provide them
+explicitly.</p>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Tested-by:</span> <span class="pre">Tester</span> <span class="pre">Name</span> <span class="pre">&lt;reviewer.name&#64;email.address...&gt;</span></tt></p>
+<blockquote>
+<div>When someone tests a patch, it is customary to add a Tested-by: tag
+indicating that.  It&#8217;s rare for a tester to actually provide the tag; usually
+the patch submitter makes the tag himself in response to an email indicating
+successful testing results.</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Tested-at:</span> <span class="pre">&lt;URL&gt;</span></tt></p>
+<blockquote>
+<div><p>When a test report is publicly available, this provides a way to reference
+it.  Typical &lt;URL&gt;s would be build logs from autobuilders or references to
+mailing list archives.</p>
+<p>Some autobuilders only retain their logs for a limited amount of time.  It is
+less useful to cite these because they may be dead links for a developer
+reading the commit message months or years later.</p>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Reported-by:</span> <span class="pre">Reporter</span> <span class="pre">Name</span> <span class="pre">&lt;reporter.name&#64;email.address...&gt;</span></tt></p>
+<blockquote>
+<div><p>When a patch fixes a bug reported by some person, please credit the reporter
+in the commit log in this fashion.  Please also add the reporter&#8217;s name and
+email address to the list of people who provided helpful bug reports in the
+AUTHORS file at the top of the source tree.</p>
+<p>Fairly often, the reporter of a bug also tests the fix.  Occasionally one
+sees a combined &#8220;Reported-and-tested-by:&#8221; tag used to indicate this.  It is
+also acceptable, and more common, to include both tags separately.</p>
+<p>(If a bug report is received privately, it might not always be appropriate to
+publicly credit the reporter.  If in doubt, please ask the reporter.)</p>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Requested-by:</span> <span class="pre">Requester</span> <span class="pre">Name</span> <span class="pre">&lt;requester.name&#64;email.address...&gt;</span></tt></p>
+<blockquote>
+<div><p>When a patch implements a request or a suggestion made by some
+person, please credit that person in the commit log in this
+fashion.  For a helpful suggestion, please also add the
+person&#8217;s name and email address to the list of people who
+provided suggestions in the AUTHORS file at the top of the
+source tree.</p>
+<p>(If a suggestion or a request is received privately, it might
+not always be appropriate to publicly give credit.  If in
+doubt, please ask.)</p>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Suggested-by:</span> <span class="pre">Suggester</span> <span class="pre">Name</span> <span class="pre">&lt;suggester.name&#64;email.address...&gt;</span></tt></p>
+<blockquote>
+<div>See <tt class="docutils literal"><span class="pre">Requested-by:</span></tt>.</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">CC:</span> <span class="pre">Person</span> <span class="pre">&lt;name&#64;email&gt;</span></tt></p>
+<blockquote>
+<div>This is a way to tag a patch for the attention of a person
+when no more specific tag is appropriate.  One use is to
+request a review from a particular person.  It doesn&#8217;t make
+sense to include the same person in CC and another tag, so
+e.g. if someone who is CCed later provides an Acked-by, add
+the Acked-by and remove the CC at the same time.</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Reported-at:</span> <span class="pre">&lt;URL&gt;</span></tt></p>
+<blockquote>
+<div><p>If a patch fixes or is otherwise related to a bug reported in
+a public bug tracker, please include a reference to the bug in
+the form of a URL to the specific bug, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>Reported-at: https://bugs.debian.org/743635
+</pre></div>
+</div>
+<p>This is also an appropriate way to refer to bug report emails
+in public email archives, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>Reported-at: http://openvswitch.org/pipermail/dev/2014-June/040952.html
+</pre></div>
+</div>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Submitted-at:</span> <span class="pre">&lt;URL&gt;</span></tt></p>
+<blockquote>
+<div><p>If a patch was submitted somewhere other than the Open vSwitch
+development mailing list, such as a GitHub pull request, this header can
+be used to reference the source.</p>
+<div class="highlight-python"><div class="highlight"><pre>Submitted-at: https://github.com/openvswitch/ovs/pull/92
+</pre></div>
+</div>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">VMware-BZ:</span> <span class="pre">#1234567</span></tt></p>
+<blockquote>
+<div>If a patch fixes or is otherwise related to a bug reported in
+a private bug tracker, you may include some tracking ID for
+the bug for your own reference.  Please include some
+identifier to make the origin clear, e.g. &#8220;VMware-BZ&#8221; refers
+to VMware&#8217;s internal Bugzilla instance and &#8220;ONF-JIRA&#8221; refers
+to the Open Networking Foundation&#8217;s JIRA bug tracker.</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">ONF-JIRA:</span> <span class="pre">EXT-12345</span></tt></p>
+<blockquote>
+<div>See <tt class="docutils literal"><span class="pre">VMware-BZ:</span></tt>.</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Bug</span> <span class="pre">#1234567.</span></tt></p>
+<blockquote>
+<div>These are obsolete forms of VMware-BZ: that can still be seen
+in old change log entries.  (They are obsolete because they do
+not tell the reader what bug tracker is referred to.)</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Issue:</span> <span class="pre">1234567</span></tt></p>
+<blockquote>
+<div>See <tt class="docutils literal"><span class="pre">Bug:</span></tt>.</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Fixes:</span> <span class="pre">63bc9fb1c69f</span> <span class="pre">(“packets:</span> <span class="pre">Reorder</span> <span class="pre">CS_*</span> <span class="pre">flags</span> <span class="pre">to</span> <span class="pre">remove</span> <span class="pre">gap.”)</span></tt></p>
+<blockquote>
+<div><p>If you would like to record which commit introduced a bug being fixed,
+you may do that with a “Fixes” header.  This assists in determining
+which OVS releases have the bug, so the patch can be applied to all
+affected versions.  The easiest way to generate the header in the
+proper format is with this git command.  This command also CCs the
+author of the commit being fixed, which makes sense unless the
+author also made the fix or is already named in another tag:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ git log -1 --pretty=format:&quot;CC: %an &lt;%ae&gt;%nFixes: %h (\&quot;%s\&quot;)&quot; \
+  --abbrev=12 COMMIT_REF
+</pre></div>
+</div>
+</div></blockquote>
+<p><tt class="docutils literal"><span class="pre">Vulnerability:</span> <span class="pre">CVE-2016-2074</span></tt></p>
+<blockquote>
+<div><p>Specifies that the patch fixes or is otherwise related to a
+security vulnerability with the given CVE identifier.  Other
+identifiers in public vulnerability databases are also
+suitable.</p>
+<p>If the vulnerability was reported publicly, then it is also
+appropriate to cite the URL to the report in a Reported-at
+tag.  Use a Reported-by tag to acknowledge the reporters.</p>
+</div></blockquote>
+</div>
+<div class="section" id="developer-s-certificate-of-origin">
+<h2>Developer&#8217;s Certificate of Origin<a class="headerlink" href="#developer-s-certificate-of-origin" title="Permalink to this headline">¶</a></h2>
+<p>To help track the author of a patch as well as the submission chain, and be
+clear that the developer has authority to submit a patch for inclusion in
+openvswitch please sign off your work.  The sign off certifies the following:</p>
+<div class="highlight-python"><div class="highlight"><pre>Developer&#39;s Certificate of Origin 1.1
+
+By making a contribution to this project, I certify that:
+
+(a) The contribution was created in whole or in part by me and I
+    have the right to submit it under the open source license
+    indicated in the file; or
+
+(b) The contribution is based upon previous work that, to the best
+    of my knowledge, is covered under an appropriate open source
+    license and I have the right under that license to submit that
+    work with modifications, whether created in whole or in part
+    by me, under the same open source license (unless I am
+    permitted to submit under a different license), as indicated
+    in the file; or
+
+(c) The contribution was provided directly to me by some other
+    person who certified (a), (b) or (c) and I have not modified
+    it.
+
+(d) I understand and agree that this project and the contribution
+    are public and that a record of the contribution (including all
+    personal information I submit with it, including my sign-off) is
+    maintained indefinitely and may be redistributed consistent with
+    this project or the open source license(s) involved.
+</pre></div>
+</div>
+<p>See also <a class="reference external" href="http://developercertificate.org/">http://developercertificate.org/</a>.</p>
+</div>
+<div class="section" id="feature-deprecation-guidelines">
+<h2>Feature Deprecation Guidelines<a class="headerlink" href="#feature-deprecation-guidelines" title="Permalink to this headline">¶</a></h2>
+<p>Open vSwitch is intended to be user friendly.  This means that under normal
+circumstances we don&#8217;t abruptly remove features from OVS that some users might
+still be using.  Otherwise, if we would, then we would possibly break our user
+setup when they upgrade and would receive bug reports.</p>
+<p>Typical process to deprecate a feature in Open vSwitch is to:</p>
+<ol class="loweralpha simple">
+<li>Mention deprecation of a feature in the NEWS file.  Also, mention expected
+release or absolute time when this feature would be removed from OVS
+altogether.  Don&#8217;t use relative time (e.g. &#8220;in 6 months&#8221;) because that is
+not clearly interpretable.</li>
+<li>If Open vSwitch is configured to use deprecated feature it should print
+a warning message to the log files clearly indicating that feature is
+deprecated and that use of it should be avoided.</li>
+<li>If this feature is mentioned in man pages, then add &#8220;Deprecated&#8221; keyword
+to it.</li>
+</ol>
+<p>Also, if there is alternative feature to the one that is about to be marked as
+deprecated, then mention it in (a), (b) and (c) as well.</p>
+<p>Remember to follow-up and actually remove the feature from OVS codebase once
+deprecation grace period has expired and users had opportunity to use at least
+one OVS release that would have informed them about feature deprecation!</p>
+</div>
+<div class="section" id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+<p>If you want to include any comments in your email that should not be part of
+the commit&#8217;s change log message, put them after the description, separated by a
+line that contains just <tt class="docutils literal"><span class="pre">---</span></tt>.  It may be helpful to include a diffstat here
+for changes that touch multiple files.</p>
+</div>
+<div class="section" id="patch">
+<h2>Patch<a class="headerlink" href="#patch" title="Permalink to this headline">¶</a></h2>
+<p>The patch should be in the body of the email following the description,
+separated by a blank line.</p>
+<p>Patches should be in <tt class="docutils literal"><span class="pre">diff</span> <span class="pre">-up</span></tt> format.  We recommend that you use Git to
+produce your patches, in which case you should use the <tt class="docutils literal"><span class="pre">-M</span> <span class="pre">-C</span></tt> options to
+<tt class="docutils literal"><span class="pre">git</span> <span class="pre">diff</span></tt> (or other Git tools) if your patch renames or copies files.
+<a class="reference external" href="http://savannah.nongnu.org/projects/quilt">Quilt</a> might be useful if you do
+not want to use Git.</p>
+<p>Patches should be inline in the email message.  Some email clients corrupt
+white space or wrap lines in patches.  There are hints on how to configure many
+email clients to avoid this problem on <a class="reference external" href="https://static.lwn.net/kerneldoc/process/email-clients.html">kernel.org</a>.  If you
+cannot convince your email client not to mangle patches, then sending the patch
+as an attachment is a second choice.</p>
+<p>Follow the style used in the code that you are modifying. <a class="reference internal" href="coding-style.html"><em>Open vSwitch Coding Style</em></a>
+file describes the coding style used in most of Open vSwitch. Use Linux kernel
+coding style for Linux kernel code.</p>
+<p>If your code is non-datapath code, you may use the <tt class="docutils literal"><span class="pre">utilities/checkpatch.py</span></tt>
+utility as a quick check for certain commonly occuring mistakes (improper
+leading/trailing whitespace, missing signoffs, some improper formatted patch
+files).  For linux datapath code, it is a good idea to use the linux script
+<tt class="docutils literal"><span class="pre">checkpatch.pl</span></tt>.</p>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre>From fa29a1c2c17682879e79a21bb0cdd5bbe67fa7c0 Mon Sep 17 00:00:00 2001
+From: Jesse Gross &lt;jesse@nicira.com&gt;
+Date: Thu, 8 Dec 2011 13:17:24 -0800
+Subject: [PATCH] datapath: Alphabetize include/net/ipv6.h compat header.
+
+Signed-off-by: Jesse Gross &lt;jesse@nicira.com&gt;
+---
+ datapath/linux/Modules.mk |    2 +-
+ 1 files changed, 1 insertions(+), 1 deletions(-)
+
+diff --git a/datapath/linux/Modules.mk b/datapath/linux/Modules.mk
+index fdd952e..f6cb88e 100644
+--- a/datapath/linux/Modules.mk
++++ b/datapath/linux/Modules.mk
+@@ -56,11 +56,11 @@ openvswitch_headers += \
+    linux/compat/include/net/dst.h \
+    linux/compat/include/net/genetlink.h \
+    linux/compat/include/net/ip.h \
++   linux/compat/include/net/ipv6.h \
+    linux/compat/include/net/net_namespace.h \
+    linux/compat/include/net/netlink.h \
+    linux/compat/include/net/protocol.h \
+    linux/compat/include/net/route.h \
+-   linux/compat/include/net/ipv6.h \
+    linux/compat/genetlink.inc
+
+ both_modules += brcompat
+--
+1.7.7.3
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../contents.html">
+              <img class="logo" src="../../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Submitting Patches</a><ul>
+<li><a class="reference internal" href="#before-you-start">Before You Start</a></li>
+<li><a class="reference internal" href="#email-subject">Email Subject</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#tags">Tags</a></li>
+<li><a class="reference internal" href="#developer-s-certificate-of-origin">Developer&#8217;s Certificate of Origin</a></li>
+<li><a class="reference internal" href="#feature-deprecation-guidelines">Feature Deprecation Guidelines</a></li>
+<li><a class="reference internal" href="#comments">Comments</a></li>
+<li><a class="reference internal" href="#patch">Patch</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Contributing to Open vSwitch</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="coding-style.html"
+                        title="next chapter">Open vSwitch Coding Style</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/internals/contributing/submitting-patches.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="coding-style.html" title="Open vSwitch Coding Style"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Contributing to Open vSwitch"
+             >previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Open vSwitch Internals</a> &raquo;</li>
+          <li><a href="index.html" >Contributing to Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

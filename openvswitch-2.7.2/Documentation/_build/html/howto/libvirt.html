@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Open vSwitch with Libvirt &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="How-to Guides" href="index.html" />
+    <link rel="next" title="Open vSwitch with SSL" href="ssl.html" />
+    <link rel="prev" title="Open vSwitch with SELinux" href="selinux.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ssl.html" title="Open vSwitch with SSL"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="selinux.html" title="Open vSwitch with SELinux"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">How-to Guides</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="open-vswitch-with-libvirt">
+<h1>Open vSwitch with Libvirt<a class="headerlink" href="#open-vswitch-with-libvirt" title="Permalink to this headline">¶</a></h1>
+<p>This document describes how to use Open vSwitch with Libvirt 0.9.11 or later.
+This document assumes that you followed <a class="reference internal" href="../intro/install/general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a> or
+installed Open vSwitch from distribution packaging such as a .deb or .rpm.  The
+Open vSwitch support is included by default in Libvirt 0.9.11. Consult
+www.libvirt.org for instructions on how to build the latest Libvirt, if your
+Linux distribution by default comes with an older Libvirt release.</p>
+<div class="section" id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
+<p>Currently there is no Open vSwitch support for networks that are managed by
+libvirt (e.g. NAT). As of now, only bridged networks are supported (those where
+the user has to manually create the bridge).</p>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<p>First, create the Open vSwitch bridge by using the ovs-vsctl utility (this must
+be done with administrative privileges):</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl add-br ovsbr
+</pre></div>
+</div>
+<p>Once that is done, create a VM, if necessary, and edit its Domain XML file:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ virsh edit &lt;vm&gt;
+</pre></div>
+</div>
+<p>Lookup in the Domain XML file the <tt class="docutils literal"><span class="pre">&lt;interface&gt;</span></tt> section. There should be one
+such XML section for each interface the VM has:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;interface type=&#39;network&#39;&gt;
+ &lt;mac address=&#39;52:54:00:71:b1:b6&#39;/&gt;
+ &lt;source network=&#39;default&#39;/&gt;
+ &lt;address type=&#39;pci&#39; domain=&#39;0x0000&#39; bus=&#39;0x00&#39; slot=&#39;0x03&#39; function=&#39;0x0&#39;/&gt;
+&lt;/interface&gt;
+</pre></div>
+</div>
+<p>And change it to something like this:</p>
+<div class="highlight-python"><div class="highlight"><pre>&lt;interface type=&#39;bridge&#39;&gt;
+ &lt;mac address=&#39;52:54:00:71:b1:b6&#39;/&gt;
+ &lt;source bridge=&#39;ovsbr&#39;/&gt;
+ &lt;virtualport type=&#39;openvswitch&#39;/&gt;
+ &lt;address type=&#39;pci&#39; domain=&#39;0x0000&#39; bus=&#39;0x00&#39; slot=&#39;0x03&#39; function=&#39;0x0&#39;/&gt;
+&lt;/interface&gt;
+</pre></div>
+</div>
+<p>The interface type must be set to <tt class="docutils literal"><span class="pre">bridge</span></tt>. The <tt class="docutils literal"><span class="pre">&lt;source&gt;</span></tt> XML element
+specifies to which bridge this interface will be attached to. The
+<tt class="docutils literal"><span class="pre">&lt;virtualport&gt;</span></tt> element indicates that the bridge in <tt class="docutils literal"><span class="pre">&lt;source&gt;</span></tt> element is
+an Open vSwitch bridge.</p>
+<p>Then (re)start the VM and verify if the guest&#8217;s vnet interface is attached to
+the ovsbr bridge:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl show
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>If the VM does not want to start, then try to run the libvirtd process either
+from the terminal, so that all errors are printed in console, or inspect
+Libvirt/Open vSwitch log files for possible root cause.</p>
+</div>
+<div class="section" id="bug-reporting">
+<h2>Bug Reporting<a class="headerlink" href="#bug-reporting" title="Permalink to this headline">¶</a></h2>
+<p>Report problems to <a class="reference external" href="mailto:bugs&#37;&#52;&#48;openvswitch&#46;org">bugs<span>&#64;</span>openvswitch<span>&#46;</span>org</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Open vSwitch with Libvirt</a><ul>
+<li><a class="reference internal" href="#limitations">Limitations</a></li>
+<li><a class="reference internal" href="#setup">Setup</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li><a class="reference internal" href="#bug-reporting">Bug Reporting</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="selinux.html"
+                        title="previous chapter">Open vSwitch with SELinux</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ssl.html"
+                        title="next chapter">Open vSwitch with SSL</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/howto/libvirt.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ssl.html" title="Open vSwitch with SSL"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="selinux.html" title="Open vSwitch with SELinux"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >How-to Guides</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

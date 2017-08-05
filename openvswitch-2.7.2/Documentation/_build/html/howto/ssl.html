@@ -1,0 +1,433 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Open vSwitch with SSL &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="How-to Guides" href="index.html" />
+    <link rel="next" title="Using LISP tunneling" href="lisp.html" />
+    <link rel="prev" title="Open vSwitch with Libvirt" href="libvirt.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="lisp.html" title="Using LISP tunneling"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="libvirt.html" title="Open vSwitch with Libvirt"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">How-to Guides</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="open-vswitch-with-ssl">
+<h1>Open vSwitch with SSL<a class="headerlink" href="#open-vswitch-with-ssl" title="Permalink to this headline">¶</a></h1>
+<p>If you plan to configure Open vSwitch to connect across the network to an
+OpenFlow controller, then we recommend that you build Open vSwitch with
+OpenSSL. SSL support ensures integrity and confidentiality of the OpenFlow
+connections, increasing network security.</p>
+<p>This document describes how to configure an Open vSwitch to connect to an
+OpenFlow controller over SSL.  Refer to <a class="reference internal" href="../intro/install/general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a>. for
+instructions on building Open vSwitch with SSL support.</p>
+<p>Open vSwitch uses TLS version 1.0 or later (TLSv1), as specified by RFC 2246,
+which is very similar to SSL version 3.0.  TLSv1 was released in January 1999,
+so all current software and hardware should implement it.</p>
+<p>This document assumes basic familiarity with public-key cryptography and
+public-key infrastructure.</p>
+<div class="section" id="ssl-concepts-for-openflow">
+<h2>SSL Concepts for OpenFlow<a class="headerlink" href="#ssl-concepts-for-openflow" title="Permalink to this headline">¶</a></h2>
+<p>This section is an introduction to the public-key infrastructure architectures
+that Open vSwitch supports for SSL authentication.</p>
+<p>To connect over SSL, every Open vSwitch must have a unique private/public key
+pair and a certificate that signs that public key.  Typically, the Open vSwitch
+generates its own public/private key pair.  There are two common ways to obtain
+a certificate for a switch:</p>
+<ul>
+<li><p class="first">Self-signed certificates: The Open vSwitch signs its certificate with its own
+private key.  In this case, each switch must be individually approved by the
+OpenFlow controller(s), since there is no central authority.</p>
+<p>This is the only switch PKI model currently supported by NOX
+(<a class="reference external" href="http://noxrepo.org">http://noxrepo.org</a>).</p>
+</li>
+<li><p class="first">Switch certificate authority: A certificate authority (the &#8220;switch CA&#8221;) signs
+each Open vSwitch&#8217;s public key.  The OpenFlow controllers then check that any
+connecting switches&#8217; certificates are signed by that certificate authority.</p>
+<p>This is the only switch PKI model supported by the simple OpenFlow controller
+included with Open vSwitch.</p>
+</li>
+</ul>
+<p>Each Open vSwitch must also have a copy of the CA certificate for the
+certificate authority that signs OpenFlow controllers&#8217; keys (the &#8220;controller
+CA&#8221; certificate).  Typically, the same controller CA certificate is installed
+on all of the switches within a given administrative unit.  There are two
+common ways for a switch to obtain the controller CA certificate:</p>
+<ul class="simple">
+<li>Manually copy the certificate to the switch through some secure means, e.g.
+using a USB flash drive, or over the network with &#8220;scp&#8221;, or even FTP or HTTP
+followed by manual verification.</li>
+<li>Open vSwitch &#8220;bootstrap&#8221; mode, in which Open vSwitch accepts and saves the
+controller CA certificate that it obtains from the OpenFlow controller on its
+first connection.  Thereafter the switch will only connect to controllers
+signed by the same CA certificate.</li>
+</ul>
+</div>
+<div class="section" id="establishing-a-public-key-infrastructure">
+<h2>Establishing a Public Key Infrastructure<a class="headerlink" href="#establishing-a-public-key-infrastructure" title="Permalink to this headline">¶</a></h2>
+<p>Open vSwitch can make use of your existing public key infrastructure.  If you
+already have a PKI, you may skip forward to the next section.  Otherwise, if
+you do not have a PKI, the ovs-pki script included with Open vSwitch can help.
+To create an initial PKI structure, invoke it as:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-pki init
+</pre></div>
+</div>
+<p>This will create and populate a new PKI directory.  The default location for
+the PKI directory depends on how the Open vSwitch tree was configured (to see
+the configured default, look for the <tt class="docutils literal"><span class="pre">--dir</span></tt> option description in the output
+of <tt class="docutils literal"><span class="pre">ovs-pki</span> <span class="pre">--help</span></tt>).</p>
+<p>The pki directory contains two important subdirectories.  The <cite>controllerca</cite>
+subdirectory contains controller CA files, including the following:</p>
+<dl class="docutils">
+<dt><cite>cacert.pem</cite></dt>
+<dd>Root certificate for the controller certificate authority.  Each Open vSwitch
+must have a copy of this file to allow it to authenticate valid controllers.</dd>
+<dt><cite>private/cakey.pem</cite></dt>
+<dd>Private signing key for the controller certificate authority.  This file must
+be kept secret.  There is no need for switches or controllers to have a copy
+of it.</dd>
+</dl>
+<p>The <cite>switchca</cite> subdirectory contains switch CA files, analogous to those in the
+<cite>controllerca</cite> subdirectory:</p>
+<dl class="docutils">
+<dt><cite>cacert.pem</cite></dt>
+<dd>Root certificate for the switch certificate authority.  The OpenFlow
+controller must have this file to enable it to authenticate valid switches.</dd>
+<dt><cite>private/cakey.pem</cite></dt>
+<dd>Private signing key for the switch certificate authority.  This file must be
+kept secret.  There is no need for switches or controllers to have a copy of
+it.</dd>
+</dl>
+<p>After you create the initial structure, you can create keys and certificates
+for switches and controllers with ovs-pki.  Refer to the ovs-pki(8) manage for
+complete details.  A few examples of its use follow:</p>
+<div class="section" id="controller-key-generation">
+<h3>Controller Key Generation<a class="headerlink" href="#controller-key-generation" title="Permalink to this headline">¶</a></h3>
+<p>To create a controller private key and certificate in files named
+ctl-privkey.pem and ctl-cert.pem, run the following on the machine that
+contains the PKI structure:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-pki req+sign ctl controller
+</pre></div>
+</div>
+<p>ctl-privkey.pem and ctl-cert.pem would need to be copied to the controller for
+its use at runtime.  If, for testing purposes, you were to use
+ovs-testcontroller, the simple OpenFlow controller included with Open vSwitch,
+then the &#8211;private-key and &#8211;certificate options, respectively, would point to
+these files.</p>
+<p>It is very important to make sure that no stray copies of ctl-privkey.pem are
+created, because they could be used to impersonate the controller.</p>
+</div>
+<div class="section" id="switch-key-generation-with-self-signed-certificates">
+<h3>Switch Key Generation with Self-Signed Certificates<a class="headerlink" href="#switch-key-generation-with-self-signed-certificates" title="Permalink to this headline">¶</a></h3>
+<p>If you are using self-signed certificates (see &#8220;SSL Concepts for OpenFlow&#8221;),
+this is one way to create an acceptable certificate for your controller to
+approve.</p>
+<ol class="arabic">
+<li><p class="first">Run the following command on the Open vSwitch itself:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-pki self-sign sc
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This command does not require a copy of any of the PKI files generated by
+<tt class="docutils literal"><span class="pre">ovs-pki</span> <span class="pre">init</span></tt>, and you should not copy them to the switch because some
+of them have contents that must remain secret for security.)</p>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">ovs-pki</span> <span class="pre">self-sign</span></tt> command has the following output:</p>
+<dl class="docutils">
+<dt>sc-privkey.pem</dt>
+<dd><p class="first last">the switch private key file.  For security, the contents of this file must
+remain secret.  There is ordinarily no need to copy this file off the Open
+vSwitch.</p>
+</dd>
+<dt>sc-cert.pem</dt>
+<dd><p class="first last">the switch certificate, signed by the switch&#8217;s own private key.  Its
+contents are not a secret.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">Optionally, copy <cite>controllerca/cacert.pem</cite> from the machine that has the
+OpenFlow PKI structure and verify that it is correct.  (Otherwise, you will
+have to use CA certificate bootstrapping when you configure Open vSwitch in
+the next step.)</p>
+</li>
+<li><p class="first">Configure Open vSwitch to use the keys and certificates (see &#8220;Configuring
+SSL Support&#8221;, below).</p>
+</li>
+</ol>
+</div>
+<div class="section" id="switch-key-generation-with-a-switch-pki-easy-method">
+<h3>Switch Key Generation with a Switch PKI (Easy Method)<a class="headerlink" href="#switch-key-generation-with-a-switch-pki-easy-method" title="Permalink to this headline">¶</a></h3>
+<p>If you are using a switch PKI (see &#8220;SSL Concepts for OpenFlow&#8221;, above), this
+method of switch key generation is a little easier than the alternate method
+described below, but it is also a little less secure because it requires
+copying a sensitive private key from file from the machine hosting the PKI to
+the switch.</p>
+<ol class="arabic">
+<li><p class="first">Run the following on the machine that contains the PKI structure:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-pki req+sign sc switch
+</pre></div>
+</div>
+<p>This command has the following output:</p>
+<dl class="docutils">
+<dt>sc-privkey.pem</dt>
+<dd><p class="first last">the switch private key file.  For security, the contents of this file must
+remain secret.</p>
+</dd>
+<dt>sc-cert.pem</dt>
+<dd><p class="first last">the switch certificate.  Its contents are not a secret.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">Copy sc-privkey.pem and sc-cert.pem, plus controllerca/cacert.pem, to the
+Open vSwitch.</p>
+</li>
+<li><p class="first">Delete the copies of sc-privkey.pem and sc-cert.pem on the PKI machine and
+any other copies that may have been made in transit.  It is very important
+to make sure that there are no stray copies of sc-privkey.pem, because they
+could be used to impersonate the switch.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Don&#8217;t delete controllerca/cacert.pem!  It is not security-sensitive and
+you will need it to configure additional switches.</p>
+</div>
+</li>
+<li><p class="first">Configure Open vSwitch to use the keys and certificates (see &#8220;Configuring
+SSL Support&#8221;, below).</p>
+</li>
+</ol>
+</div>
+<div class="section" id="switch-key-generation-with-a-switch-pki-more-secure">
+<h3>Switch Key Generation with a Switch PKI (More Secure)<a class="headerlink" href="#switch-key-generation-with-a-switch-pki-more-secure" title="Permalink to this headline">¶</a></h3>
+<p>If you are using a switch PKI (see &#8220;SSL Concepts for OpenFlow&#8221;, above), then,
+compared to the previous method, the method described here takes a little more
+work, but it does not involve copying the private key from one machine to
+another, so it may also be a little more secure.</p>
+<ol class="arabic">
+<li><p class="first">Run the following command on the Open vSwitch itself:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-pki req sc
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This command does not require a copy of any of the PKI files generated by
+&#8220;ovs-pki init&#8221;, and you should not copy them to the switch because some of
+them have contents that must remain secret for security.</p>
+</div>
+<p>The &#8220;ovs-pki req&#8221; command has the following output:</p>
+<dl class="docutils">
+<dt>sc-privkey.pem</dt>
+<dd><p class="first last">the switch private key file.  For security, the contents of this file must
+remain secret.  There is ordinarily no need to copy this file off the Open
+vSwitch.</p>
+</dd>
+<dt>sc-req.pem</dt>
+<dd><p class="first last">the switch &#8220;certificate request&#8221;, which is essentially the switch&#8217;s public
+key.  Its contents are not a secret.</p>
+</dd>
+<dt>a fingerprint</dt>
+<dd><p class="first last">this is output on stdout.</p>
+</dd>
+</dl>
+</li>
+<li><p class="first">Write the fingerprint down on a slip of paper and copy <cite>sc-req.pem</cite> to the
+machine that contains the PKI structure.</p>
+</li>
+<li><p class="first">On the machine that contains the PKI structure, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-pki sign sc switch
+</pre></div>
+</div>
+<p>This command will output a fingerprint to stdout and request that you verify
+it.  Check that it is the same as the fingerprint that you wrote down on the
+slip of paper before you answer &#8220;yes&#8221;.</p>
+<p><tt class="docutils literal"><span class="pre">ovs-pki</span> <span class="pre">sign</span></tt> creates a file named <cite>sc-cert.pem</cite>, which is the switch
+certificate.  Its contents are not a secret.</p>
+</li>
+<li><p class="first">Copy the generated <cite>sc-cert.pem</cite>, plus <cite>controllerca/cacert.pem</cite> from the
+PKI structure, to the Open vSwitch, and verify that they were copied
+correctly.</p>
+<p>You may delete <cite>sc-cert.pem</cite> from the machine that hosts the PKI
+structure now, although it is not important that you do so.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Don&#8217;t delete <cite>controllerca/cacert.pem</cite>!  It is not security-sensitive and
+you will need it to configure additional switches.</p>
+</div>
+</li>
+<li><p class="first">Configure Open vSwitch to use the keys and certificates (see &#8220;Configuring
+SSL Support&#8221;, below).</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="section" id="configuring-ssl-support">
+<h2>Configuring SSL Support<a class="headerlink" href="#configuring-ssl-support" title="Permalink to this headline">¶</a></h2>
+<p>SSL configuration requires three additional configuration files.  The first two
+of these are unique to each Open vSwitch.  If you used the instructions above
+to build your PKI, then these files will be named <cite>sc-privkey.pem</cite> and
+<cite>sc-cert.pem</cite>, respectively:</p>
+<ul>
+<li><p class="first">A private key file, which contains the private half of an RSA or DSA key.</p>
+<p>This file can be generated on the Open vSwitch itself, for the greatest
+security, or it can be generated elsewhere and copied to the Open vSwitch.</p>
+<p>The contents of the private key file are secret and must not be exposed.</p>
+</li>
+<li><p class="first">A certificate file, which certifies that the private key is that of a
+trustworthy Open vSwitch.</p>
+<p>This file has to be generated on a machine that has the private key for the
+switch certification authority, which should not be an Open vSwitch; ideally,
+it should be a machine that is not networked at all.</p>
+<p>The certificate file itself is not a secret.</p>
+</li>
+</ul>
+<p>The third configuration file is typically the same across all the switches in a
+given administrative unit.  If you used the instructions above to build your
+PKI, then this file will be named <cite>cacert.pem</cite>:</p>
+<ul class="simple">
+<li>The root certificate for the controller certificate authority.  The Open
+vSwitch verifies it that is authorized to connect to an OpenFlow controller
+by verifying a signature against this CA certificate.</li>
+</ul>
+<p>Once you have these files, configure ovs-vswitchd to use them using the
+<tt class="docutils literal"><span class="pre">ovs-vsctl</span> <span class="pre">set-ssl</span></tt> command, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl set-ssl /etc/openvswitch/sc-privkey.pem \
+    /etc/openvswitch/sc-cert.pem /etc/openvswitch/cacert.pem
+</pre></div>
+</div>
+<p>Substitute the correct file names, of course, if they differ from the ones used
+above.  You should use absolute file names (ones that begin with <tt class="docutils literal"><span class="pre">/</span></tt>),
+because ovs-vswitchd&#8217;s current directory is unrelated to the one from which you
+run ovs-vsctl.</p>
+<p>If you are using self-signed certificates (see &#8220;SSL Concepts for OpenFlow&#8221;) and
+you did not copy controllerca/cacert.pem from the PKI machine to the Open
+vSwitch, then add the <tt class="docutils literal"><span class="pre">--bootstrap</span></tt> option, e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl -- --bootstrap set-ssl /etc/openvswitch/sc-privkey.pem \
+    /etc/openvswitch/sc-cert.pem /etc/openvswitch/cacert.pem
+</pre></div>
+</div>
+<p>After you have added all of these configuration keys, you may specify <tt class="docutils literal"><span class="pre">ssl:</span></tt>
+connection methods elsewhere in the configuration database.  <tt class="docutils literal"><span class="pre">tcp:</span></tt> connection
+methods are still allowed even after SSL has been configured, so for security
+you should use only <tt class="docutils literal"><span class="pre">ssl:</span></tt> connections.</p>
+</div>
+<div class="section" id="reporting-bugs">
+<h2>Reporting Bugs<a class="headerlink" href="#reporting-bugs" title="Permalink to this headline">¶</a></h2>
+<p>Report problems to <a class="reference external" href="mailto:bugs&#37;&#52;&#48;openvswitch&#46;org">bugs<span>&#64;</span>openvswitch<span>&#46;</span>org</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Open vSwitch with SSL</a><ul>
+<li><a class="reference internal" href="#ssl-concepts-for-openflow">SSL Concepts for OpenFlow</a></li>
+<li><a class="reference internal" href="#establishing-a-public-key-infrastructure">Establishing a Public Key Infrastructure</a><ul>
+<li><a class="reference internal" href="#controller-key-generation">Controller Key Generation</a></li>
+<li><a class="reference internal" href="#switch-key-generation-with-self-signed-certificates">Switch Key Generation with Self-Signed Certificates</a></li>
+<li><a class="reference internal" href="#switch-key-generation-with-a-switch-pki-easy-method">Switch Key Generation with a Switch PKI (Easy Method)</a></li>
+<li><a class="reference internal" href="#switch-key-generation-with-a-switch-pki-more-secure">Switch Key Generation with a Switch PKI (More Secure)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuring-ssl-support">Configuring SSL Support</a></li>
+<li><a class="reference internal" href="#reporting-bugs">Reporting Bugs</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="libvirt.html"
+                        title="previous chapter">Open vSwitch with Libvirt</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="lisp.html"
+                        title="next chapter">Using LISP tunneling</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/howto/ssl.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="lisp.html" title="Using LISP tunneling"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="libvirt.html" title="Open vSwitch with Libvirt"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >How-to Guides</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

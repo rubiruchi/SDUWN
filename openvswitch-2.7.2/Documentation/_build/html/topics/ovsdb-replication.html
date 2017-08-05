@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>OVSDB Replication Implementation &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="Open vSwitch Deep Dive" href="index.html" />
+    <link rel="next" title="The DPDK Datapath" href="dpdk/index.html" />
+    <link rel="prev" title="Bonding" href="bonding.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="dpdk/index.html" title="The DPDK Datapath"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="bonding.html" title="Bonding"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Open vSwitch Deep Dive</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ovsdb-replication-implementation">
+<h1>OVSDB Replication Implementation<a class="headerlink" href="#ovsdb-replication-implementation" title="Permalink to this headline">¶</a></h1>
+<p>Given two Open vSwitch databases with the same schema, OVSDB replication keeps
+these databases in the same state, i.e. each of the databases have the same
+contents at any given time even if they are not running in the same host.  This
+document elaborates on the implementation details to provide this
+functionality.</p>
+<div class="section" id="terminology">
+<h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Source of truth database</dt>
+<dd>database whose content will be replicated to another database.</dd>
+<dt>Active server</dt>
+<dd>ovsdb-server providing RPC interface to the source of truth database.</dd>
+<dt>Standby server</dt>
+<dd>ovsdb-server providing RPC interface to the database that is not the source
+of truth.</dd>
+</dl>
+</div>
+<div class="section" id="design">
+<h2>Design<a class="headerlink" href="#design" title="Permalink to this headline">¶</a></h2>
+<p>The overall design of replication consists of one ovsdb-server (active server)
+communicating the state of its databases to another ovsdb-server (standby
+server) so that the latter keep its own databases in that same state.  To
+achieve this, the standby server acts as a client of the active server, in the
+sense that it sends a monitor request to keep up to date with the changes in
+the active server databases. When a notification from the active server
+arrives, the standby server executes the necessary set of operations so its
+databases reach the same state as the the active server databases. Below is the
+design represented as a diagram.:</p>
+<div class="highlight-python"><div class="highlight"><pre>+--------------+    replication     +--------------+
+|    Active    |&lt;-------------------|   Standby    |
+| OVSDB-server |                    | OVSDB-server |
++--------------+                    +--------------+
+        |                                  |
+        |                                  |
+    +-------+                          +-------+
+    |  SoT  |                          |       |
+    | OVSDB |                          | OVSDB |
+    +-------+                          +-------+
+</pre></div>
+</div>
+</div>
+<div class="section" id="setting-up-the-replication">
+<h2>Setting Up The Replication<a class="headerlink" href="#setting-up-the-replication" title="Permalink to this headline">¶</a></h2>
+<p>To initiate the replication process, the standby server must be executed
+indicating the location of the active server via the command line option
+<tt class="docutils literal"><span class="pre">--sync-from=server</span></tt>, where server can take any form described in the
+ovsdb-client manpage and it must specify an active connection type (tcp, unix,
+ssl). This option will cause the standby server to attempt to send a monitor
+request to the active server in every main loop iteration, until the active
+server responds.</p>
+<p>When sending a monitor request the standby server is doing the following:</p>
+<ol class="arabic simple">
+<li>Erase the content of the databases for which it is providing a RPC
+interface.</li>
+<li>Open the jsonrpc channel to communicate with the active server.</li>
+<li>Fetch all the databases located in the active server.</li>
+<li>For each database with the same schema in both the active and standby
+servers: construct and send a monitor request message specifying the tables
+that will be monitored (i.e all the tables on the database except the ones
+blacklisted [*]).</li>
+<li>Set the standby database to the current state of the active database.</li>
+</ol>
+<p>Once the monitor request message is sent, the standby server will continuously
+receive notifications of changes occurring to the tables specified in the
+request. The process of handling this notifications is detailed in the next
+section.</p>
+<p>[*] A set of tables that will be excluded from replication can be configure as
+a blacklist of tables via the command line option
+<tt class="docutils literal"><span class="pre">--sync-exclude-tables=db:table[,db:table]...</span></tt>, where db corresponds to the
+database where the table resides.</p>
+</div>
+<div class="section" id="replication-process">
+<h2>Replication Process<a class="headerlink" href="#replication-process" title="Permalink to this headline">¶</a></h2>
+<p>The replication process consists on handling the update notifications received
+in the standby server caused by the monitor request that was previously sent to
+the active server. In every loop iteration, the standby server attempts to
+receive a message from the active server which can be an error, an echo message
+(used to keep the connection alive) or an update notification. In case the
+message is a fatal error, the standby server will disconnect from the active
+without dropping the replicated data. If it is an echo message, the standby
+server will reply with an echo message as well. If the message is an update
+notification, the following process occurs:</p>
+<ol class="arabic">
+<li><p class="first">Create a new transaction.</p>
+</li>
+<li><p class="first">Get the <tt class="docutils literal"><span class="pre">&lt;table-updates&gt;</span></tt> object from the <tt class="docutils literal"><span class="pre">params</span></tt> member of the
+notification.</p>
+</li>
+<li><p class="first">For each <tt class="docutils literal"><span class="pre">&lt;table-update&gt;</span></tt> in the <tt class="docutils literal"><span class="pre">&lt;table-updates&gt;</span></tt> object do:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>For each <tt class="docutils literal"><span class="pre">&lt;row-update&gt;</span></tt> in <tt class="docutils literal"><span class="pre">&lt;table-update&gt;</span></tt> check what kind of
+operation should be executed according to the following criteria
+about the presence of the object members:<ul>
+<li>If <tt class="docutils literal"><span class="pre">old</span></tt> member is not present, execute an insert operation using
+<tt class="docutils literal"><span class="pre">&lt;row&gt;</span></tt> from the <tt class="docutils literal"><span class="pre">new</span></tt> member.</li>
+<li>If <tt class="docutils literal"><span class="pre">old</span></tt> member is present and <tt class="docutils literal"><span class="pre">new</span></tt> member is not present,
+execute a delete operation using <tt class="docutils literal"><span class="pre">&lt;row&gt;</span></tt> from the <tt class="docutils literal"><span class="pre">old</span></tt> member</li>
+<li>If both <tt class="docutils literal"><span class="pre">old</span></tt> and <tt class="docutils literal"><span class="pre">new</span></tt> members are present, execute an update
+operation using <tt class="docutils literal"><span class="pre">&lt;row&gt;</span></tt> from the <tt class="docutils literal"><span class="pre">new</span></tt> member.</li>
+</ul>
+</li>
+</ol>
+</div></blockquote>
+</li>
+<li><p class="first">Commit the transaction.</p>
+<p>If an error occurs during the replication process, all replication is
+restarted by resending a new monitor request as described in the section
+&#8220;Setting up the replication&#8221;.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="runtime-management-commands">
+<h2>Runtime Management Commands<a class="headerlink" href="#runtime-management-commands" title="Permalink to this headline">¶</a></h2>
+<p>Runtime management commands can be sent to a running standby server via
+ovs-appctl in order to configure the replication functionality. The available
+commands are the following.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">ovsdb-server/set-remote-ovsdb-server</span> <span class="pre">{server}</span></tt></dt>
+<dd>sets the name of the active server</dd>
+<dt><tt class="docutils literal"><span class="pre">ovsdb-server/get-remote-ovsdb-server</span></tt></dt>
+<dd>gets the name of the active server</dd>
+<dt><tt class="docutils literal"><span class="pre">ovsdb-server/connect-remote-ovsdb-server</span></tt></dt>
+<dd>causes the server to attempt to send a monitor request every main loop
+iteration</dd>
+<dt><tt class="docutils literal"><span class="pre">ovsdb-server/disconnect-remote-ovsdb-server</span></tt></dt>
+<dd>closes the jsonrpc channel between the active server and frees the memory
+used for the replication configuration.</dd>
+<dt><tt class="docutils literal"><span class="pre">ovsdb-server/set-sync-exclude-tables</span> <span class="pre">{db:table,...}</span></tt></dt>
+<dd>sets the tables list that will be excluded from being replicated</dd>
+<dt><tt class="docutils literal"><span class="pre">ovsdb-server/get-sync-excluded-tables</span></tt></dt>
+<dd>gets the tables list that is currently excluded from replication</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">OVSDB Replication Implementation</a><ul>
+<li><a class="reference internal" href="#terminology">Terminology</a></li>
+<li><a class="reference internal" href="#design">Design</a></li>
+<li><a class="reference internal" href="#setting-up-the-replication">Setting Up The Replication</a></li>
+<li><a class="reference internal" href="#replication-process">Replication Process</a></li>
+<li><a class="reference internal" href="#runtime-management-commands">Runtime Management Commands</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="bonding.html"
+                        title="previous chapter">Bonding</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dpdk/index.html"
+                        title="next chapter">The DPDK Datapath</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/topics/ovsdb-replication.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="dpdk/index.html" title="The DPDK Datapath"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="bonding.html" title="Bonding"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Open vSwitch Deep Dive</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

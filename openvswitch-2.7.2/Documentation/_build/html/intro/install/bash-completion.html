@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bash command-line completion scripts &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Installing Open vSwitch" href="index.html" />
+    <link rel="next" title="Open vSwitch Documentation" href="documentation.html" />
+    <link rel="prev" title="OVN Upgrades" href="ovn-upgrades.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="documentation.html" title="Open vSwitch Documentation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="ovn-upgrades.html" title="OVN Upgrades"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Installing Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bash-command-line-completion-scripts">
+<h1>Bash command-line completion scripts<a class="headerlink" href="#bash-command-line-completion-scripts" title="Permalink to this headline">¶</a></h1>
+<p>There are two completion scripts available: <tt class="docutils literal"><span class="pre">ovs-appctl-bashcomp.bash</span></tt> and
+<tt class="docutils literal"><span class="pre">ovs-vsctl-bashcomp.bash</span></tt>.</p>
+<div class="section" id="ovs-appctl-bashcomp">
+<h2>ovs-appctl-bashcomp<a class="headerlink" href="#ovs-appctl-bashcomp" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">ovs-appctl-bashcomp.bash</span></tt> adds bash command-line completion support for
+<tt class="docutils literal"><span class="pre">ovs-appctl</span></tt>, <tt class="docutils literal"><span class="pre">ovs-dpctl</span></tt>, <tt class="docutils literal"><span class="pre">ovs-ofctl</span></tt> and <tt class="docutils literal"><span class="pre">ovsdb-tool</span></tt> commands.</p>
+<div class="section" id="features">
+<h3>Features<a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Display available completion or complete on unfinished user input (long
+option, subcommand, and argument).</li>
+<li>Subcommand hints</li>
+<li>Convert between keywords like <tt class="docutils literal"><span class="pre">bridge</span></tt>, <tt class="docutils literal"><span class="pre">port</span></tt>, <tt class="docutils literal"><span class="pre">interface</span></tt>, or <tt class="docutils literal"><span class="pre">dp</span></tt>
+and the available record in ovsdb.</li>
+</ul>
+</div>
+<div class="section" id="limitations">
+<h3>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first">Only supports a small set of important keywords (<tt class="docutils literal"><span class="pre">dp</span></tt>, <tt class="docutils literal"><span class="pre">datapath</span></tt>,
+<tt class="docutils literal"><span class="pre">bridge</span></tt>, <tt class="docutils literal"><span class="pre">switch</span></tt>, <tt class="docutils literal"><span class="pre">port</span></tt>, <tt class="docutils literal"><span class="pre">interface</span></tt>, <tt class="docutils literal"><span class="pre">iface</span></tt>).</p>
+</li>
+<li><p class="first">Does not support parsing of nested options. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovsdb-tool create [db [schema]]
+</pre></div>
+</div>
+</li>
+<li><p class="first">Does not support expansion on repeated argument. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-dpctl show [dp...]).
+</pre></div>
+</div>
+</li>
+<li><p class="first">Only supports matching on long options, and only in the format <tt class="docutils literal"><span class="pre">--option</span>
+<span class="pre">[arg]</span></tt>. Do not use <tt class="docutils literal"><span class="pre">--option=[arg]</span></tt>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="ovs-vsctl-bashcomp">
+<h2>ovs-vsctl-bashcomp<a class="headerlink" href="#ovs-vsctl-bashcomp" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">ovs-vsctl-bashcomp.bash</span></tt> adds Bash command-line completion support for
+<tt class="docutils literal"><span class="pre">ovs-vsctl</span></tt> command.</p>
+<div class="section" id="id1">
+<h3>Features<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Display available completion and complete on user input for global/local
+options, command, and argument.</li>
+<li>Query database and expand keywords like <tt class="docutils literal"><span class="pre">table</span></tt>, <tt class="docutils literal"><span class="pre">record</span></tt>, <tt class="docutils literal"><span class="pre">column</span></tt>, or
+<tt class="docutils literal"><span class="pre">key</span></tt>, to available completions.</li>
+<li>Deal with argument relations like &#8216;one and more&#8217;, &#8216;zero or one&#8217;.</li>
+<li>Complete multiple <tt class="docutils literal"><span class="pre">ovs-vsctl</span></tt> commands cascaded via <tt class="docutils literal"><span class="pre">--</span></tt>.</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>Limitations<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Completion of very long <tt class="docutils literal"><span class="pre">ovs-vsctl</span></tt> commands can take up to several seconds.</p>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>The bashcomp scripts should be placed at <tt class="docutils literal"><span class="pre">/etc/bash_completion.d/</span></tt> to be
+available for all bash sessions.  Running <tt class="docutils literal"><span class="pre">make</span> <span class="pre">install</span></tt> will place the
+scripts to <tt class="docutils literal"><span class="pre">$(sysconfdir)/bash_completion.d/</span></tt>, thus, the user should specify
+<tt class="docutils literal"><span class="pre">--sysconfdir=/etc</span></tt> at configuration.  If OVS is installed from packages, the
+scripts will automatically be placed inside <tt class="docutils literal"><span class="pre">/etc/bash_completion.d/</span></tt>.</p>
+<p>If you just want to run the scripts in one bash, you can remove them from
+<tt class="docutils literal"><span class="pre">/etc/bash_completion.d/</span></tt> and run the scripts via <tt class="docutils literal"><span class="pre">.</span>
+<span class="pre">ovs-appctl-bashcomp.bash</span></tt> or <tt class="docutils literal"><span class="pre">.</span> <span class="pre">ovs-vsctl-bashcomp.bash</span></tt>.</p>
+</div>
+<div class="section" id="tests">
+<h2>Tests<a class="headerlink" href="#tests" title="Permalink to this headline">¶</a></h2>
+<p>Unit tests are added in <tt class="docutils literal"><span class="pre">tests/completion.at</span></tt> and integrated into autotest
+framework.  To run the tests, just run <tt class="docutils literal"><span class="pre">make</span> <span class="pre">check</span></tt>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../contents.html">
+              <img class="logo" src="../../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bash command-line completion scripts</a><ul>
+<li><a class="reference internal" href="#ovs-appctl-bashcomp">ovs-appctl-bashcomp</a><ul>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#limitations">Limitations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#ovs-vsctl-bashcomp">ovs-vsctl-bashcomp</a><ul>
+<li><a class="reference internal" href="#id1">Features</a></li>
+<li><a class="reference internal" href="#id2">Limitations</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#tests">Tests</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ovn-upgrades.html"
+                        title="previous chapter">OVN Upgrades</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="documentation.html"
+                        title="next chapter">Open vSwitch Documentation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/intro/install/bash-completion.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="documentation.html" title="Open vSwitch Documentation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="ovn-upgrades.html" title="OVN Upgrades"
+             >previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="index.html" >Installing Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Expectations for Developers with Open vSwitch Repo Access &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="Open vSwitch Internals" href="index.html" />
+    <link rel="next" title="OVS Committer Grant/Revocation Policy" href="committer-grant-revocation.html" />
+    <link rel="prev" title="Open vSwitch’s Security Process" href="security.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="committer-grant-revocation.html" title="OVS Committer Grant/Revocation Policy"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="security.html" title="Open vSwitch’s Security Process"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Open vSwitch Internals</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="expectations-for-developers-with-open-vswitch-repo-access">
+<h1>Expectations for Developers with Open vSwitch Repo Access<a class="headerlink" href="#expectations-for-developers-with-open-vswitch-repo-access" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="pre-requisites">
+<h2>Pre-requisites<a class="headerlink" href="#pre-requisites" title="Permalink to this headline">¶</a></h2>
+<p>Be familar with the guidlines and standards defined in
+<a class="reference internal" href="contributing/index.html"><em>Contributing to Open vSwitch</em></a>.</p>
+</div>
+<div class="section" id="review">
+<h2>Review<a class="headerlink" href="#review" title="Permalink to this headline">¶</a></h2>
+<p>Code (yours or others&#8217;) must be reviewed publicly (by you or others) before you
+push it to the repository. With one exception (see below), every change needs
+at least one review.</p>
+<p>If one or more people know an area of code particularly well, code that affects
+that area should ordinarily get a review from one of them.</p>
+<p>The riskier, more subtle, or more complicated the change, the more careful the
+review required. When a change needs careful review, use good judgment
+regarding the quality of reviews. If a change adds 1000 lines of new code, and
+a review posted 5 minutes later says just &#8220;Looks good,&#8221; then this is probably
+not a quality review.</p>
+<p>(The size of a change is correlated with the amount of care needed in review,
+but it is not strictly tied to it. A search and replace across many files may
+not need much review, but one-line optimization changes can have widespread
+implications.)</p>
+<p>Your own small changes to fix a recently broken build (&#8220;make&#8221;) or tests (&#8220;make
+check&#8221;), that you believe to be visible to a large number of developers, may be
+checked in without review. If you are not sure, ask for review. If you do push
+a build fix without review, send the patch to ovs-dev afterward as usual,
+indicating in the email that you have already pushed it.</p>
+<p>Regularly review submitted code in areas where you have expertise. Consider
+reviewing other code as well.</p>
+</div>
+<div class="section" id="git-conventions">
+<h2>Git conventions<a class="headerlink" href="#git-conventions" title="Permalink to this headline">¶</a></h2>
+<p>Do not push merge commits to the Git repository without prior discussion on
+ovs-dev.</p>
+<p>If you apply a change (yours or another&#8217;s) then it is your responsibility to
+handle any resulting problems, especially broken builds and other regressions.
+If it is someone else&#8217;s change, then you can ask the original submitter to
+address it. Regardless, you need to ensure that the problem is fixed in a
+timely way. The definition of &#8220;timely&#8221; depends on the severity of the problem.</p>
+<p>If a bug is present on master and other branches, fix it on master first, then
+backport the fix to other branches. Straightforward backports do not require
+additional review (beyond that for the fix on master).</p>
+<p>Feature development should be done only on master. Occasionally it makes sense
+to add a feature to the most recent release branch, before the first actual
+release of that branch. These should be handled in the same way as bug fixes,
+that is, first implemented on master and then backported.</p>
+<p>Keep the authorship of a commit clear by maintaining a correct list of
+&#8220;Signed-off-by:&#8221;s. If a confusing situation comes up, as it occasionally does,
+bring it up on the mailing list. If you explain the use of &#8220;Signed-off-by:&#8221; to
+a new developer, explain not just how but why, since the intended meaning of
+&#8220;Signed-off-by:&#8221; is more important than the syntax. As part of your
+explanation, quote or provide a URL to the Developer&#8217;s Certificate of Origin in
+<a class="reference internal" href="contributing/submitting-patches.html"><em>Submitting Patches</em></a>.</p>
+<p>Use Reported-by: and Tested-by: tags in commit messages to indicate the
+source of a bug report.</p>
+<p>Keep the <tt class="docutils literal"><span class="pre">AUTHORS.rst</span></tt> file up to date.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Expectations for Developers with Open vSwitch Repo Access</a><ul>
+<li><a class="reference internal" href="#pre-requisites">Pre-requisites</a></li>
+<li><a class="reference internal" href="#review">Review</a></li>
+<li><a class="reference internal" href="#git-conventions">Git conventions</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="security.html"
+                        title="previous chapter">Open vSwitch&#8217;s Security Process</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="committer-grant-revocation.html"
+                        title="next chapter">OVS Committer Grant/Revocation Policy</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/internals/committer-responsibilities.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="committer-grant-revocation.html" title="OVS Committer Grant/Revocation Policy"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="security.html" title="Open vSwitch’s Security Process"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Open vSwitch Internals</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
