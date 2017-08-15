@@ -9,18 +9,6 @@ from opennet import *
 import ns
 import time
 def main():
-    #ns.core.LogComponentEnable("CsmaChannel", ns.core.LOG_ALL) 
-    #ns.core.LogComponentEnable("CsmaHelper", ns.core.LOG_ALL) 
-    #ns.core.LogComponentEnable("CsmaNetDevice", ns.core.LOG_ALL) 
-    #ns.core.LogComponentEnable("UanPhyGen", ns.core.LOG_ALL) 
-    #ns.core.LogComponentEnable("TagBuffer", ns.core.LOG_ALL) 
-    #ns.core.LogComponentEnable("TapBridge", ns.core.LOG_ALL) 
-    #ns.core.LogComponentEnable("TapBridgeHelper", ns.core.LOG_ALL) 
-    #ns.core.LogComponentEnable("TapFdNetDeviceHelper", ns.core.LOG_ALL) 
-    #ns.core.LogComponentEnable("UanPhy", ns.core.LOG_ALL) 
-    #ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_NODE)
-    #ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_TIME)
-    #ns.core.LogComponentEnableAll(ns.core.LOG_PREFIX_FUNC)
     net = Mininet()
     info( '*** Adding hosts\n' )
     h0 = net.addHost( 'h0' ,ip = '192.168.123.1')
