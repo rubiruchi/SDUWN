@@ -860,7 +860,7 @@ class UanSegment( object ):
         txPower = 140
         self.uanhelper = ns.uan.UanHelper()
         self.channel = ns.uan.UanChannel()
-        mode = ns.uan.UanTxModeFactory.CreateMode(ns.uan.UanTxMode.FSK,1624,1624,24000,6000,2,"Default mode")
+        mode = ns.uan.UanTxModeFactory.CreateMode(ns.uan.UanTxMode.FSK,5000,5000,24000,6000,2,"Default mode")
         modelist = ns.uan.UanModesList()
         modelist.AppendMode(mode)
         noise_object=ns.uan.UanNoiseModelDefault()

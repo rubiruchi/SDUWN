@@ -51,7 +51,7 @@ def emptyNet():
     
     net.addLink( h1, s1 )
     
-    Csma = CSMASegment()
+    Csma = CSMASegment(DataRate="10Mbps", Delay="200000000ns")
     Csma.add(h4)
     Csma.add(s1)
     #net.addLink( h4, s1 )
@@ -71,8 +71,8 @@ def emptyNet():
     list_position={'h1':opennet.createListPositionAllocate(x1=0,y1=14,z1=-10),
                     'h2':opennet.createListPositionAllocate(x1=-5,y1=-5,z1=-10),
                     'h3':opennet.createListPositionAllocate(x1=15,y1=0,z1=-10),
-                    'h4':opennet.createListPositionAllocate(x1=0,y1=16,z1=-10),
-                    's1':opennet.createListPositionAllocate(x1=0,y1=15,z1=-10),
+                    'h4':opennet.createListPositionAllocate(x1=0,y1=14.2,z1=-10),
+                    's1':opennet.createListPositionAllocate(x1=0,y1=14.1,z1=-10),
                     's2':opennet.createListPositionAllocate(x1=0,y1=0,z1=-10),
                     's3':opennet.createListPositionAllocate(x1=10,y1=0,z1=-10)
                   }
