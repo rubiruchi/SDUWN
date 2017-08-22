@@ -855,15 +855,15 @@ class WIFIBridgeLink( WIFISegment, Link ):
 # UANSegment
 # UANLink
 class UanSegment( object ):
-    def __init__( self ):
-        rxThresh = 5
-        txPower = 140
+    def __init__( self, type, dataRateBps, phyRateSps, cfHz, bwHz, constSize, name, k, b, segmentMode ):
+        rxThresh = 10
+        txPower = 120
         self.uanhelper = ns.uan.UanHelper()
         self.channel = ns.uan.UanChannel()
-        mode = ns.uan.UanTxModeFactory.CreateMode(ns.uan.UanTxMode.FSK,5000,5000,24000,6000,2,"Default mode")
+        mode = ns.uan.UanTxModeFactory.CreateMode(type, dataRateBps, phyRateSps, cfHz, bwHz, constSize, name)
         modelist = ns.uan.UanModesList()
         modelist.AppendMode(mode)
-        noise_object=ns.uan.UanNoiseModelDefault()
+        noise_object=ns.uan.UanNoiseModelDefault(k, b)
         noise_ptr=noise_object.GetObject(ns.uan.UanNoiseModelDefault.GetTypeId())
         self.channel.SetNoiseModel(noise_ptr)
         prop_object=ns.uan.UanPropModelThorp()

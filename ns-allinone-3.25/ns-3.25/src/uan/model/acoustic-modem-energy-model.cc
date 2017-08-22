@@ -66,7 +66,7 @@ AcousticModemEnergyModel::GetTypeId (void)
     .AddTraceSource ("TotalEnergyConsumption",
                      "Total energy consumption of the modem device.",
                      MakeTraceSourceAccessor (&AcousticModemEnergyModel::m_totalEnergyConsumption),
-                     "ns3::TracedValueCallback::Double")
+                     "ns3::TracedValue::DoubleCallback")
   ;
   return tid;
 }
@@ -200,20 +200,20 @@ AcousticModemEnergyModel::ChangeState (int newState)
 
   // energy to decrease = current * voltage * time
   double energyToDecrease = 0.0;
-
+  double supplyVoltage = m_source->GetSupplyVoltage ();
   switch (m_currentState)
     {
     case UanPhy::TX:
-      energyToDecrease = duration.GetSeconds () * m_txPowerW;
+      energyToDecrease = duration.GetSeconds () * m_txPowerW * supplyVoltage;
       break;
     case UanPhy::RX:
-      energyToDecrease = duration.GetSeconds () * m_rxPowerW;
+      energyToDecrease = duration.GetSeconds () * m_rxPowerW * supplyVoltage;
       break;
     case UanPhy::IDLE:
-      energyToDecrease = duration.GetSeconds () * m_idlePowerW;
+      energyToDecrease = duration.GetSeconds () * m_idlePowerW * supplyVoltage;
       break;
     case UanPhy::SLEEP:
-      energyToDecrease = duration.GetSeconds () * m_sleepPowerW;
+      energyToDecrease = duration.GetSeconds () * m_sleepPowerW * supplyVoltage;
       break;
     default:
       NS_FATAL_ERROR ("AcousticModemEnergyModel:Undefined radio state!");

@@ -58,8 +58,7 @@ TypeId
 UanPhyCalcSinrDual::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanPhyCalcSinrDual")
-    .SetParent<UanPhyCalcSinr> ()
-    .SetGroupName ("Uan")
+    .SetParent<Object> ()
     .AddConstructor<UanPhyCalcSinrDual> ()
   ;
   return tid;
@@ -160,7 +159,6 @@ UanPhyDual::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanPhyDual")
     .SetParent<UanPhy> ()
-    .SetGroupName ("Uan")
     .AddConstructor<UanPhyDual> ()
     .AddAttribute  ("CcaThresholdPhy1",
                     "Aggregate energy of incoming signals to move to CCA Busy state dB of Phy1.",
@@ -498,7 +496,7 @@ UanPhyDual::GetChannel (void) const
   return m_phy1->GetChannel ();
 }
 Ptr<UanNetDevice>
-UanPhyDual::GetDevice (void) const
+UanPhyDual::GetDevice (void)
 {
   return m_phy1->GetDevice ();
 }

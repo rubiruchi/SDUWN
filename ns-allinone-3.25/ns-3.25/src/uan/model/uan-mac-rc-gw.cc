@@ -104,7 +104,6 @@ UanMacRcGw::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanMacRcGw")
     .SetParent<UanMac> ()
-    .SetGroupName ("Uan")
     .AddConstructor<UanMacRcGw> ()
     .AddAttribute ("MaxReservations",
                    "Maximum number of reservations to accept per cycle.",
@@ -188,6 +187,7 @@ UanMacRcGw::Enqueue (Ptr<Packet> packet, const Address &dest, uint16_t protocolN
   NS_LOG_WARN ("RCMAC Gateway transmission to acoustic nodes is not yet implemented");
   return false;
 }
+
 bool
 UanMacRcGw::EnqueueWithSrc(Ptr<Packet> packet, const Address &src, const Address &dest, uint16_t protocolNumber)
 {

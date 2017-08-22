@@ -43,13 +43,13 @@ def emptyNet():
                        controller=RemoteController,
                        ip='10.0.0.4', port=6653)
 
-    h1 = net.addHost( 'h1', ip='10.0.0.1' )
+    #h1 = net.addHost( 'h1', ip='10.0.0.1' )
     
     h4 = net.addHost( 'h4', ip='10.0.0.4' )
 
     s1 = net.addSwitch( 's1', cls=OVSSwitch, inband=True )
     
-    net.addLink( h1, s1 )
+    #net.addLink( h1, s1 )
     
     Csma = CSMASegment(DataRate="10Mbps", Delay="200000000ns")
     Csma.add(h4)
@@ -71,8 +71,8 @@ def emptyNet():
     list_position={'h1':opennet.createListPositionAllocate(x1=0,y1=14,z1=-10),
                     'h2':opennet.createListPositionAllocate(x1=-5,y1=-5,z1=-10),
                     'h3':opennet.createListPositionAllocate(x1=15,y1=0,z1=-10),
-                    'h4':opennet.createListPositionAllocate(x1=0,y1=14.2,z1=-10),
-                    's1':opennet.createListPositionAllocate(x1=0,y1=14.1,z1=-10),
+                    'h4':opennet.createListPositionAllocate(x1=0,y1=15,z1=-10),
+                    's1':opennet.createListPositionAllocate(x1=0,y1=14,z1=-10),
                     's2':opennet.createListPositionAllocate(x1=0,y1=0,z1=-10),
                     's3':opennet.createListPositionAllocate(x1=10,y1=0,z1=-10)
                   }
@@ -99,7 +99,7 @@ def emptyNet():
                                                                list_position['s3']
                                             )
     }
-    opennet.setMobilityModel(h1, mobility_models.get('h1'))
+    #opennet.setMobilityModel(h1, mobility_models.get('h1'))
     #opennet.setMobilityModel(h2, mobility_models.get('h2'))  
     #opennet.setMobilityModel(h3, mobility_models.get('h3'))
     opennet.setMobilityModel(h4, mobility_models.get('h4'))
@@ -114,6 +114,7 @@ def emptyNet():
     #s3.cmd('ifconfig s3 10.0.0.12')
     CLI( net )
     net.stop()
+    opennet.clear()
 
 if __name__ == '__main__':
     setLogLevel( 'debug' )

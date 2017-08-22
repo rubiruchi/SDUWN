@@ -122,6 +122,7 @@ UanHelper::SetPhy (std::string phyType,
                    std::string n6, const AttributeValue &v6,
                    std::string n7, const AttributeValue &v7)
 {
+  std::cout << "message tag" << std::endl;
   m_phy = ObjectFactory ();
   m_phy.SetTypeId (phyType);
   m_phy.Set (n0, v0);
@@ -243,13 +244,9 @@ UanHelper::Install (Ptr<Node> node, Ptr<UanChannel> channel) const
 
   mac->SetAddress (UanAddress::Allocate ());
   device->SetMac (mac);
-  NS_LOG_DEBUG ("MAC is set as:" << mac); 
   device->SetPhy (phy);
-  NS_LOG_DEBUG ("PHY is set as:" << phy); 
   device->SetTransducer (trans);
-  NS_LOG_DEBUG ("Transducer is set as:" << trans); 
   device->SetChannel (channel);
-  NS_LOG_DEBUG ("Channel is set as:" << channel); 
 
   node->AddDevice (device);
 

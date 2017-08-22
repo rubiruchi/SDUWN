@@ -80,7 +80,6 @@ public:
    * \param type The type value.
    */
   void SetType (uint8_t type);
-
   void SetLengthType(uint16_t lengthType);
 
   /**
@@ -101,7 +100,6 @@ public:
    * \return value of type field.
    */
   uint8_t GetType (void) const;
-
   uint16_t GetLengthType(void) const;
 
 

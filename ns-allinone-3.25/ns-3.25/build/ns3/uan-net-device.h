@@ -155,7 +155,7 @@ public:
    * \param [in] address The source address.
    */
   typedef void (* RxTxTracedCallback)
-    (Ptr<const Packet> packet, UanAddress address);
+    (const Ptr<const Packet> packet, const UanAddress address);
   
 private:
   /**
@@ -166,7 +166,7 @@ private:
    */
   virtual void ForwardUp (Ptr<Packet> pkt, const UanAddress &src);
 
-  /**
+ /**
    * Promiscuously forward the packet to a higher level, set with SetPromiscReceiveCallback.
    *
    * \param pkt The packet.

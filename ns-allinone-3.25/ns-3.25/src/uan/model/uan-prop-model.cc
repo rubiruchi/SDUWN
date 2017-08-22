@@ -341,9 +341,7 @@ NS_OBJECT_ENSURE_REGISTERED (UanPropModel);
 TypeId UanPropModel::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanPropModel")
-    .SetParent<Object> ()
-    .SetGroupName ("Uan")
-  ;
+    .SetParent<Object> ();
   return tid;
 }
 

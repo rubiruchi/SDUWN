@@ -77,8 +77,7 @@ TypeId
 UanMacCw::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanMacCw")
-    .SetParent<UanMac> ()
-    .SetGroupName ("Uan")
+    .SetParent<Object> ()
     .AddConstructor<UanMacCw> ()
     .AddAttribute ("CW",
                    "The MAC parameter CW.",
@@ -118,7 +117,6 @@ UanMacCw::SetAddress (Address addr)
 {
   m_address = UanAddress::ConvertFrom(addr);
 }
-
 bool
 UanMacCw::EnqueueWithSrc (Ptr<Packet> packet, const Address &src, const Address &dest, uint16_t protocolNumber)
 {
@@ -183,8 +181,6 @@ UanMacCw::EnqueueWithSrc (Ptr<Packet> packet, const Address &src, const Address 
     }
 
   return true;
-
-
 }
 
 bool
@@ -467,5 +463,4 @@ UanMacCw::SupportsSendFrom(void)const
 {
 return true;
 }
-
 } // namespace ns3

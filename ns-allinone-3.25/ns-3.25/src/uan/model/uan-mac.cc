@@ -27,22 +27,17 @@ NS_OBJECT_ENSURE_REGISTERED (UanMac);
 TypeId UanMac::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanMac")
-    .SetParent<Object> ()
-    .SetGroupName ("Uan")
-  ;
+    .SetParent<Object> ();
   return tid;
 }
 
-
-void UanMac::SetPromiscCb (Callback<void, Ptr<Packet>, const Address&, const Address&, uint16_t, NetDevice::PacketType> cb)
-{
-    return;
-}
+void UanMac::SetPromiscCb (Callback<void, Ptr<Packet>, const Address&, const Address&, uint16_t, NetDevice::PacketType> cb){
+		return;
+	}
 
 Address UanMac::GetMac48Address(void){
-  Address addr;
-  return addr;
+	Address addr;
+	return addr;
 }
-
 
 } // namespace ns3

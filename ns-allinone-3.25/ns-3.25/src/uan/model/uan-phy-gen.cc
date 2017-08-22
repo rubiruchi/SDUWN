@@ -62,8 +62,7 @@ TypeId
 UanPhyCalcSinrDefault::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanPhyCalcSinrDefault")
-    .SetParent<UanPhyCalcSinr> ()
-    .SetGroupName ("Uan")
+    .SetParent<Object> ()
     .AddConstructor<UanPhyCalcSinrDefault> ()
   ;
   return tid;
@@ -110,8 +109,7 @@ TypeId
 UanPhyCalcSinrFhFsk::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanPhyCalcSinrFhFsk")
-    .SetParent<UanPhyCalcSinr> ()
-    .SetGroupName ("Uan")
+    .SetParent<Object> ()
     .AddConstructor<UanPhyCalcSinrFhFsk> ()
     .AddAttribute ("NumberOfHops",
                    "Number of frequencies in hopping pattern.",
@@ -217,8 +215,7 @@ TypeId
 UanPhyPerGenDefault::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanPhyPerGenDefault")
-    .SetParent<UanPhyPer> ()
-    .SetGroupName ("Uan")
+    .SetParent<Object> ()
     .AddConstructor<UanPhyPerGenDefault> ()
     .AddAttribute ("Threshold", "SINR cutoff for good packet reception.",
                    DoubleValue (8),
@@ -256,8 +253,7 @@ UanPhyPerUmodem::~UanPhyPerUmodem ()
 TypeId UanPhyPerUmodem::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanPhyPerUmodem")
-    .SetParent<UanPhyPer> ()
-    .SetGroupName ("Uan")
+    .SetParent<Object> ()
     .AddConstructor<UanPhyPerUmodem> ()
   ;
   return tid;
@@ -435,7 +431,6 @@ UanPhyGen::GetTypeId (void)
 
   static TypeId tid = TypeId ("ns3::UanPhyGen")
     .SetParent<UanPhy> ()
-    .SetGroupName ("Uan")
     .AddConstructor<UanPhyGen> ()
     .AddAttribute ("CcaThreshold",
                    "Aggregate energy of incoming signals to move to CCA Busy state dB.",
@@ -538,6 +533,9 @@ UanPhyGen::SendPacket (Ptr<Packet> pkt, uint32_t modeNum)
       return;
     }
 
+//  UanTxMode txMode = GetMode (modeNum);
+//  if (modeNum < m_modes.GetNModes ())
+//    txMode = GetMode (modeNum);
   UanTxMode txMode = GetMode(0);
   if (modeNum < m_modes.GetNModes ())
     txMode = GetMode (modeNum);
@@ -812,7 +810,7 @@ UanPhyGen::GetChannel (void) const
 }
 
 Ptr<UanNetDevice>
-UanPhyGen::GetDevice (void) const
+UanPhyGen::GetDevice (void)
 {
   return m_device;
 }

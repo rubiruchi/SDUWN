@@ -108,7 +108,7 @@ public:
    * \param [in] proto The protocol number.
    */
   typedef void (* QueueTracedCallback)
-    (Ptr<const Packet> packet, uint16_t proto);
+    (const Ptr<const Packet> packet, const uint16_t proto);
 
 private:
   /** Enum defining possible Phy states. */

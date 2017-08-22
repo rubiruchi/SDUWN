@@ -27,9 +27,7 @@ NS_OBJECT_ENSURE_REGISTERED (UanNoiseModel);
 TypeId UanNoiseModel::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanNoiseModel")
-    .SetParent<Object> ()
-    .SetGroupName ("Uan")
-  ;
+    .SetParent<Object> ();
   return tid;
 }
 

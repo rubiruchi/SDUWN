@@ -209,7 +209,6 @@ UanMacRc::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanMacRc")
     .SetParent<UanMac> ()
-    .SetGroupName ("Uan")
     .AddConstructor<UanMacRc> ()
     .AddAttribute ("RetryRate",
                    "Number of retry attempts per second (of RTS/GWPING).",
@@ -254,11 +253,11 @@ UanMacRc::GetTypeId (void)
     .AddTraceSource ("Enqueue",
                      "A  (data) packet arrived at MAC for transmission.",
                      MakeTraceSourceAccessor (&UanMacRc::m_enqueueLogger),
-                     "ns3::UanMacRc::QueueTracedCallback")
+                     "ns3::UanMac::PacketModeTracedCallback")
     .AddTraceSource ("Dequeue",
                      "A  (data) packet was passed down to PHY from MAC.",
                      MakeTraceSourceAccessor (&UanMacRc::m_dequeueLogger),
-                     "ns3::UanMacRc::QueueTracedCallback")
+                     "ns3::UanMac::PacketModeTracedCallback")
     .AddTraceSource ("RX",
                      "A packet was destined for and received at this MAC layer.",
                      MakeTraceSourceAccessor (&UanMacRc::m_rxLogger),
@@ -322,45 +321,40 @@ UanMacRc::Enqueue (Ptr<Packet> packet, const Address &dest, uint16_t protocolNum
 
   return true;
 }
-bool
-UanMacRc::EnqueueWithSrc (Ptr<Packet> packet, const Address &src, const Address &dest, uint16_t protocolNumber)
-{
-  if (protocolNumber > 0)
-    {
-      NS_LOG_WARN ("Warning: UanMacRc does not support multiple protocols.  protocolNumber argument to Enqueue is being ignored");
-    }
-  if (m_pktQueue.size () >= m_queueLimit)
-    {
-      return false;
-    }
-
-  m_pktQueue.push_back (std::make_pair (packet, UanAddress::ConvertFrom (dest)));
-
-  switch (m_state)
-    {
-    case UNASSOCIATED:
-      Associate ();
-      return true;
-    case IDLE:
-      if (!m_rtsEvent.IsRunning ())
-        {
-          SendRts ();
-        }
-      return true;
-    case GWPSENT:
-    case RTSSENT:
-    case DATATX:
-      return true;
-    }
-
-  return true;
-}
-
 
 void
 UanMacRc::SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress&> cb)
 {
   m_forwardUpCb = cb;
+}
+
+bool
+UanMacRc::EnqueueWithSrc (Ptr<Packet> packet, const Address &src, const Address &dest, uint16_t protocolNumber)
+{
+  if (protocolNumber > 0) {
+    NS_LOG_WARN ("Warning: UanMacRc does not support multiple protocols.  protocolNumber argument to Enqueue is being ignored");
+  }
+  if (m_pktQueue.size () >= m_queueLimit) {
+    return false; 
+  }
+
+  m_pktQueue.push_back (std::make_pair (packet, UanAddress::ConvertFrom (dest)));
+
+  switch (m_state) {
+    case UNASSOCIATED:
+      Associate ();
+      return true;
+    case IDLE:
+      if (!m_rtsEvent.IsRunning ()) {
+        SendRts ();
+      }
+      return true;
+    case GWPSENT:
+    case RTSSENT:
+    case DATATX:
+      return true;
+  }
+  return true;
 }
 
 void
@@ -813,8 +807,8 @@ UanMacRc::BlockRtsing (void)
 }
 
 bool 
-UanMacRc::SupportsSendFrom(void)const
-{
-return true;
+UanMacRc::SupportsSendFrom(void)const {
+  return true;
 }
+
 } // namespace ns3

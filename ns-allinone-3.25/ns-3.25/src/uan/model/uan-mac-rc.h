@@ -129,7 +129,6 @@ public:
    */
   void SetTransmitted (bool t = true);
 
-
 private:
   /** Queued packets for each address. */
   std::list<std::pair <Ptr<Packet>, UanAddress > > m_pktList;
@@ -192,17 +191,9 @@ public:
   virtual void AttachPhy (Ptr<UanPhy> phy);
   virtual Address GetBroadcast (void) const;
   virtual void Clear (void);
-  int64_t AssignStreams (int64_t stream);
   virtual bool SupportsSendFrom(void)const;
-  /**
-   *  TracedCallback signature for dequeue of a packet.
-   *
-   * \param [in] packet The Packet being received.
-   * \param [in] proto The protocol number.
-   */
-  typedef void (* QueueTracedCallback)
-    (Ptr<const Packet> packet, uint32_t proto);
-  
+  int64_t AssignStreams (int64_t stream);
+
 private:
   /** MAC state. */
   enum State {
@@ -246,11 +237,11 @@ private:
   Callback<void, Ptr<Packet>, const UanAddress& > m_forwardUpCb;
 
   /** A packet was destined for and received at this MAC layer. */
-  TracedCallback<Ptr<const Packet>, UanTxMode > m_rxLogger;
+  TracedCallback<Ptr<const Packet>, UanTxMode &> m_rxLogger;
   /** A packet arrived at the MAC for transmission. */
-  TracedCallback<Ptr<const Packet>, uint32_t > m_enqueueLogger;
+  TracedCallback<Ptr<const Packet>, uint16_t > m_enqueueLogger;
   /** A was passed down to the PHY from the MAC. */
-  TracedCallback<Ptr<const Packet>, uint32_t > m_dequeueLogger;
+  TracedCallback<Ptr<const Packet>, uint16_t > m_dequeueLogger;
 
   /** The RTS event. */
   EventId m_rtsEvent;

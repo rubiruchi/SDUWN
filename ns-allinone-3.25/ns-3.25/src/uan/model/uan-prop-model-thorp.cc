@@ -30,7 +30,6 @@ NS_OBJECT_ENSURE_REGISTERED (UanPropModelThorp);
 
 UanPropModelThorp::UanPropModelThorp ()
 {
- //m_SpreadCoef=1.5;
 }
 
 UanPropModelThorp::~UanPropModelThorp ()
@@ -41,8 +40,7 @@ TypeId
 UanPropModelThorp::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanPropModelThorp")
-    .SetParent<UanPropModel> ()
-    .SetGroupName ("Uan")
+    .SetParent<Object> ()
     .AddConstructor<UanPropModelThorp> ()
     .AddAttribute ("SpreadCoef",
                    "Spreading coefficient used in calculation of Thorp's approximation.",
@@ -100,10 +98,11 @@ UanPropModelThorp::GetAttenDbKm (double freqKhz)
 
   return atten;
 }
+
 /*void
-UanPropModelThorp::SetSpreadCoef(double sPreadCoef)
-{
-  m_SpreadCoef=sPreadCoef;
-}*/
+> UanPropModelThorp::SetSpreadCoef(double sPreadCoef)
+> {
+>   m_SpreadCoef=sPreadCoef;
+> }*/
 
 } // namespace ns3

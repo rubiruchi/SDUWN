@@ -1,4 +1,3 @@
-/* -*- Mode:C++; c-file-style:"gnu"; indent-tabs-mode:nil; -*- */
 /*
  * Copyright (c) 2008 University of Washington
  *
@@ -213,6 +212,7 @@ public:
    * \return The installed netdevices.
    */
   NetDeviceContainer Install (NodeContainer c, Ptr<UanChannel> channel) const;
+
   /**
    * Create a default an stack.
    *
@@ -244,6 +244,7 @@ public:
   */
   int64_t AssignStreams (NetDeviceContainer c, int64_t stream);
   void TestForHelper();
+
 private:
   ObjectFactory m_device;      //!< The device.
   ObjectFactory m_mac;         //!< The MAC layer.

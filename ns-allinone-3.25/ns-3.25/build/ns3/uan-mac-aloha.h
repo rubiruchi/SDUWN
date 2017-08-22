@@ -28,6 +28,7 @@
 namespace ns3
 {
 
+
 class UanPhy;
 class UanTxMode;
 
@@ -52,6 +53,7 @@ public:
    * \return The TypeId.
    */
   static TypeId GetTypeId (void);
+
 
   // Inherited methods
   virtual Address GetAddress (void);

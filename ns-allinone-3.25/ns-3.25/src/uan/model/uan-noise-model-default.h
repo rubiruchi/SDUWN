@@ -24,7 +24,6 @@
 #include "ns3/uan-noise-model.h"
 #include "ns3/attribute.h"
 #include "ns3/object.h"
-
 #include "ns3/core-module.h"
 
 namespace ns3 {
@@ -50,6 +49,7 @@ namespace ns3 {
 class UanNoiseModelDefault : public UanNoiseModel {
 public:
   UanNoiseModelDefault ();           //!< Default constructor.
+  UanNoiseModelDefault(double k, double b);
   virtual ~UanNoiseModelDefault ();  //!< Dummy destructor, DoDispose.
 
   /**
@@ -59,17 +59,17 @@ public:
   static TypeId GetTypeId (void);
 
   // Inherited methods
+  // virtual
   double GetNoiseDbHz (double fKhz) const;
   //double GetRandomNoiseDbHz (double fKhz) const;
-  //double GetRandomNoiseDbHz(double fKhz, Ptr<UniformRandomVariable> m_Rand) const;
-
-  //void SetWind(double windspeed);
-
-  //void SetShipping(double shipcontri);
 
 private:
   double m_wind;      //!< Wind speed in m/s.
   double m_shipping;  //!< Shipping contribution to noise between 0 and 1.
+
+  double m_k; // random variable assistants
+  double m_b;
+
   Ptr<UniformRandomVariable> m_Rand;
 
 };  // class UanNoiseModelDefault
@@ -77,3 +77,4 @@ private:
 } // namespace ns3
 
 #endif /* UAN_NOISE_MODEL_DEFAULT_H */
+

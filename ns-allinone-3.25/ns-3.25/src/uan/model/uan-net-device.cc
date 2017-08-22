@@ -29,8 +29,6 @@
 #include "uan-channel.h"
 #include "uan-transducer.h"
 #include "ns3/log.h"
-//#include "ns3/mac48-address.h"
-//#include <stdio.h>
 
 namespace ns3 {
 
@@ -90,9 +88,10 @@ UanNetDevice::DoDispose ()
 TypeId
 UanNetDevice::GetTypeId ()
 {
+
+
   static TypeId tid = TypeId ("ns3::UanNetDevice")
     .SetParent<NetDevice> ()
-    .SetGroupName ("Uan")
     .AddAttribute ("Channel", "The channel attached to this device.",
                    PointerValue (),
                    MakePointerAccessor (&UanNetDevice::DoGetChannel, &UanNetDevice::SetChannel),
@@ -126,7 +125,7 @@ UanNetDevice::SetMac (Ptr<UanMac> mac)
   if (mac != 0)
     {
       m_mac = mac;
-      NS_LOG_DEBUG ("Set MAC");
+      NS_LOG_DEBUG ("Set MAC to:" << m_mac);
 
       if (m_phy != 0)
         {
@@ -147,7 +146,7 @@ UanNetDevice::SetPhy (Ptr<UanPhy> phy)
     {
       m_phy = phy;
       m_phy->SetDevice (Ptr<UanNetDevice> (this));
-      NS_LOG_DEBUG ("Set PHY");
+      NS_LOG_DEBUG ("Set PHY to:" << m_phy);
       if (m_mac != 0)
         {
           m_mac->AttachPhy (phy);
@@ -169,7 +168,7 @@ UanNetDevice::SetChannel (Ptr<UanChannel> channel)
   if (channel != 0)
     {
       m_channel = channel;
-      NS_LOG_DEBUG ("Set CHANNEL");
+      NS_LOG_DEBUG ("Set CHANNEL to:" << m_channel);
       if (m_trans != 0)
         {
 
@@ -224,20 +223,6 @@ UanNetDevice::GetChannel () const
 Address
 UanNetDevice::GetAddress () const
 {
- /* UanAddress addr = UanAddress::ConvertFrom (m_mac->GetAddress());
-  uint8_t intAddr = addr.GetAsInt();
-  char buff[17+1];
-  memset(buff, 0, 18);
-  if (intAddr >= 100){
-    intAddr -= 100;
-    snprintf(buff, 18, "00:00:00:00:01:%.2d", intAddr);
-  }
-  else
-    snprintf(buff, 18, "00:00:00:00:00:%.2d", intAddr);
-
-  Mac48Address* returnAddr = new Mac48Address(buff);
-  return *returnAddr; */
-  //return m_at.getM48(UanAddress::ConvertFrom (m_mac->GetAddress()));
   return m_mac->GetMac48Address ();
 }
 
@@ -346,6 +331,7 @@ UanNetDevice::ForwardUp (Ptr<Packet> pkt, const UanAddress &src)
   NS_LOG_DEBUG ("Forwarding packet up to application");
   m_rxLogger (pkt, src);
   m_forwardUp (this, pkt, 0, src);
+
 }
 
 Ptr<UanTransducer>
@@ -390,21 +376,23 @@ UanNetDevice::SetPromiscReceiveCallback (PromiscReceiveCallback cb)
     NS_LOG_FUNCTION (this << &cb);
     m_promiscCallback = cb;
 }
+
 void
 UanNetDevice::PromiscForward (Ptr<Packet> pkt, const Address& src, const Address& dest, uint16_t protocol, NetDevice::PacketType packetType)
 {
   NS_LOG_DEBUG ("Promiscuously forwarding packet up to application");
   m_promiscCallback (this, pkt, protocol, src, dest, packetType);
 }
+
 bool
 UanNetDevice::SupportsSendFrom (void) const
 {
   return m_mac->SupportsSendFrom();
 }
+
 void
 UanNetDevice::SetAddress (Address address)
 {
-  //NS_ASSERT_MSG (0, "Tried to set MAC address with no MAC");
   m_mac->SetAddress (address);
 }
 

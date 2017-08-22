@@ -25,7 +25,9 @@
 #include "uan-phy.h"
 #include "uan-header-common.h"
 #include "ns3/mac48-address.h"
+
 #include <iostream>
+
 namespace ns3
 {
 
@@ -69,11 +71,16 @@ TypeId
 UanMacAloha::GetTypeId (void)
 {
   static TypeId tid = TypeId ("ns3::UanMacAloha")
-    .SetParent<UanMac> ()
-    .SetGroupName ("Uan")
+    .SetParent<Object> ()
     .AddConstructor<UanMacAloha> ()
   ;
   return tid;
+}
+
+Address
+UanMacAloha::GetAddress (void)
+{
+  return m_address;
 }
 
 Address
@@ -82,12 +89,6 @@ UanMacAloha::GetMac48Address(void)
   Address addr = m_at.getM48(m_address);
   NS_LOG_DEBUG("GetMac48Address: address is " << m_address << "; returning " << addr);
   return addr;
-}
-
-Address
-UanMacAloha::GetAddress (void)
-{
-  return m_address;
 }
 
 void
@@ -101,7 +102,6 @@ UanMacAloha::SetAddress (Address addr)
   else
     m_address=UanAddress::ConvertFrom(addr);
 }
-
 bool
 UanMacAloha::Enqueue (Ptr<Packet> packet, const Address &dest, uint16_t protocolNumber)
 {
@@ -116,12 +116,19 @@ UanMacAloha::Enqueue (Ptr<Packet> packet, const Address &dest, uint16_t protocol
       NS_LOG_DEBUG("UanMacAloha Enqueue: sending packet out");
       UanAddress src = UanAddress::ConvertFrom (GetAddress ());
       UanHeaderCommon header;
+      NS_LOG_DEBUG("UanMacAloha Enqueue: setting src");
       header.SetSrc (src);
+      NS_LOG_DEBUG("UanMacAloha Enqueue: setting udest");
       header.SetDest (udest);
+      NS_LOG_DEBUG("UanMacAloha Enqueue: setting header type");
       header.SetType (0);
+      NS_LOG_DEBUG("UanMacAloha Enqueue: setting length type");
       header.SetLengthType (protocolNumber);
+      NS_LOG_DEBUG("UanMacAloha Enqueue: adding header to pkt");
       packet->AddHeader (header);
+      NS_LOG_DEBUG("UanMacAloha Enqueue: sending");
       m_phy->SendPacket (packet, protocolNumber);
+      NS_LOG_DEBUG("UanMacAloha Enqueue: sending complete");
       return true;
     }
   else{
@@ -129,6 +136,7 @@ UanMacAloha::Enqueue (Ptr<Packet> packet, const Address &dest, uint16_t protocol
     return false;
   }
 }
+
 
 bool 
 UanMacAloha::EnqueueWithSrc(Ptr<Packet> packet, const Address &src, const Address &dest, uint16_t protocolNumber)
@@ -165,13 +173,11 @@ UanMacAloha::EnqueueWithSrc(Ptr<Packet> packet, const Address &src, const Addres
   }
 }
 
-
 void
-UanMacAloha::SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress&> cb)
+UanMacAloha::SetForwardUpCb (Callback<void, Ptr<Packet>, const UanAddress& > cb)
 {
   m_forUpCb = cb;
 }
-
 
 void
 UanMacAloha::SetPromiscCb (Callback<void, Ptr<Packet>, const Address&, const Address&, uint16_t, NetDevice::PacketType> cb)
@@ -185,7 +191,9 @@ UanMacAloha::AttachPhy (Ptr<UanPhy> phy)
   m_phy = phy;
   m_phy->SetReceiveOkCallback (MakeCallback (&UanMacAloha::RxPacketGood, this));
   m_phy->SetReceiveErrorCallback (MakeCallback (&UanMacAloha::RxPacketError, this));
+
 }
+
 void
 UanMacAloha::RxPacketGood (Ptr<Packet> pkt, double sinr, UanTxMode txMode){
   UanHeaderCommon header;
@@ -224,7 +232,6 @@ UanMacAloha::GetBroadcast (void) const
   UanAddress broadcast (255);
   return broadcast;
 }
-
 
 bool
 UanMacAloha::SupportsSendFrom(void) const

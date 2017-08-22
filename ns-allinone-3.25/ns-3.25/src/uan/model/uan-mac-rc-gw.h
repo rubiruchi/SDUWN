@@ -90,8 +90,10 @@ public:
    * \param [in] actualX Current retry rate.
    */
   typedef void (* CycleCallback)
-    (Time now, Time delay, uint32_t numRts, uint32_t totalBytes,
-     double secs, uint32_t ctlRate, double actualX);
+    (const Time now, const Time delay,
+     const uint32_t numRts, const uint32_t totalBytes,
+     const double secs, const uint32_t ctlRate,
+     const double actualX);
 
   
 private:
