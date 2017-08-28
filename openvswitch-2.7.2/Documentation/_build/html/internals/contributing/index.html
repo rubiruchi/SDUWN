@@ -1,0 +1,177 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Contributing to Open vSwitch &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Open vSwitch Internals" href="../index.html" />
+    <link rel="next" title="Submitting Patches" href="submitting-patches.html" />
+    <link rel="prev" title="Open vSwitch Internals" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="submitting-patches.html" title="Submitting Patches"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Open vSwitch Internals"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Open vSwitch Internals</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="contributing-to-open-vswitch">
+<h1>Contributing to Open vSwitch<a class="headerlink" href="#contributing-to-open-vswitch" title="Permalink to this headline">¶</a></h1>
+<p>The below guides provide information on contributing to Open vSwitch itself.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="submitting-patches.html">Submitting Patches</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="submitting-patches.html#before-you-start">Before You Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submitting-patches.html#email-subject">Email Subject</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submitting-patches.html#description">Description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submitting-patches.html#tags">Tags</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submitting-patches.html#developer-s-certificate-of-origin">Developer&#8217;s Certificate of Origin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submitting-patches.html#feature-deprecation-guidelines">Feature Deprecation Guidelines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submitting-patches.html#comments">Comments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submitting-patches.html#patch">Patch</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submitting-patches.html#example">Example</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="coding-style.html">Open vSwitch Coding Style</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#basics">Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#naming">Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#comments">Comments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#function-prototypes">Function Prototypes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#statements">Statements</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#return-values">Return Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#macros">Macros</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#thread-safety-annotations">Thread Safety Annotations</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#source-files">Source Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#header-files">Header Files</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#types">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#expressions">Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#blank-lines">Blank Lines</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#c-dialect">C DIALECT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#python">Python</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style.html#libraries">Libraries</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="coding-style-windows.html">Open vSwitch Windows Datapath Coding Style</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="coding-style-windows.html#basics">Basics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style-windows.html#types">Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style-windows.html#naming">Naming</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style-windows.html#comments">Comments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style-windows.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="coding-style-windows.html#source-files">Source Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="documentation-style.html">Open vSwitch Documentation Style</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="documentation-style.html#restructuredtext-vs-sphinx">reStructuredText vs. Sphinx</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation-style.html#rest-conventions">reST Conventions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation-style.html#writing-style">Writing Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation-style.html#helpful-tools">Helpful Tools</a></li>
+<li class="toctree-l2"><a class="reference internal" href="documentation-style.html#useful-links">Useful Links</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="libopenvswitch-abi.html">Open vSwitch Library ABI Updates</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="libopenvswitch-abi.html#definitions">Definitions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libopenvswitch-abi.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libopenvswitch-abi.html#abi-policy">ABI Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="libopenvswitch-abi.html#coding">Coding</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../contents.html">
+              <img class="logo" src="../../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../index.html"
+                        title="previous chapter">Open vSwitch Internals</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="submitting-patches.html"
+                        title="next chapter">Submitting Patches</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/internals/contributing/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="submitting-patches.html" title="Submitting Patches"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../index.html" title="Open vSwitch Internals"
+             >previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Open vSwitch Internals</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

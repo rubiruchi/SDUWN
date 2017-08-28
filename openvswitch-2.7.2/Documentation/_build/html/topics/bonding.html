@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Bonding &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="Open vSwitch Deep Dive" href="index.html" />
+    <link rel="next" title="OVSDB Replication Implementation" href="ovsdb-replication.html" />
+    <link rel="prev" title="OpenFlow Support in Open vSwitch" href="openflow.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ovsdb-replication.html" title="OVSDB Replication Implementation"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="openflow.html" title="OpenFlow Support in Open vSwitch"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Open vSwitch Deep Dive</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="bonding">
+<h1>Bonding<a class="headerlink" href="#bonding" title="Permalink to this headline">¶</a></h1>
+<p>Bonding allows two or more interfaces (the &#8220;slaves&#8221;) to share network traffic.
+From a high-level point of view, bonded interfaces act like a single port, but
+they have the bandwidth of multiple network devices, e.g. two 1 GB physical
+interfaces act like a single 2 GB interface.  Bonds also increase robustness:
+the bonded port does not go down as long as at least one of its slaves is up.</p>
+<p>In vswitchd, a bond always has at least two slaves (and may have more).  If a
+configuration error, etc. would cause a bond to have only one slave, the port
+becomes an ordinary port, not a bonded port, and none of the special features
+of bonded ports described in this section apply.</p>
+<p>There are many forms of bonding of which ovs-vswitchd implements only a few.
+The most complex bond ovs-vswitchd implements is called &#8220;source load balancing&#8221;
+or SLB bonding.  SLB bonding divides traffic among the slaves based on the
+Ethernet source address.  This is useful only if the traffic over the bond has
+multiple Ethernet source addresses, for example if network traffic from
+multiple VMs are multiplexed over the bond.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Most of the ovs-vswitchd implementation is in <tt class="docutils literal"><span class="pre">vswitchd/bridge.c</span></tt>, so code
+references below should be assumed to refer to that file except as otherwise
+specified.</p>
+</div>
+<div class="section" id="enabling-and-disabling-slaves">
+<h2>Enabling and Disabling Slaves<a class="headerlink" href="#enabling-and-disabling-slaves" title="Permalink to this headline">¶</a></h2>
+<p>When a bond is created, a slave is initially enabled or disabled based on
+whether carrier is detected on the NIC (see <tt class="docutils literal"><span class="pre">iface_create()</span></tt>).  After that, a
+slave is disabled if its carrier goes down for a period of time longer than the
+downdelay, and it is enabled if carrier comes up for longer than the updelay
+(see <tt class="docutils literal"><span class="pre">bond_link_status_update()</span></tt>).  There is one exception where the updelay
+is skipped: if no slaves at all are currently enabled, then the first slave on
+which carrier comes up is enabled immediately.</p>
+<p>The updelay should be set to a time longer than the STP forwarding delay of the
+physical switch to which the bond port is connected (if STP is enabled on that
+switch).  Otherwise, the slave will be enabled, and load may be shifted to it,
+before the physical switch starts forwarding packets on that port, which can
+cause some data to be &#8220;blackholed&#8221; for a time.  The exception for a single
+enabled slave does not cause any problem in this regard because when no slaves
+are enabled all output packets are blackholed anyway.</p>
+<p>When a slave becomes disabled, the vswitch immediately chooses a new output
+port for traffic that was destined for that slave (see
+<tt class="docutils literal"><span class="pre">bond_enable_slave()</span></tt>).  It also sends a &#8220;gratuitous learning packet&#8221;,
+specifically a RARP, on the bond port (on the newly chosen slave) for each MAC
+address that the vswitch has learned on a port other than the bond (see
+<tt class="docutils literal"><span class="pre">bond_send_learning_packets()</span></tt>), to teach the physical switch that the new
+slave should be used in place of the one that is now disabled.  (This behavior
+probably makes sense only for a vswitch that has only one port (the bond)
+connected to a physical switch; vswitchd should probably provide a way to
+disable or configure it in other scenarios.)</p>
+</div>
+<div class="section" id="bond-packet-input">
+<h2>Bond Packet Input<a class="headerlink" href="#bond-packet-input" title="Permalink to this headline">¶</a></h2>
+<p>Bonding accepts unicast packets on any bond slave.  This can occasionally cause
+packet duplication for the first few packets sent to a given MAC, if the
+physical switch attached to the bond is flooding packets to that MAC because it
+has not yet learned the correct slave for that MAC.</p>
+<p>Bonding only accepts multicast (and broadcast) packets on a single bond slave
+(the &#8220;active slave&#8221;) at any given time.  Multicast packets received on other
+slaves are dropped.  Otherwise, every multicast packet would be duplicated,
+once for every bond slave, because the physical switch attached to the bond
+will flood those packets.</p>
+<p>Bonding also drops received packets when the vswitch has learned that the
+packet&#8217;s MAC is on a port other than the bond port itself.  This is because it
+is likely that the vswitch itself sent the packet out the bond port on a
+different slave and is now receiving the packet back.  This occurs when the
+packet is multicast or the physical switch has not yet learned the MAC and is
+flooding it.  However, the vswitch makes an exception to this rule for
+broadcast ARP replies, which indicate that the MAC has moved to another switch,
+probably due to VM migration.  (ARP replies are normally unicast, so this
+exception does not match normal ARP replies.  It will match the learning
+packets sent on bond fail-over.)</p>
+<p>The active slave is simply the first slave to be enabled after the bond is
+created (see <tt class="docutils literal"><span class="pre">bond_choose_active_iface()</span></tt>).  If the active slave is disabled,
+then a new active slave is chosen among the slaves that remain active.
+Currently due to the way that configuration works, this tends to be the
+remaining slave whose interface name is first alphabetically, but this is by no
+means guaranteed.</p>
+</div>
+<div class="section" id="bond-packet-output">
+<h2>Bond Packet Output<a class="headerlink" href="#bond-packet-output" title="Permalink to this headline">¶</a></h2>
+<p>When a packet is sent out a bond port, the bond slave actually used is selected
+based on the packet&#8217;s source MAC and VLAN tag (see <tt class="docutils literal"><span class="pre">choose_output_iface()</span></tt>).
+In particular, the source MAC and VLAN tag are hashed into one of 256 values,
+and that value is looked up in a hash table (the &#8220;bond hash&#8221;) kept in the
+<tt class="docutils literal"><span class="pre">bond_hash</span></tt> member of struct port.  The hash table entry identifies a bond
+slave.  If no bond slave has yet been chosen for that hash table entry,
+vswitchd chooses one arbitrarily.</p>
+<p>Every 10 seconds, vswitchd rebalances the bond slaves (see
+<tt class="docutils literal"><span class="pre">bond_rebalance_port()</span></tt>).  To rebalance, vswitchd examines the statistics for
+the number of bytes transmitted by each slave over approximately the past
+minute, with data sent more recently weighted more heavily than data sent less
+recently.  It considers each of the slaves in order from most-loaded to
+least-loaded.  If highly loaded slave H is significantly more heavily loaded
+than the least-loaded slave L, and slave H carries at least two hashes, then
+vswitchd shifts one of H&#8217;s hashes to L.  However, vswitchd will only shift a
+hash from H to L if it will decrease the ratio of the load between H and L by
+at least 0.1.</p>
+<p>Currently, &#8220;significantly more loaded&#8221; means that H must carry at least 1 Mbps
+more traffic, and that traffic must be at least 3% greater than L&#8217;s.</p>
+</div>
+<div class="section" id="bond-balance-modes">
+<h2>Bond Balance Modes<a class="headerlink" href="#bond-balance-modes" title="Permalink to this headline">¶</a></h2>
+<p>Each bond balancing mode has different considerations, described below.</p>
+<div class="section" id="lacp-bonding">
+<h3>LACP Bonding<a class="headerlink" href="#lacp-bonding" title="Permalink to this headline">¶</a></h3>
+<p>LACP bonding requires the remote switch to implement LACP, but it is otherwise
+very simple in that, after LACP negotiation is complete, there is no need for
+special handling of received packets.</p>
+<p>Several of the physical switches that support LACP block all traffic for ports
+that are configured to use LACP, until LACP is negotiated with the host. When
+configuring a LACP bond on a OVS host (eg: XenServer), this means that there
+will be an interruption of the network connectivity between the time the ports
+on the physical switch and the bond on the OVS host are configured. The
+interruption may be relatively long, if different people are responsible for
+managing the switches and the OVS host.</p>
+<p>Such network connectivity failure can be avoided if LACP can be configured on
+the OVS host before configuring the physical switch, and having the OVS host
+fall back to a bond mode (active-backup) till the physical switch LACP
+configuration is complete. An option &#8220;lacp-fallback-ab&#8221; exists to provide such
+behavior on openvswitch.</p>
+</div>
+<div class="section" id="active-backup-bonding">
+<h3>Active Backup Bonding<a class="headerlink" href="#active-backup-bonding" title="Permalink to this headline">¶</a></h3>
+<p>Active Backup bonds send all traffic out one &#8220;active&#8221; slave until that slave
+becomes unavailable.  Since they are significantly less complicated than SLB
+bonds, they are preferred when LACP is not an option.  Additionally, they are
+the only bond mode which supports attaching each slave to a different upstream
+switch.</p>
+</div>
+<div class="section" id="slb-bonding">
+<h3>SLB Bonding<a class="headerlink" href="#slb-bonding" title="Permalink to this headline">¶</a></h3>
+<p>SLB bonding allows a limited form of load balancing without the remote switch&#8217;s
+knowledge or cooperation.  The basics of SLB are simple.  SLB assigns each
+source MAC+VLAN pair to a link and transmits all packets from that MAC+VLAN
+through that link.  Learning in the remote switch causes it to send packets to
+that MAC+VLAN through the same link.</p>
+<p>SLB bonding has the following complications:</p>
+<ol class="arabic" start="0">
+<li><p class="first">When the remote switch has not learned the MAC for the destination of a
+unicast packet and hence floods the packet to all of the links on the SLB
+bond, Open vSwitch will forward duplicate packets, one per link, to each
+other switch port.</p>
+<p>Open vSwitch does not solve this problem.</p>
+</li>
+<li><p class="first">When the remote switch receives a multicast or broadcast packet from a port
+not on the SLB bond, it will forward it to all of the links in the SLB bond.
+This would cause packet duplication if not handled specially.</p>
+<p>Open vSwitch avoids packet duplication by accepting multicast and broadcast
+packets on only the active slave, and dropping multicast and broadcast
+packets on all other slaves.</p>
+</li>
+<li><p class="first">When Open vSwitch forwards a multicast or broadcast packet to a link in the
+SLB bond other than the active slave, the remote switch will forward it to
+all of the other links in the SLB bond, including the active slave.  Without
+special handling, this would mean that Open vSwitch would forward a second
+copy of the packet to each switch port (other than the bond), including the
+port that originated the packet.</p>
+<p>Open vSwitch deals with this case by dropping packets received on any SLB
+bonded link that have a source MAC+VLAN that has been learned on any other
+port.  (This means that SLB as implemented in Open vSwitch relies critically
+on MAC learning.  Notably, SLB is incompatible with the &#8220;flood_vlans&#8221;
+feature.)</p>
+</li>
+<li><p class="first">Suppose that a MAC+VLAN moves to an SLB bond from another port (e.g. when a
+VM is migrated from this hypervisor to a different one).  Without additional
+special handling, Open vSwitch will not notice until the MAC learning entry
+expires, up to 60 seconds later as a consequence of rule #2.</p>
+<p>Open vSwitch avoids a 60-second delay by listening for gratuitous ARPs,
+which VMs commonly emit upon migration.  As an exception to rule #2, a
+gratuitous ARP received on an SLB bond is not dropped and updates the MAC
+learning table in the usual way.  (If a move does not trigger a gratuitous
+ARP, or if the gratuitous ARP is lost in the network, then a 60-second delay
+still occurs.)</p>
+</li>
+<li><p class="first">Suppose that a MAC+VLAN moves from an SLB bond to another port (e.g. when a
+VM is migrated from a different hypervisor to this one), that the MAC+VLAN
+emits a gratuitous ARP, and that Open vSwitch forwards that gratuitous ARP
+to a link in the SLB bond other than the active slave.  The remote switch
+will forward the gratuitous ARP to all of the other links in the SLB bond,
+including the active slave.  Without additional special handling, this would
+mean that Open vSwitch would learn that the MAC+VLAN was located on the SLB
+bond, as a consequence of rule #3.</p>
+<p>Open vSwitch avoids this problem by &#8220;locking&#8221; the MAC learning table entry
+for a MAC+VLAN from which a gratuitous ARP was received from a non-SLB bond
+port.  For 5 seconds, a locked MAC learning table entry will not be updated
+based on a gratuitous ARP received on a SLB bond.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Bonding</a><ul>
+<li><a class="reference internal" href="#enabling-and-disabling-slaves">Enabling and Disabling Slaves</a></li>
+<li><a class="reference internal" href="#bond-packet-input">Bond Packet Input</a></li>
+<li><a class="reference internal" href="#bond-packet-output">Bond Packet Output</a></li>
+<li><a class="reference internal" href="#bond-balance-modes">Bond Balance Modes</a><ul>
+<li><a class="reference internal" href="#lacp-bonding">LACP Bonding</a></li>
+<li><a class="reference internal" href="#active-backup-bonding">Active Backup Bonding</a></li>
+<li><a class="reference internal" href="#slb-bonding">SLB Bonding</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="openflow.html"
+                        title="previous chapter">OpenFlow Support in Open vSwitch</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ovsdb-replication.html"
+                        title="next chapter">OVSDB Replication Implementation</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/topics/bonding.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ovsdb-replication.html" title="OVSDB Replication Implementation"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="openflow.html" title="OpenFlow Support in Open vSwitch"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Open vSwitch Deep Dive</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

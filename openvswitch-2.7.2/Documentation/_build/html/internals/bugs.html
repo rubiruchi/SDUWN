@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Reporting Bugs in Open vSwitch &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="Open vSwitch Internals" href="index.html" />
+    <link rel="next" title="Open vSwitch’s Security Process" href="security.html" />
+    <link rel="prev" title="Open vSwitch Release Process" href="release-process.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="security.html" title="Open vSwitch’s Security Process"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="release-process.html" title="Open vSwitch Release Process"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Open vSwitch Internals</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="reporting-bugs-in-open-vswitch">
+<h1>Reporting Bugs in Open vSwitch<a class="headerlink" href="#reporting-bugs-in-open-vswitch" title="Permalink to this headline">¶</a></h1>
+<p>We are eager to hear from users about problems that they have encountered with
+Open vSwitch. This file documents how best to report bugs so as to ensure that
+they can be fixed as quickly as possible.</p>
+<p>Please report bugs by sending email to <a class="reference external" href="mailto:bugs&#37;&#52;&#48;openvswitch&#46;org">bugs<span>&#64;</span>openvswitch<span>&#46;</span>org</a>.</p>
+<p>For reporting security vulnerabilities, please read <a class="reference internal" href="security.html"><em>Open vSwitch&#8217;s Security Process</em></a>.</p>
+<p>The most important parts of your bug report are the following:</p>
+<ul class="simple">
+<li>What you did that make the problem appear.</li>
+<li>What you expected to happen.</li>
+<li>What actually happened.</li>
+</ul>
+<p>Please also include the following information:</p>
+<ul class="simple">
+<li>The Open vSwitch version number (as output by <tt class="docutils literal"><span class="pre">ovs-vswitchd</span> <span class="pre">--version</span></tt>).</li>
+<li>The Git commit number (as output by <tt class="docutils literal"><span class="pre">git</span> <span class="pre">rev-parse</span> <span class="pre">HEAD</span></tt>), if you built
+from a Git snapshot.</li>
+<li>Any local patches or changes you have applied (if any).</li>
+</ul>
+<p>The following are also handy sometimes:</p>
+<ul class="simple">
+<li>The kernel version on which Open vSwitch is running (from <tt class="docutils literal"><span class="pre">/proc/version</span></tt>)
+and the distribution and version number of your OS (e.g. &#8220;Centos 5.0&#8221;).</li>
+<li>The contents of the vswitchd configuration database (usually
+<tt class="docutils literal"><span class="pre">/etc/openvswitch/conf.db</span></tt>).</li>
+<li>The output of <tt class="docutils literal"><span class="pre">ovs-dpctl</span> <span class="pre">show</span></tt>.</li>
+<li>If you have Open vSwitch configured to connect to an OpenFlow
+controller, the output of <tt class="docutils literal"><span class="pre">ovs-ofctl</span> <span class="pre">show</span> <span class="pre">&lt;bridge&gt;</span></tt> for each
+<tt class="docutils literal"><span class="pre">&lt;bridge&gt;</span></tt> configured in the vswitchd configuration database.</li>
+<li>A fix or workaround, if you have one.</li>
+<li>Any other information that you think might be relevant.</li>
+</ul>
+<div class="admonition important">
+<p class="first admonition-title">Important</p>
+<p class="last"><a class="reference external" href="mailto:bugs&#37;&#52;&#48;openvswitch&#46;org">bugs<span>&#64;</span>openvswitch<span>&#46;</span>org</a> is a public mailing list, to which anyone can subscribe,
+so do not include confidential information in your bug report.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="release-process.html"
+                        title="previous chapter">Open vSwitch Release Process</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="security.html"
+                        title="next chapter">Open vSwitch&#8217;s Security Process</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/internals/bugs.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="security.html" title="Open vSwitch’s Security Process"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="release-process.html" title="Open vSwitch Release Process"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >Open vSwitch Internals</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Open vSwitch Windows Datapath Coding Style &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Contributing to Open vSwitch" href="index.html" />
+    <link rel="next" title="Open vSwitch Documentation Style" href="documentation-style.html" />
+    <link rel="prev" title="Open vSwitch Coding Style" href="coding-style.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="documentation-style.html" title="Open vSwitch Documentation Style"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="coding-style.html" title="Open vSwitch Coding Style"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Open vSwitch Internals</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Contributing to Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="open-vswitch-windows-datapath-coding-style">
+<h1>Open vSwitch Windows Datapath Coding Style<a class="headerlink" href="#open-vswitch-windows-datapath-coding-style" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="coding-style.html"><em>coding style</em></a> guide gives the flexiblity for each
+platform to use its own coding style for the kernel datapath.  This file
+describes the specific coding style used in most of the C files in the Windows
+kernel datapath of the Open vSwitch distribution.</p>
+<p>Most of the coding conventions applicable for the Open vSwitch distribution are
+applicable to the Windows kernel datapath as well.  There are some exceptions
+and new guidlines owing to the commonly followed practices in Windows
+kernel/driver code.  They are noted as follows:</p>
+<div class="section" id="basics">
+<h2>Basics<a class="headerlink" href="#basics" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Limit lines to 79 characters.</p>
+<p>Many times, this is not possible due to long names of functions and it is
+fine to go beyond the characters limit.  One common example is when calling
+into NDIS functions.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="types">
+<h2>Types<a class="headerlink" href="#types" title="Permalink to this headline">¶</a></h2>
+<p>Use data types defined by Windows for most of the code.  This is a common
+practice in Windows driver code, and it makes integrating with the data
+structures and functions defined by Windows easier.  Example: <tt class="docutils literal"><span class="pre">DWORD</span></tt> and
+<tt class="docutils literal"><span class="pre">BOOLEAN</span></tt>.</p>
+<p>Use caution in portions of the code that interface with the OVS userspace.  OVS
+userspace does not use Windows specific data types, and when copying data back
+and forth between kernel and userspace, care should be exercised.</p>
+</div>
+<div class="section" id="naming">
+<h2>Naming<a class="headerlink" href="#naming" title="Permalink to this headline">¶</a></h2>
+<p>It is common practice to use camel casing for naming variables, functions and
+files in Windows.  For types, especially structures, unions and enums, using
+all upper case letters with words seprated by &#8216;_&#8217; is common. These practices
+can be used for OVS Windows datapath.  However, use the following guidelines:</p>
+<ul class="simple">
+<li>Use lower case to begin the name of a variable.</li>
+<li>Do not use &#8216;_&#8217; to begin the name of the variable. &#8216;_&#8217; is to be used to begin
+the parameters of a pre-processor macro.</li>
+<li>Use upper case to begin the name of a function, enum, file name etc.</li>
+<li>Static functions whose scope is limited to the file they are defined in can
+be prefixed with &#8216;_&#8217;. This is not mandatory though.</li>
+<li>For types, use all upper case for all letters with words separated by &#8216;_&#8217;. If
+camel casing is preferred, use  upper case for the first letter.</li>
+<li>It is a common practice to define a pointer type by prefixing the letter &#8216;P&#8217;
+to a data type.  The same practice can be followed here as well.</li>
+</ul>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>static __inline BOOLEAN
+OvsDetectTunnelRxPkt(POVS_FORWARDING_CONTEXT ovsFwdCtx,
+                     POVS_FLOW_KEY flowKey)
+{
+    POVS_VPORT_ENTRY tunnelVport = NULL;
+
+    if (!flowKey-&gt;ipKey.nwFrag &amp;&amp;
+        flowKey-&gt;ipKey.nwProto == IPPROTO_UDP &amp;&amp;
+        flowKey-&gt;ipKey.l4.tpDst == VXLAN_UDP_PORT_NBO) {
+        tunnelVport = OvsGetTunnelVport(OVSWIN_VPORT_TYPE_VXLAN);
+        ovsActionStats.rxVxlan++;
+    } else {
+        return FALSE;
+    }
+
+    if (tunnelVport) {
+        ASSERT(ovsFwdCtx-&gt;tunnelRxNic == NULL);
+        ovsFwdCtx-&gt;tunnelRxNic = tunnelVport;
+        return TRUE;
+    }
+
+    return FALSE;
+}
+</pre></div>
+</div>
+<p>For declaring variables of pointer type, use of the pointer data type prefixed
+with &#8216;P&#8217; is preferred over using &#8216;*&#8217;. This is not mandatory though, and is only
+prescribed since it is a common practice in Windows.</p>
+<p>Example, #1 is preferred over #2 though #2 is also equally correct:</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">PNET_BUFFER_LIST</span> <span class="pre">curNbl;</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">NET_BUFFER_LIST</span> <span class="pre">*curNbl;</span></tt></li>
+</ol>
+</div>
+<div class="section" id="comments">
+<h2>Comments<a class="headerlink" href="#comments" title="Permalink to this headline">¶</a></h2>
+<p>Comments should be written as full sentences that start with a capital letter
+and end with a period.  Putting two spaces between sentances is not necessary.</p>
+<p><tt class="docutils literal"><span class="pre">//</span></tt> can be used for comments as long as the comment is a single line
+comment.  For block comments, use <tt class="docutils literal"><span class="pre">/*</span> <span class="pre">*/</span></tt> comments</p>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
+<p>Put the return type, function name, and the braces that surround the function&#8217;s
+code on separate lines, all starting in column 0.</p>
+<p>Before each function definition, write a comment that describes the function&#8217;s
+purpose, including each parameter, the return value, and side effects.
+References to argument names should be given in single-quotes, e.g. &#8216;arg&#8217;.  The
+comment should not include the function name, nor need it follow any formal
+structure.  The comment does not need to describe how a function does its work,
+unless this information is needed to use the function correctly (this is often
+better done with comments <em>inside</em> the function).</p>
+<p>Mention any side effects that the function has that are not obvious based on
+the name of the function or based on the workflow it is called from.</p>
+<p>In the interest of keeping comments describing functions similar in structure,
+use the following template.</p>
+<div class="highlight-python"><div class="highlight"><pre>/*
+ *----------------------------------------------------------------------------
+ * Any description of the function, arguments, return types, assumptions and
+ * side effects.
+ *----------------------------------------------------------------------------
+ */
+</pre></div>
+</div>
+</div>
+<div class="section" id="source-files">
+<h2>Source Files<a class="headerlink" href="#source-files" title="Permalink to this headline">¶</a></h2>
+<p>Each source file should state its license in a comment at the very top,
+followed by a comment explaining the purpose of the code that is in that file.
+The comment should explain how the code in the file relates to code in other
+files.  The goal is to allow a programmer to quickly figure out where a given
+module fits into the larger system.</p>
+<p>The first non-comment line in a .c source file should be:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#include &lt;precomp.h&gt;</span>
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">#include</span></tt> directives should appear in the following order:</p>
+<ol class="arabic simple">
+<li><tt class="docutils literal"><span class="pre">#include</span> <span class="pre">&lt;precomp.h&gt;</span></tt></li>
+<li>The module&#8217;s own headers, if any.  Including this before any other header
+(besides <tt class="docutils literal"><span class="pre">&lt;precomp.h&gt;</span></tt>) ensures that the module&#8217;s header file is
+self-contained (see <em>Header Files</em>) below.</li>
+<li>Standard C library headers and other system headers, preferably in
+alphabetical order.  (Occasionally one encounters a set of system headers
+that must be included in a particular order, in which case that order must
+take precedence.)</li>
+<li>Open vSwitch headers, in alphabetical order.  Use <tt class="docutils literal"><span class="pre">&quot;&quot;</span></tt>, not <tt class="docutils literal"><span class="pre">&lt;&gt;</span></tt>, to
+specify Open vSwitch header names.</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../contents.html">
+              <img class="logo" src="../../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Open vSwitch Windows Datapath Coding Style</a><ul>
+<li><a class="reference internal" href="#basics">Basics</a></li>
+<li><a class="reference internal" href="#types">Types</a></li>
+<li><a class="reference internal" href="#naming">Naming</a></li>
+<li><a class="reference internal" href="#comments">Comments</a></li>
+<li><a class="reference internal" href="#functions">Functions</a></li>
+<li><a class="reference internal" href="#source-files">Source Files</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="coding-style.html"
+                        title="previous chapter">Open vSwitch Coding Style</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="documentation-style.html"
+                        title="next chapter">Open vSwitch Documentation Style</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/internals/contributing/coding-style-windows.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="documentation-style.html" title="Open vSwitch Documentation Style"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="coding-style.html" title="Open vSwitch Coding Style"
+             >previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Open vSwitch Internals</a> &raquo;</li>
+          <li><a href="index.html" >Contributing to Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

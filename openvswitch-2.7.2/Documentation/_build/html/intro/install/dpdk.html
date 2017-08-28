@@ -1,0 +1,695 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Open vSwitch with DPDK &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Installing Open vSwitch" href="index.html" />
+    <link rel="next" title="Distributions packaging Open vSwitch" href="distributions.html" />
+    <link rel="prev" title="Open vSwitch without Kernel Support" href="userspace.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="distributions.html" title="Distributions packaging Open vSwitch"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="userspace.html" title="Open vSwitch without Kernel Support"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Installing Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="open-vswitch-with-dpdk">
+<h1>Open vSwitch with DPDK<a class="headerlink" href="#open-vswitch-with-dpdk" title="Permalink to this headline">¶</a></h1>
+<p>This document describes how to build and install Open vSwitch using a DPDK
+datapath. Open vSwitch can use the DPDK library to operate entirely in
+userspace.</p>
+<div class="section" id="build-requirements">
+<h2>Build requirements<a class="headerlink" href="#build-requirements" title="Permalink to this headline">¶</a></h2>
+<p>In addition to the requirements described in <a class="reference internal" href="general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a>, building Open
+vSwitch with DPDK will require the following:</p>
+<ul>
+<li><p class="first">DPDK 16.11</p>
+</li>
+<li><p class="first">A <a class="reference external" href="http://dpdk.org/doc/nics">DPDK supported NIC</a></p>
+<p>Only required when physical ports are in use</p>
+</li>
+<li><p class="first">A suitable kernel</p>
+<p>On Linux Distros running kernel version &gt;= 3.0, only <cite>IOMMU</cite> needs to enabled
+via the grub cmdline, assuming you are using <strong>VFIO</strong>. For older kernels,
+ensure the kernel is built with <tt class="docutils literal"><span class="pre">UIO</span></tt>, <tt class="docutils literal"><span class="pre">HUGETLBFS</span></tt>,
+<tt class="docutils literal"><span class="pre">PROC_PAGE_MONITOR</span></tt>, <tt class="docutils literal"><span class="pre">HPET</span></tt>, <tt class="docutils literal"><span class="pre">HPET_MMAP</span></tt> support. If these are not
+present, it will be necessary to upgrade your kernel or build a custom kernel
+with these flags enabled.</p>
+</li>
+</ul>
+<p>Detailed system requirements can be found at <a class="reference external" href="http://dpdk.org/doc/guides/linux_gsg/sys_reqs.html">DPDK requirements</a>.</p>
+</div>
+<div class="section" id="installing">
+<h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="install-dpdk">
+<h3>Install DPDK<a class="headerlink" href="#install-dpdk" title="Permalink to this headline">¶</a></h3>
+<ol class="arabic">
+<li><p class="first">Download the <a class="reference external" href="http://dpdk.org/rel">DPDK sources</a>, extract the file and set <tt class="docutils literal"><span class="pre">DPDK_DIR</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cd /usr/src/
+$ wget http://fast.dpdk.org/rel/dpdk-16.11.2.tar.xz
+$ tar xf dpdk-16.11.2.tar.xz
+$ export DPDK_DIR=/usr/src/dpdk-stable-16.11.2
+$ cd $DPDK_DIR
+</pre></div>
+</div>
+</li>
+<li><p class="first">(Optional) Configure DPDK as a shared library</p>
+<p>DPDK can be built as either a static library or a shared library.  By
+default, it is configured for the former. If you wish to use the latter, set
+<tt class="docutils literal"><span class="pre">CONFIG_RTE_BUILD_SHARED_LIB=y</span></tt> in <tt class="docutils literal"><span class="pre">$DPDK_DIR/config/common_base</span></tt>.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Minor performance loss is expected when using OVS with a shared DPDK
+library compared to a static DPDK library.</p>
+</div>
+</li>
+<li><p class="first">Configure and install DPDK</p>
+<p>Build and install the DPDK library:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ export DPDK_TARGET=x86_64-native-linuxapp-gcc
+$ export DPDK_BUILD=$DPDK_DIR/$DPDK_TARGET
+$ make install T=$DPDK_TARGET DESTDIR=install
+</pre></div>
+</div>
+</li>
+<li><p class="first">(Optional) Export the DPDK shared library location</p>
+<p>If DPDK was built as a shared library, export the path to this library for
+use when building OVS:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ export LD_LIBRARY_PATH=$DPDK_DIR/x86_64-native-linuxapp-gcc/lib
+</pre></div>
+</div>
+</li>
+</ol>
+</div>
+<div class="section" id="install-ovs">
+<h3>Install OVS<a class="headerlink" href="#install-ovs" title="Permalink to this headline">¶</a></h3>
+<p>OVS can be installed using different methods. For OVS to use DPDK datapath, it
+has to be configured with DPDK support (<tt class="docutils literal"><span class="pre">--with-dpdk</span></tt>).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This section focuses on generic recipe that suits most cases. For
+distribution specific instructions, refer to one of the more relevant guides.</p>
+</div>
+<ol class="arabic">
+<li><p class="first">Ensure the standard OVS requirements, described in
+<a class="reference internal" href="general.html#general-build-reqs"><em>Build Requirements</em></a>, are installed</p>
+</li>
+<li><p class="first">Bootstrap, if required, as described in <a class="reference internal" href="general.html#general-bootstrapping"><em>Bootstrapping</em></a></p>
+</li>
+<li><p class="first">Configure the package using the <tt class="docutils literal"><span class="pre">--with-dpdk</span></tt> flag:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./configure --with-dpdk=$DPDK_BUILD
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">DPDK_BUILD</span></tt> is the path to the built DPDK library. This can be
+skipped if DPDK library is installed in its default location</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">While <tt class="docutils literal"><span class="pre">--with-dpdk</span></tt> is required, you can pass any other configuration
+option described in <a class="reference internal" href="general.html#general-configuring"><em>Configuring</em></a>.</p>
+</div>
+</li>
+<li><p class="first">Build and install OVS, as described in <a class="reference internal" href="general.html#general-building"><em>Building</em></a></p>
+</li>
+</ol>
+<p>Additional information can be found in <a class="reference internal" href="general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a>.</p>
+</div>
+</div>
+<div class="section" id="setup">
+<h2>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="setup-hugepages">
+<h3>Setup Hugepages<a class="headerlink" href="#setup-hugepages" title="Permalink to this headline">¶</a></h3>
+<p>Allocate a number of 2M Huge pages:</p>
+<ul>
+<li><p class="first">For persistent allocation of huge pages, write to hugepages.conf file
+in <cite>/etc/sysctl.d</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ echo &#39;vm.nr_hugepages=2048&#39; &gt; /etc/sysctl.d/hugepages.conf
+</pre></div>
+</div>
+</li>
+<li><p class="first">For run-time allocation of huge pages, use the <tt class="docutils literal"><span class="pre">sysctl</span></tt> utility:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ sysctl -w vm.nr_hugepages=N  # where N = No. of 2M huge pages
+</pre></div>
+</div>
+</li>
+</ul>
+<p>To verify hugepage configuration:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ grep HugePages_ /proc/meminfo
+</pre></div>
+</div>
+<p>Mount the hugepages, if not already mounted by default:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ mount -t hugetlbfs none /dev/hugepages``
+</pre></div>
+</div>
+</div>
+<div class="section" id="setup-dpdk-devices-using-vfio">
+<span id="dpdk-vfio"></span><h3>Setup DPDK devices using VFIO<a class="headerlink" href="#setup-dpdk-devices-using-vfio" title="Permalink to this headline">¶</a></h3>
+<p>VFIO is prefered to the UIO driver when using recent versions of DPDK. VFIO
+support required support from both the kernel and BIOS. For the former, kernel
+version &gt; 3.6 must be used. For the latter, you must enable VT-d in the BIOS
+and ensure this is configured via grub. To ensure VT-d is enabled via the BIOS,
+run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ dmesg | grep -e DMAR -e IOMMU
+</pre></div>
+</div>
+<p>If VT-d is not enabled in the BIOS, enable it now.</p>
+<p>To ensure VT-d is enabled in the kernel, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cat /proc/cmdline | grep iommu=pt
+$ cat /proc/cmdline | grep intel_iommu=on
+</pre></div>
+</div>
+<p>If VT-d is not enabled in the kernel, enable it now.</p>
+<p>Once VT-d is correctly configured, load the required modules and bind the NIC
+to the VFIO driver:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ modprobe vfio-pci
+$ /usr/bin/chmod a+x /dev/vfio
+$ /usr/bin/chmod 0666 /dev/vfio/*
+$ $DPDK_DIR/tools/dpdk-devbind.py --bind=vfio-pci eth1
+$ $DPDK_DIR/tools/dpdk-devbind.py --status
+</pre></div>
+</div>
+</div>
+<div class="section" id="setup-ovs">
+<h3>Setup OVS<a class="headerlink" href="#setup-ovs" title="Permalink to this headline">¶</a></h3>
+<p>Open vSwitch should be started as described in <a class="reference internal" href="general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a> with the
+exception of ovs-vswitchd, which requires some special configuration to enable
+DPDK functionality. DPDK configuration arguments can be passed to ovs-vswitchd
+via the <tt class="docutils literal"><span class="pre">other_config</span></tt> column of the <tt class="docutils literal"><span class="pre">Open_vSwitch</span></tt> table. At a minimum,
+the <tt class="docutils literal"><span class="pre">dpdk-init</span></tt> option must be set to <tt class="docutils literal"><span class="pre">true</span></tt>. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ export DB_SOCK=/usr/local/var/run/openvswitch/db.sock
+$ ovs-vsctl --no-wait set Open_vSwitch . other_config:dpdk-init=true
+$ ovs-vswitchd unix:$DB_SOCK --pidfile --detach
+</pre></div>
+</div>
+<p>There are many other configuration options, the most important of which are
+listed below. Defaults will be provided for all values not explicitly set.</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">dpdk-init</span></tt></dt>
+<dd>Specifies whether OVS should initialize and support DPDK ports. This is a
+boolean, and defaults to false.</dd>
+<dt><tt class="docutils literal"><span class="pre">dpdk-lcore-mask</span></tt></dt>
+<dd>Specifies the CPU cores on which dpdk lcore threads should be spawned and
+expects hex string (eg &#8216;0x123&#8217;).</dd>
+<dt><tt class="docutils literal"><span class="pre">dpdk-socket-mem</span></tt></dt>
+<dd>Comma separated list of memory to pre-allocate from hugepages on specific
+sockets.</dd>
+<dt><tt class="docutils literal"><span class="pre">dpdk-hugepage-dir</span></tt></dt>
+<dd>Directory where hugetlbfs is mounted</dd>
+<dt><tt class="docutils literal"><span class="pre">vhost-sock-dir</span></tt></dt>
+<dd>Option to set the path to the vhost-user unix socket files.</dd>
+</dl>
+<p>If allocating more than one GB hugepage, you can configure the
+amount of memory used from any given NUMA nodes. For example, to use 1GB from
+NUMA node 0 and 0GB for all other NUMA nodes, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl --no-wait set Open_vSwitch . \
+    other_config:dpdk-socket-mem=&quot;1024,0&quot;
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl --no-wait set Open_vSwitch . \
+    other_config:dpdk-socket-mem=&quot;1024&quot;
+</pre></div>
+</div>
+<p>Similarly, if you wish to better scale the workloads across cores, then
+multiple pmd threads can be created and pinned to CPU cores by explicity
+specifying <tt class="docutils literal"><span class="pre">pmd-cpu-mask</span></tt>. Cores are numbered from 0, so to spawn two pmd
+threads and pin them to cores 1,2, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask=0x6
+</pre></div>
+</div>
+<p>Refer to ovs-vswitchd.conf.db(5) for additional information on configuration
+options.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Changing any of these options requires restarting the ovs-vswitchd
+application</p>
+</div>
+</div>
+</div>
+<div class="section" id="validating">
+<h2>Validating<a class="headerlink" href="#validating" title="Permalink to this headline">¶</a></h2>
+<p>At this point you can use ovs-vsctl to set up bridges and other Open vSwitch
+features. Seeing as we&#8217;ve configured the DPDK datapath, we will use DPDK-type
+ports. For example, to create a userspace bridge named <tt class="docutils literal"><span class="pre">br0</span></tt> and add two
+<tt class="docutils literal"><span class="pre">dpdk</span></tt> ports to it, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl add-br br0 -- set bridge br0 datapath_type=netdev
+$ ovs-vsctl add-port br0 myportnameone -- set Interface myportnameone \
+    type=dpdk options:dpdk-devargs=0000:06:00.0
+$ ovs-vsctl add-port br0 myportnametwo -- set Interface myportnametwo \
+    type=dpdk options:dpdk-devargs=0000:06:00.1
+</pre></div>
+</div>
+<p>DPDK devices will not be available for use until a valid dpdk-devargs is
+specified.</p>
+<p>Refer to ovs-vsctl(8) and <a class="reference internal" href="../../howto/dpdk.html"><em>Using Open vSwitch with DPDK</em></a> for more details.</p>
+</div>
+<div class="section" id="performance-tuning">
+<h2>Performance Tuning<a class="headerlink" href="#performance-tuning" title="Permalink to this headline">¶</a></h2>
+<p>To achieve optimal OVS performance, the system can be configured and that
+includes BIOS tweaks, Grub cmdline additions, better understanding of NUMA
+nodes and apt selection of PCIe slots for NIC placement.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This section is optional. Once installed as described above, OVS with DPDK
+will work out of the box.</p>
+</div>
+<div class="section" id="recommended-bios-settings">
+<h3>Recommended BIOS Settings<a class="headerlink" href="#recommended-bios-settings" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<caption>Recommended BIOS Settings</caption>
+<colgroup>
+<col width="50%" />
+<col width="50%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Setting</th>
+<th class="head">Value</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>C3 Power State</td>
+<td>Disabled</td>
+</tr>
+<tr class="row-odd"><td>C6 Power State</td>
+<td>Disabled</td>
+</tr>
+<tr class="row-even"><td>MLC Streamer</td>
+<td>Enabled</td>
+</tr>
+<tr class="row-odd"><td>MLC Spacial Prefetcher</td>
+<td>Enabled</td>
+</tr>
+<tr class="row-even"><td>DCU Data Prefetcher</td>
+<td>Enabled</td>
+</tr>
+<tr class="row-odd"><td>DCA</td>
+<td>Enabled</td>
+</tr>
+<tr class="row-even"><td>CPU Power and Performance</td>
+<td>Performance</td>
+</tr>
+<tr class="row-odd"><td>Memeory RAS and Performance Config -&gt; NUMA optimized</td>
+<td>Enabled</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="pcie-slot-selection">
+<h3>PCIe Slot Selection<a class="headerlink" href="#pcie-slot-selection" title="Permalink to this headline">¶</a></h3>
+<p>The fastpath performance can be affected by factors related to the placement of
+the NIC, such as channel speeds between PCIe slot and CPU or the proximity of
+PCIe slot to the CPU cores running the DPDK application. Listed below are the
+steps to identify right PCIe slot.</p>
+<ol class="arabic">
+<li><p class="first">Retrieve host details using <tt class="docutils literal"><span class="pre">dmidecode</span></tt>. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ dmidecode -t baseboard | grep &quot;Product Name&quot;
+</pre></div>
+</div>
+</li>
+<li><p class="first">Download the technical specification for product listed, e.g: S2600WT2</p>
+</li>
+<li><p class="first">Check the Product Architecture Overview on the Riser slot placement, CPU
+sharing info and also PCIe channel speeds</p>
+<p>For example: On S2600WT, CPU1 and CPU2 share Riser Slot 1 with Channel speed
+between CPU1 and Riser Slot1 at 32GB/s, CPU2 and Riser Slot1 at 16GB/s.
+Running DPDK app on CPU1 cores and NIC inserted in to Riser card Slots will
+optimize OVS performance in this case.</p>
+</li>
+<li><p class="first">Check the Riser Card #1 - Root Port mapping information, on the available
+slots and individual bus speeds. In S2600WT slot 1, slot 2 has high bus
+speeds and are potential slots for NIC placement.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="advanced-hugepage-setup">
+<h3>Advanced Hugepage Setup<a class="headerlink" href="#advanced-hugepage-setup" title="Permalink to this headline">¶</a></h3>
+<p>Allocate and mount 1 GB hugepages.</p>
+<ul>
+<li><p class="first">For persistent allocation of huge pages, add the following options to the
+kernel bootline:</p>
+<div class="highlight-python"><div class="highlight"><pre>default_hugepagesz=1GB hugepagesz=1G hugepages=N
+</pre></div>
+</div>
+<p>For platforms supporting multiple huge page sizes, add multiple options:</p>
+<div class="highlight-python"><div class="highlight"><pre>default_hugepagesz=&lt;size&gt; hugepagesz=&lt;size&gt; hugepages=N
+</pre></div>
+</div>
+<p>where:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">N</span></tt></dt>
+<dd><p class="first last">number of huge pages requested</p>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">size</span></tt></dt>
+<dd><p class="first last">huge page size with an optional suffix <tt class="docutils literal"><span class="pre">[kKmMgG]</span></tt></p>
+</dd>
+</dl>
+</li>
+<li><p class="first">For run-time allocation of huge pages:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ echo N &gt; /sys/devices/system/node/nodeX/hugepages/hugepages-1048576kB/nr_hugepages
+</pre></div>
+</div>
+<p>where:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">N</span></tt></dt>
+<dd><p class="first last">number of huge pages requested</p>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">X</span></tt></dt>
+<dd><p class="first last">NUMA Node</p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For run-time allocation of 1G huge pages, Contiguous Memory Allocator
+(<tt class="docutils literal"><span class="pre">CONFIG_CMA</span></tt>) has to be supported by kernel, check your Linux distro.</p>
+</div>
+</li>
+</ul>
+<p>Now mount the huge pages, if not already done so:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ mount -t hugetlbfs -o pagesize=1G none /dev/hugepages
+</pre></div>
+</div>
+</div>
+<div class="section" id="enable-hyperthreading">
+<h3>Enable HyperThreading<a class="headerlink" href="#enable-hyperthreading" title="Permalink to this headline">¶</a></h3>
+<p>With HyperThreading, or SMT, enabled, a physical core appears as two logical
+cores. SMT can be utilized to spawn worker threads on logical cores of the same
+physical core there by saving additional cores.</p>
+<p>With DPDK, when pinning pmd threads to logical cores, care must be taken to set
+the correct bits of the <tt class="docutils literal"><span class="pre">pmd-cpu-mask</span></tt> to ensure that the pmd threads are
+pinned to SMT siblings.</p>
+<p>Take a sample system configuration, with 2 sockets, 2 * 10 core processors, HT
+enabled. This gives us a total of 40 logical cores. To identify the physical
+core shared by two logical cores, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cat /sys/devices/system/cpu/cpuN/topology/thread_siblings_list
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">N</span></tt> is the logical core number.</p>
+<p>In this example, it would show that cores <tt class="docutils literal"><span class="pre">1</span></tt> and <tt class="docutils literal"><span class="pre">21</span></tt> share the same
+physical core. As cores are counted from 0, the <tt class="docutils literal"><span class="pre">pmd-cpu-mask</span></tt> can be used
+to enable these two pmd threads running on these two logical cores (one
+physical core) is:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask=0x200002
+</pre></div>
+</div>
+</div>
+<div class="section" id="isolate-cores">
+<h3>Isolate Cores<a class="headerlink" href="#isolate-cores" title="Permalink to this headline">¶</a></h3>
+<p>The <tt class="docutils literal"><span class="pre">isolcpus</span></tt> option can be used to isolate cores from the Linux scheduler.
+The isolated cores can then be used to dedicatedly run HPC applications or
+threads.  This helps in better application performance due to zero context
+switching and minimal cache thrashing. To run platform logic on core 0 and
+isolate cores between 1 and 19 from scheduler, add  <tt class="docutils literal"><span class="pre">isolcpus=1-19</span></tt> to GRUB
+cmdline.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It has been verified that core isolation has minimal advantage due to mature
+Linux scheduler in some circumstances.</p>
+</div>
+</div>
+<div class="section" id="numa-cluster-on-die">
+<h3>NUMA/Cluster-on-Die<a class="headerlink" href="#numa-cluster-on-die" title="Permalink to this headline">¶</a></h3>
+<p>Ideally inter-NUMA datapaths should be avoided where possible as packets will
+go across QPI and there may be a slight performance penalty when compared with
+intra NUMA datapaths. On Intel Xeon Processor E5 v3, Cluster On Die is
+introduced on models that have 10 cores or more.  This makes it possible to
+logically split a socket into two NUMA regions and again it is preferred where
+possible to keep critical datapaths within the one cluster.</p>
+<p>It is good practice to ensure that threads that are in the datapath are pinned
+to cores in the same NUMA area. e.g. pmd threads and QEMU vCPUs responsible for
+forwarding. If DPDK is built with <tt class="docutils literal"><span class="pre">CONFIG_RTE_LIBRTE_VHOST_NUMA=y</span></tt>, vHost
+User ports automatically detect the NUMA socket of the QEMU vCPUs and will be
+serviced by a PMD from the same node provided a core on this node is enabled in
+the <tt class="docutils literal"><span class="pre">pmd-cpu-mask</span></tt>. <tt class="docutils literal"><span class="pre">libnuma</span></tt> packages are required for this feature.</p>
+</div>
+<div class="section" id="compiler-optimizations">
+<h3>Compiler Optimizations<a class="headerlink" href="#compiler-optimizations" title="Permalink to this headline">¶</a></h3>
+<p>The default compiler optimization level is <tt class="docutils literal"><span class="pre">-O2</span></tt>. Changing this to more
+aggressive compiler optimization such as <tt class="docutils literal"><span class="pre">-O3</span> <span class="pre">-march=native</span></tt> with
+gcc (verified on 5.3.1) can produce performance gains though not siginificant.
+<tt class="docutils literal"><span class="pre">-march=native</span></tt> will produce optimized code on local machine and should be
+used when software compilation is done on Testbed.</p>
+</div>
+<div class="section" id="affinity">
+<h3>Affinity<a class="headerlink" href="#affinity" title="Permalink to this headline">¶</a></h3>
+<p>For superior performance, DPDK pmd threads and Qemu vCPU threads needs to be
+affinitized accordingly.</p>
+<ul>
+<li><p class="first">PMD thread Affinity</p>
+<p>A poll mode driver (pmd) thread handles the I/O of all DPDK interfaces
+assigned to it. A pmd thread shall poll the ports for incoming packets,
+switch the packets and send to tx port.  pmd thread is CPU bound, and needs
+to be affinitized to isolated cores for optimum performance.</p>
+<p>By setting a bit in the mask, a pmd thread is created and pinned to the
+corresponding CPU core. e.g. to run a pmd thread on core 2:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask=0x4
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">pmd thread on a NUMA node is only created if there is at least one DPDK
+interface from that NUMA node added to OVS.</p>
+</div>
+</li>
+<li><p class="first">QEMU vCPU thread Affinity</p>
+<p>A VM performing simple packet forwarding or running complex packet pipelines
+has to ensure that the vCPU threads performing the work has as much CPU
+occupancy as possible.</p>
+<p>For example, on a multicore VM, multiple QEMU vCPU threads shall be spawned.
+When the DPDK <tt class="docutils literal"><span class="pre">testpmd</span></tt> application that does packet forwarding is invoked,
+the <tt class="docutils literal"><span class="pre">taskset</span></tt> command should be used to affinitize the vCPU threads to the
+dedicated isolated cores on the host system.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="multiple-poll-mode-driver-threads">
+<h3>Multiple Poll-Mode Driver Threads<a class="headerlink" href="#multiple-poll-mode-driver-threads" title="Permalink to this headline">¶</a></h3>
+<p>With pmd multi-threading support, OVS creates one pmd thread for each NUMA node
+by default. However, in cases where there are multiple ports/rxq&#8217;s producing
+traffic, performance can be improved by creating multiple pmd threads running
+on separate cores. These pmd threads can share the workload by each being
+responsible for different ports/rxq&#8217;s. Assignment of ports/rxq&#8217;s to pmd threads
+is done automatically.</p>
+<p>A set bit in the mask means a pmd thread is created and pinned to the
+corresponding CPU core. For example, to run pmd threads on core 1 and 2:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask=0x6
+</pre></div>
+</div>
+<p>When using dpdk and dpdkvhostuser ports in a bi-directional VM loopback as
+shown below, spreading the workload over 2 or 4 pmd threads shows significant
+improvements as there will be more total CPU occupancy available:</p>
+<div class="highlight-python"><div class="highlight"><pre>NIC port0 &lt;-&gt; OVS &lt;-&gt; VM &lt;-&gt; OVS &lt;-&gt; NIC port 1
+</pre></div>
+</div>
+</div>
+<div class="section" id="dpdk-physical-port-rx-queues">
+<h3>DPDK Physical Port Rx Queues<a class="headerlink" href="#dpdk-physical-port-rx-queues" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl set Interface &lt;DPDK interface&gt; options:n_rxq=&lt;integer&gt;
+</pre></div>
+</div>
+<p>The above command sets the number of rx queues for DPDK physical interface.
+The rx queues are assigned to pmd threads on the same NUMA node in a
+round-robin fashion.</p>
+</div>
+<div class="section" id="dpdk-physical-port-queue-sizes">
+<h3>DPDK Physical Port Queue Sizes<a class="headerlink" href="#dpdk-physical-port-queue-sizes" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>$ ovs-vsctl set Interface dpdk0 options:n_rxq_desc=&lt;integer&gt;
+$ ovs-vsctl set Interface dpdk0 options:n_txq_desc=&lt;integer&gt;
+</pre></div>
+</div>
+<p>The above command sets the number of rx/tx descriptors that the NIC associated
+with dpdk0 will be initialised with.</p>
+<p>Different <tt class="docutils literal"><span class="pre">n_rxq_desc</span></tt> and <tt class="docutils literal"><span class="pre">n_txq_desc</span></tt> configurations yield different
+benefits in terms of throughput and latency for different scenarios.
+Generally, smaller queue sizes can have a positive impact for latency at the
+expense of throughput. The opposite is often true for larger queue sizes.
+Note: increasing the number of rx descriptors eg. to 4096  may have a negative
+impact on performance due to the fact that non-vectorised DPDK rx functions may
+be used. This is dependent on the driver in use, but is true for the commonly
+used i40e and ixgbe DPDK drivers.</p>
+</div>
+<div class="section" id="exact-match-cache">
+<h3>Exact Match Cache<a class="headerlink" href="#exact-match-cache" title="Permalink to this headline">¶</a></h3>
+<p>Each pmd thread contains one Exact Match Cache (EMC). After initial flow setup
+in the datapath, the EMC contains a single table and provides the lowest level
+(fastest) switching for DPDK ports. If there is a miss in the EMC then the next
+level where switching will occur is the datapath classifier.  Missing in the
+EMC and looking up in the datapath classifier incurs a significant performance
+penalty.  If lookup misses occur in the EMC because it is too small to handle
+the number of flows, its size can be increased. The EMC size can be modified by
+editing the define <tt class="docutils literal"><span class="pre">EM_FLOW_HASH_SHIFT</span></tt> in <tt class="docutils literal"><span class="pre">lib/dpif-netdev.c</span></tt>.</p>
+<p>As mentioned above, an EMC is per pmd thread. An alternative way of increasing
+the aggregate amount of possible flow entries in EMC and avoiding datapath
+classifier lookups is to have multiple pmd threads running.</p>
+</div>
+<div class="section" id="rx-mergeable-buffers">
+<h3>Rx Mergeable Buffers<a class="headerlink" href="#rx-mergeable-buffers" title="Permalink to this headline">¶</a></h3>
+<p>Rx mergeable buffers is a virtio feature that allows chaining of multiple
+virtio descriptors to handle large packet sizes. Large packets are handled by
+reserving and chaining multiple free descriptors together. Mergeable buffer
+support is negotiated between the virtio driver and virtio device and is
+supported by the DPDK vhost library.  This behavior is supported and enabled by
+default, however in the case where the user knows that rx mergeable buffers are
+not needed i.e. jumbo frames are not needed, it can be forced off by adding
+<tt class="docutils literal"><span class="pre">mrg_rxbuf=off</span></tt> to the QEMU command line options. By not reserving multiple
+chains of descriptors it will make more individual virtio descriptors available
+for rx to the guest using dpdkvhost ports and this can improve performance.</p>
+</div>
+</div>
+<div class="section" id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">Currently DPDK ports does not use HW offload functionality.</p>
+</li>
+<li><p class="first">Network Interface Firmware requirements: Each release of DPDK is
+validated against a specific firmware version for a supported Network
+Interface. New firmware versions introduce bug fixes, performance
+improvements and new functionality that DPDK leverages. The validated
+firmware versions are available as part of the release notes for
+DPDK. It is recommended that users update Network Interface firmware
+to match what has been validated for the DPDK release.</p>
+<p>The latest list of validated firmware versions can be found in the <a class="reference external" href="http://dpdk.org/doc/guides/rel_notes/release_16_11.html">DPDK
+release notes</a>.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="reporting-bugs">
+<h2>Reporting Bugs<a class="headerlink" href="#reporting-bugs" title="Permalink to this headline">¶</a></h2>
+<p>Report problems to <a class="reference external" href="mailto:bugs&#37;&#52;&#48;openvswitch&#46;org">bugs<span>&#64;</span>openvswitch<span>&#46;</span>org</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../contents.html">
+              <img class="logo" src="../../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Open vSwitch with DPDK</a><ul>
+<li><a class="reference internal" href="#build-requirements">Build requirements</a></li>
+<li><a class="reference internal" href="#installing">Installing</a><ul>
+<li><a class="reference internal" href="#install-dpdk">Install DPDK</a></li>
+<li><a class="reference internal" href="#install-ovs">Install OVS</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#setup">Setup</a><ul>
+<li><a class="reference internal" href="#setup-hugepages">Setup Hugepages</a></li>
+<li><a class="reference internal" href="#setup-dpdk-devices-using-vfio">Setup DPDK devices using VFIO</a></li>
+<li><a class="reference internal" href="#setup-ovs">Setup OVS</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#validating">Validating</a></li>
+<li><a class="reference internal" href="#performance-tuning">Performance Tuning</a><ul>
+<li><a class="reference internal" href="#recommended-bios-settings">Recommended BIOS Settings</a></li>
+<li><a class="reference internal" href="#pcie-slot-selection">PCIe Slot Selection</a></li>
+<li><a class="reference internal" href="#advanced-hugepage-setup">Advanced Hugepage Setup</a></li>
+<li><a class="reference internal" href="#enable-hyperthreading">Enable HyperThreading</a></li>
+<li><a class="reference internal" href="#isolate-cores">Isolate Cores</a></li>
+<li><a class="reference internal" href="#numa-cluster-on-die">NUMA/Cluster-on-Die</a></li>
+<li><a class="reference internal" href="#compiler-optimizations">Compiler Optimizations</a></li>
+<li><a class="reference internal" href="#affinity">Affinity</a></li>
+<li><a class="reference internal" href="#multiple-poll-mode-driver-threads">Multiple Poll-Mode Driver Threads</a></li>
+<li><a class="reference internal" href="#dpdk-physical-port-rx-queues">DPDK Physical Port Rx Queues</a></li>
+<li><a class="reference internal" href="#dpdk-physical-port-queue-sizes">DPDK Physical Port Queue Sizes</a></li>
+<li><a class="reference internal" href="#exact-match-cache">Exact Match Cache</a></li>
+<li><a class="reference internal" href="#rx-mergeable-buffers">Rx Mergeable Buffers</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#limitations">Limitations</a></li>
+<li><a class="reference internal" href="#reporting-bugs">Reporting Bugs</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="userspace.html"
+                        title="previous chapter">Open vSwitch without Kernel Support</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="distributions.html"
+                        title="next chapter">Distributions packaging Open vSwitch</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/intro/install/dpdk.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="distributions.html" title="Distributions packaging Open vSwitch"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="userspace.html" title="Open vSwitch without Kernel Support"
+             >previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="index.html" >Installing Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

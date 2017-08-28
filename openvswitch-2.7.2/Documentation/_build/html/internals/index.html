@@ -1,0 +1,183 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Open vSwitch Internals &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="next" title="Contributing to Open vSwitch" href="contributing/index.html" />
+    <link rel="prev" title="VXLANs" href="../faq/vxlan.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="contributing/index.html" title="Contributing to Open vSwitch"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../faq/vxlan.html" title="VXLANs"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="open-vswitch-internals">
+<h1>Open vSwitch Internals<a class="headerlink" href="#open-vswitch-internals" title="Permalink to this headline">¶</a></h1>
+<p>Information for people who want to know more about the Open vSwitch project
+itself and how they might involved.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="contributing/index.html">Contributing to Open vSwitch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="contributing/submitting-patches.html">Submitting Patches</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/coding-style.html">Open vSwitch Coding Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/coding-style-windows.html">Open vSwitch Windows Datapath Coding Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/documentation-style.html">Open vSwitch Documentation Style</a></li>
+<li class="toctree-l2"><a class="reference internal" href="contributing/libopenvswitch-abi.html">Open vSwitch Library ABI Updates</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="mailing-lists.html">Mailing Lists</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="mailing-lists.html#ovs-announce">ovs-announce</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailing-lists.html#ovs-discuss">ovs-discuss</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailing-lists.html#ovs-dev">ovs-dev</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailing-lists.html#ovs-git">ovs-git</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailing-lists.html#ovs-build">ovs-build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailing-lists.html#bugs">bugs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mailing-lists.html#security">security</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="patchwork.html">Patchwork</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="patchwork.html#pwclient">pwclient</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="release-process.html">Open vSwitch Release Process</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html#release-strategy">Release Strategy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html#release-numbering">Release Numbering</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html#release-scheduling">Release Scheduling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="release-process.html#contact">Contact</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="bugs.html">Reporting Bugs in Open vSwitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="security.html">Open vSwitch&#8217;s Security Process</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="security.html#what-is-a-vulnerability">What is a vulnerability?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html#step-1-reception">Step 1: Reception</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html#step-2-assessment">Step 2: Assessment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html#step-3a-document">Step 3a: Document</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html#step-3b-fix">Step 3b: Fix</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html#step-4-embargoed-disclosure">Step 4: Embargoed Disclosure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="security.html#step-5-public-disclosure">Step 5: Public Disclosure</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="committer-responsibilities.html">Expectations for Developers with Open vSwitch Repo Access</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="committer-responsibilities.html#pre-requisites">Pre-requisites</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-responsibilities.html#review">Review</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-responsibilities.html#git-conventions">Git conventions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="committer-grant-revocation.html">OVS Committer Grant/Revocation Policy</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#granting-commit-access">Granting Commit Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#revoking-commit-access">Revoking Commit Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#changing-the-policy">Changing the Policy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#nomination-to-grant-commit-access">Nomination to Grant Commit Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#vote-to-grant-commit-access">Vote to Grant Commit Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#vote-results-for-grant-of-commit-access">Vote Results for Grant of Commit Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#invitation-to-accepted-committer">Invitation to Accepted Committer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#proposal-to-remove-commit-access-for-inactivity">Proposal to Remove Commit Access for Inactivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#notification-of-commit-removal-for-inactivity">Notification of Commit Removal for Inactivity</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#proposal-to-revoke-commit-access-for-detrimental-behavior">Proposal to Revoke Commit Access for Detrimental Behavior</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#vote-to-revoke-commit-access">Vote to Revoke Commit Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#vote-results-for-revocation-of-commit-access">Vote Results for Revocation of Commit Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="committer-grant-revocation.html#notification-of-commit-revocation-for-detrimental-behavior">Notification of Commit Revocation for Detrimental Behavior</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="authors.html">Authors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="maintainers.html">Committers</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../faq/vxlan.html"
+                        title="previous chapter">VXLANs</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="contributing/index.html"
+                        title="next chapter">Contributing to Open vSwitch</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/internals/index.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="contributing/index.html" title="Contributing to Open vSwitch"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../faq/vxlan.html" title="VXLANs"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

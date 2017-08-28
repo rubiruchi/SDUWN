@@ -1,0 +1,306 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>RHEL 5.6, 6.x Packaging for Open vSwitch &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../../index.html" />
+    <link rel="up" title="Installing Open vSwitch" href="index.html" />
+    <link rel="next" title="OVN Upgrades" href="ovn-upgrades.html" />
+    <link rel="prev" title="Fedora, RHEL 7.x Packaging for Open vSwitch" href="fedora.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ovn-upgrades.html" title="OVN Upgrades"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fedora.html" title="Fedora, RHEL 7.x Packaging for Open vSwitch"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">Installing Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rhel-5-6-6-x-packaging-for-open-vswitch">
+<h1>RHEL 5.6, 6.x Packaging for Open vSwitch<a class="headerlink" href="#rhel-5-6-6-x-packaging-for-open-vswitch" title="Permalink to this headline">¶</a></h1>
+<p>This document describes how to build and install Open vSwitch on a Red Hat
+Enterprise Linux (RHEL) host.  If you want to install Open vSwitch on a generic
+Linux host, refer to <a class="reference internal" href="general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a> instead.</p>
+<p>We have tested these instructions with RHEL 5.6 and RHEL 6.0.</p>
+<p>For RHEL 7.x (or derivatives, such as CentOS 7.x), you should follow the
+instructions in the <a class="reference internal" href="fedora.html"><em>Fedora, RHEL 7.x Packaging for Open vSwitch</em></a>.  The Fedora spec files are used for RHEL
+7.x.</p>
+<div class="section" id="prerequisites">
+<span id="rhel-prerequisites"></span><h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>You may build from an Open vSwitch distribution tarball or from an Open vSwitch
+Git tree.</p>
+<p>The default RPM build directory, <tt class="docutils literal"><span class="pre">_topdir</span></tt>, has five directories in the
+top-level.</p>
+<dl class="docutils">
+<dt>BUILD/</dt>
+<dd>where the software is unpacked and built</dd>
+<dt>RPMS/</dt>
+<dd>where the newly created binary package files are written</dd>
+<dt>SOURCES/</dt>
+<dd>contains the original sources, patches, and icon files</dd>
+<dt>SPECS/</dt>
+<dd>contains the spec files for each package to be built</dd>
+<dt>SRPMS/</dt>
+<dd>where the newly created source package files are written</dd>
+</dl>
+<p>Before you begin, note the RPM sources directory on your version of RHEL.  The
+command <tt class="docutils literal"><span class="pre">rpmbuild</span> <span class="pre">--showrc</span></tt> will show the configuration for each of those
+directories. Alternatively, the command <tt class="docutils literal"><span class="pre">rpm</span> <span class="pre">--eval</span> <span class="pre">'%{_topdir}'</span></tt> shows the
+current configuration for the top level directory and the command <tt class="docutils literal"><span class="pre">rpm</span> <span class="pre">--eval</span>
+<span class="pre">'%{_sourcedir}'</span></tt> does the same for the sources directory. On RHEL 5, the
+default RPM <tt class="docutils literal"><span class="pre">_topdir</span></tt> is <tt class="docutils literal"><span class="pre">/usr/src/redhat</span></tt> and the default RPM sources
+directory is <tt class="docutils literal"><span class="pre">/usr/src/redhat/SOURCES</span></tt>. On RHEL 6, the default <tt class="docutils literal"><span class="pre">_topdir</span></tt> is
+<tt class="docutils literal"><span class="pre">$HOME/rpmbuild</span></tt> and the default RPM sources directory is
+<tt class="docutils literal"><span class="pre">$HOME/rpmbuild/SOURCES</span></tt>.</p>
+</div>
+<div class="section" id="build-requirements">
+<h2>Build Requirements<a class="headerlink" href="#build-requirements" title="Permalink to this headline">¶</a></h2>
+<p>To compile the RPMs, you will need to install the packages described in the
+<a class="reference internal" href="general.html"><em>Open vSwitch on Linux, FreeBSD and NetBSD</em></a> along with some additional packages. These can be installed with
+the below command:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ yum install gcc make python-devel openssl-devel kernel-devel graphviz \
+    kernel-debug-devel autoconf automake rpm-build redhat-rpm-config \
+    libtool checkpolicy selinux-policy-devel
+</pre></div>
+</div>
+</div>
+<div class="section" id="bootstrapping-and-configuring">
+<span id="rhel-bootstrapping"></span><h2>Bootstrapping and Configuring<a class="headerlink" href="#bootstrapping-and-configuring" title="Permalink to this headline">¶</a></h2>
+<p>If you are building from a distribution tarball, skip to <a class="reference internal" href="#rhel-building"><em>Building</em></a>.
+If not, you must be building from an Open vSwitch Git tree.  Determine what
+version of Autoconf is installed (e.g. run <tt class="docutils literal"><span class="pre">autoconf</span> <span class="pre">--version</span></tt>).  If it is
+not at least version 2.63, then you must upgrade or use another machine to
+build the packages.</p>
+<p>Assuming all requirements have been met, build the tarball by running:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ./boot.sh
+$ ./configure
+$ make dist
+</pre></div>
+</div>
+<p>You must run this on a machine that has the tools listed in
+<a class="reference internal" href="general.html#general-build-reqs"><em>Build Requirements</em></a> as prerequisites for building from a Git tree.
+Afterward, proceed with the rest of the instructions using the distribution
+tarball.</p>
+<p>Now you have a distribution tarball, named something like
+<tt class="docutils literal"><span class="pre">openvswitch-x.y.z.tar.gz</span></tt>.  Copy this file into the RPM sources directory,
+e.g.:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cp openvswitch-x.y.z.tar.gz $HOME/rpmbuild/SOURCES
+</pre></div>
+</div>
+<div class="section" id="broken-build-symlink">
+<h3>Broken <tt class="docutils literal"><span class="pre">build</span></tt> symlink<a class="headerlink" href="#broken-build-symlink" title="Permalink to this headline">¶</a></h3>
+<p>Some versions of the RHEL 6 kernel-devel package contain a broken <tt class="docutils literal"><span class="pre">build</span></tt>
+symlink.  If you are using such a version, you must fix the problem before
+continuing.</p>
+<p>To find out whether you are affected, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cd /lib/modules/&lt;version&gt;
+$ ls -l build/
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">&lt;version&gt;</span></tt> is the version number of the RHEL 6 kernel.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The trailing slash in the final command is important.  Be sure to include
+it.</p>
+</div>
+<p>If the <tt class="docutils literal"><span class="pre">ls</span></tt> command produces a directory listing, your kernel-devel package
+is OK.  If it produces a <tt class="docutils literal"><span class="pre">No</span> <span class="pre">such</span> <span class="pre">file</span> <span class="pre">or</span> <span class="pre">directory</span></tt> error, your kernel-devel
+package is buggy.</p>
+<p>If your kernel-devel package is buggy, then you can fix it with:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cd /lib/modules/&lt;version&gt;
+$ rm build
+$ ln -s /usr/src/kernels/&lt;target&gt; build
+</pre></div>
+</div>
+<p>where <tt class="docutils literal"><span class="pre">&lt;target&gt;</span></tt> is the name of an existing directory under
+<tt class="docutils literal"><span class="pre">/usr/src/kernels</span></tt>, whose name should be similar to <tt class="docutils literal"><span class="pre">&lt;version&gt;</span></tt> but may
+contain some extra parts.  Once you have done this, verify the fix with the
+same procedure you used above to check for the problem.</p>
+</div>
+</div>
+<div class="section" id="building">
+<span id="rhel-building"></span><h2>Building<a class="headerlink" href="#building" title="Permalink to this headline">¶</a></h2>
+<p>You should have a distribution tarball named something like
+openvswitch-x.y.z.tar.gz.  Copy this file into the RPM sources directory:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cp openvswitch-x.y.z.tar.gz $HOME/rpmbuild/SOURCES
+</pre></div>
+</div>
+<p>Make another copy of the distribution tarball in a temporary directory.  Then
+unpack the tarball and <tt class="docutils literal"><span class="pre">cd</span></tt> into its root:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ tar xzf openvswitch-x.y.z.tar.gz
+$ cd openvswitch-x.y.z
+</pre></div>
+</div>
+<div class="section" id="userspace">
+<h3>Userspace<a class="headerlink" href="#userspace" title="Permalink to this headline">¶</a></h3>
+<p>To build Open vSwitch userspace, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ rpmbuild -bb rhel/openvswitch.spec
+</pre></div>
+</div>
+<p>This produces two RPMs: &#8220;openvswitch&#8221; and &#8220;openvswitch-debuginfo&#8221;.</p>
+<p>The above command automatically runs the Open vSwitch unit tests.  To disable
+the unit tests, run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ rpmbuild -bb --without check rhel/openvswitch.spec
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the build fails with <tt class="docutils literal"><span class="pre">configure:</span> <span class="pre">error:</span> <span class="pre">source</span> <span class="pre">dir</span>
+<span class="pre">/lib/modules/2.6.32-279.el6.x86_64/build</span> <span class="pre">doesn't</span> <span class="pre">exist</span></tt> or similar, then
+the kernel-devel package is missing or buggy.</p>
+</div>
+</div>
+<div class="section" id="kernel-module">
+<h3>Kernel Module<a class="headerlink" href="#kernel-module" title="Permalink to this headline">¶</a></h3>
+<p>On RHEL 6, to build the Open vSwitch kernel module, copy
+rhel/openvswitch-kmod.files into the RPM sources directory and run:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ rpmbuild -bb rhel/openvswitch-kmod-rhel6.spec
+</pre></div>
+</div>
+<p>You might have to specify a kernel version and/or variants, e.g.:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>$ rpmbuild -bb </dt>
+<dd>-D &#8220;kversion 2.6.32-131.6.1.el6.x86_64&#8221; -D &#8220;kflavors default debug kdump&#8221; rhel/openvswitch-kmod-rhel6.spec</dd>
+</dl>
+</div></blockquote>
+<p>This produces an &#8220;kmod-openvswitch&#8221; RPM for each kernel variant, in this
+example: &#8220;kmod-openvswitch&#8221;, &#8220;kmod-openvswitch-debug&#8221;, and
+&#8220;kmod-openvswitch-kdump&#8221;.</p>
+</div>
+</div>
+<div class="section" id="red-hat-network-scripts-integration">
+<span id="rhel-script-integrations"></span><h2>Red Hat Network Scripts Integration<a class="headerlink" href="#red-hat-network-scripts-integration" title="Permalink to this headline">¶</a></h2>
+<p>A RHEL host has default firewall rules that prevent any Open vSwitch tunnel
+traffic from passing through. If a user configures Open vSwitch tunnels like
+Geneve, GRE, VXLAN, LISP etc., they will either have to manually add iptables
+firewall rules to allow the tunnel traffic or add it through a startup script
+Refer to the &#8220;enable-protocol&#8221; command in the ovs-ctl(8) manpage for more
+information.</p>
+<p>In addition, simple integration with Red Hat network scripts has been
+implemented.  Refer to <a class="reference external" href="https://github.com/openvswitch/ovs/blob/master/rhel/README.RHEL.rst">README.RHEL.rst</a> in the source tree or
+/usr/share/doc/openvswitch/README.RHEL.rst in the installed openvswitch package
+for details.</p>
+</div>
+<div class="section" id="reporting-bugs">
+<h2>Reporting Bugs<a class="headerlink" href="#reporting-bugs" title="Permalink to this headline">¶</a></h2>
+<p>Report problems to <a class="reference external" href="mailto:bugs&#37;&#52;&#48;openvswitch&#46;org">bugs<span>&#64;</span>openvswitch<span>&#46;</span>org</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../../contents.html">
+              <img class="logo" src="../../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">RHEL 5.6, 6.x Packaging for Open vSwitch</a><ul>
+<li><a class="reference internal" href="#prerequisites">Prerequisites</a></li>
+<li><a class="reference internal" href="#build-requirements">Build Requirements</a></li>
+<li><a class="reference internal" href="#bootstrapping-and-configuring">Bootstrapping and Configuring</a><ul>
+<li><a class="reference internal" href="#broken-build-symlink">Broken <tt class="docutils literal"><span class="pre">build</span></tt> symlink</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#building">Building</a><ul>
+<li><a class="reference internal" href="#userspace">Userspace</a></li>
+<li><a class="reference internal" href="#kernel-module">Kernel Module</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#red-hat-network-scripts-integration">Red Hat Network Scripts Integration</a></li>
+<li><a class="reference internal" href="#reporting-bugs">Reporting Bugs</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="fedora.html"
+                        title="previous chapter">Fedora, RHEL 7.x Packaging for Open vSwitch</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ovn-upgrades.html"
+                        title="next chapter">OVN Upgrades</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../../_sources/intro/install/rhel.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ovn-upgrades.html" title="OVN Upgrades"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="fedora.html" title="Fedora, RHEL 7.x Packaging for Open vSwitch"
+             >previous</a> |</li>
+        <li><a href="../../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="../index.html" >Getting Started</a> &raquo;</li>
+          <li><a href="index.html" >Installing Open vSwitch</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

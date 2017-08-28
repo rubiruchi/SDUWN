@@ -1,0 +1,265 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Open vSwitch with SELinux &mdash; Open vSwitch 2.6.0 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '2.6.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="Open vSwitch 2.6.0 documentation" href="../index.html" />
+    <link rel="up" title="How-to Guides" href="index.html" />
+    <link rel="next" title="Open vSwitch with Libvirt" href="libvirt.html" />
+    <link rel="prev" title="Open vSwitch with KVM" href="kvm.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="libvirt.html" title="Open vSwitch with Libvirt"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="kvm.html" title="Open vSwitch with KVM"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">How-to Guides</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="open-vswitch-with-selinux">
+<h1>Open vSwitch with SELinux<a class="headerlink" href="#open-vswitch-with-selinux" title="Permalink to this headline">¶</a></h1>
+<p>Security-Enhanced Linux (SELinux) is a Linux kernel security module that limits
+&#8220;the malicious things&#8221; that certain processes, including OVS, can do to the
+system in case they get compromised.  In our case SELinux basically serves as
+the &#8220;second line of defense&#8221; that limits the things that OVS processes are
+allowed to do.  The &#8220;first line of defense&#8221; is proper input validation that
+eliminates code paths that could be used by attacker to do any sort of &#8220;escape
+attacks&#8221;, such as file name escape, shell escape, command line argument escape,
+buffer escape. Since developers don&#8217;t always implement proper input validation,
+then SELinux Access Control&#8217;s goal is to confine damage of such attacks, if
+they turned out to be possible.</p>
+<p>Besides Type Enforcement there are other SELinux features, but they are out of
+scope for this document.</p>
+<p>Currently there are two SELinux policies for Open vSwitch:</p>
+<ul class="simple">
+<li>the one that ships with your Linux distribution (i.e.
+selinux-policy-targeted package)</li>
+<li>the one that ships with OVS (i.e. openvswitch-selinux-policy package)</li>
+</ul>
+<div class="section" id="limitations">
+<h2>Limitations<a class="headerlink" href="#limitations" title="Permalink to this headline">¶</a></h2>
+<p>If Open vSwitch is directly started from command line, then it will run under
+<tt class="docutils literal"><span class="pre">unconfined_t</span></tt> SELinux domain that basically lets daemon to do whatever it
+likes.  This is very important for developers to understand, because they might
+introduced code in OVS that invokes new system calls that SELinux policy did
+not anticipate.  This means that their feature may have worked out just fine
+for them.  However, if someone else would try to run the same code when Open
+vSwitch is started through systemctl, then Open vSwitch would get Permission
+Denied errors.</p>
+<p>Currently the only distributions that enforce SELinux on OVS by default are
+RHEL, CentOS and Fedora.  While Ubuntu and Debian also have some SELinux
+support, they run Open vSwitch under the unrestricted <tt class="docutils literal"><span class="pre">unconfined</span></tt> domain.
+Also, it seems that Ubuntu is leaning towards Apparmor that works slightly
+differently than SELinux.</p>
+<p>SELinux and Open vSwitch are moving targets.  What this means is that, if you
+solely rely on your Linux distribution&#8217;s SELinux policy, then this policy might
+not have correctly anticipated that a newer Open vSwitch version needs extra
+white list rules.  However, if you solely rely on SELinux policy that ships
+with Open vSwitch, then Open vSwitch developers might not have correctly
+anticipated the feature set that your SELinux implementation supports.</p>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Refer to <a class="reference internal" href="../intro/install/fedora.html"><em>Fedora, RHEL 7.x Packaging for Open vSwitch</em></a> for instructions on how to build all Open
+vSwitch rpm packages.</p>
+<p>Once the package is built, install it on your Linux distribution:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ dnf install openvswitch-selinux-policy-2.4.1-1.el7.centos.noarch.rpm
+</pre></div>
+</div>
+<p>Restart Open vSwitch:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ systemctl restart openvswitch
+</pre></div>
+</div>
+</div>
+<div class="section" id="troubleshooting">
+<h2>Troubleshooting<a class="headerlink" href="#troubleshooting" title="Permalink to this headline">¶</a></h2>
+<p>When SELinux was implemented some of the standard system utilities acquired
+<tt class="docutils literal"><span class="pre">-Z</span></tt> flag (e.g. <tt class="docutils literal"><span class="pre">ps</span> <span class="pre">-Z</span></tt>, <tt class="docutils literal"><span class="pre">ls</span> <span class="pre">-Z</span></tt>).  For example, to find out under which
+SELinux security domain process runs, use:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ps -AZ | grep ovs-vswitchd
+system_u:system_r:openvswitch_t:s0 854 ?    ovs-vswitchd
+</pre></div>
+</div>
+<p>To find out the SELinux label of file or directory, use:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ ls -Z /etc/openvswitch/conf.db
+system_u:object_r:openvswitch_rw_t:s0 /etc/openvswitch/conf.db
+</pre></div>
+</div>
+<p>If, for example, SELinux policy for Open vSwitch is too strict, then you might
+see in Open vSwitch log files &#8220;Permission Denied&#8221; errors:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ cat /var/log/openvswitch/ovs-vswitchd.log
+vlog|INFO|opened log file /var/log/openvswitch/ovs-vswitchd.log
+ovs_numa|INFO|Discovered 2 CPU cores on NUMA node 0
+ovs_numa|INFO|Discovered 1 NUMA nodes and 2 CPU cores
+reconnect|INFO|unix:/var/run/openvswitch/db.sock: connecting...
+reconnect|INFO|unix:/var/run/openvswitch/db.sock: connected
+netlink_socket|ERR|fcntl: Permission denied
+dpif_netlink|ERR|Generic Netlink family &#39;ovs_datapath&#39; does not exist.
+                 The Open vSwitch kernel module is probably not loaded.
+dpif|WARN|failed to enumerate system datapaths: Permission denied
+dpif|WARN|failed to create datapath ovs-system: Permission denied
+</pre></div>
+</div>
+<p>However, not all &#8220;Permission denied&#8221; errors are caused by SELinux.  So, before
+blaming too strict SELinux policy, make sure that indeed SELinux was the one
+that denied OVS access to certain resources, for example, run:</p>
+<blockquote>
+<div>$ grep &#8220;openvswitch_t&#8221; /var/log/audit/audit.log | tail
+type=AVC msg=audit(1453235431.640:114671): avc:  denied  { getopt } for  pid=4583 comm=&#8221;ovs-vswitchd&#8221; scontext=system_u:system_r:openvswitch_t:s0 tcontext=system_u:system_r:openvswitch_t:s0 tclass=netlink_generic_socket permissive=0</div></blockquote>
+<p>If SELinux denied OVS access to certain resources, then make sure that you have
+installed our SELinux policy package that &#8220;loosens&#8221; up distribution&#8217;s SELinux
+policy:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ rpm -qa | grep openvswitch-selinux
+openvswitch-selinux-policy-2.4.1-1.el7.centos.noarch
+</pre></div>
+</div>
+<p>Then verify that this module was indeed loaded:</p>
+<div class="highlight-python"><div class="highlight"><pre># semodule -l | grep openvswitch
+openvswitch-custom    1.0
+openvswitch          1.1.1
+</pre></div>
+</div>
+<p>If you still see Permission denied errors, then take a look into
+<tt class="docutils literal"><span class="pre">selinux/openvswitch.te</span></tt> file in the OVS source tree and try to add white
+list rules.  This is really simple, just run SELinux audit2allow tool:</p>
+<div class="highlight-python"><div class="highlight"><pre>$ grep &quot;openvswitch_t&quot; /var/log/audit/audit.log | audit2allow -M ovslocal
+</pre></div>
+</div>
+</div>
+<div class="section" id="contributing-selinux-policy-patches">
+<h2>Contributing SELinux policy patches<a class="headerlink" href="#contributing-selinux-policy-patches" title="Permalink to this headline">¶</a></h2>
+<p>Here are few things to consider before proposing SELinux policy patches to Open
+vSwitch developer mailing list:</p>
+<ol class="arabic">
+<li><p class="first">The SELinux policy that resides in Open vSwitch source tree amends SELinux
+policy that ships with your distributions.</p>
+<p>Implications of this are that it is assumed that the distribution&#8217;s Open
+vSwitch SELinux module must be already loaded to satisfy dependencies.</p>
+</li>
+<li><p class="first">The SELinux policy that resides in Open vSwitch source tree must work on all
+currently relevant Linux distributions.</p>
+<p>Implications of this are that you should use only those SELinux policy
+features that are supported by the lowest SELinux version out there.
+Typically this means that you should test your SELinux policy changes on the
+oldest RHEL or CentOS version that this OVS version supports. Refer to
+<a class="reference internal" href="../intro/install/fedora.html"><em>Fedora, RHEL 7.x Packaging for Open vSwitch</em></a> to find out this.</p>
+</li>
+<li><p class="first">The SELinux policy is enforced only when state transition to
+<tt class="docutils literal"><span class="pre">openvswitch_t</span></tt> domain happens.</p>
+<p>Implications of this are that perhaps instead of loosening SELinux policy
+you can do certain things at the time rpm package is installed.</p>
+</li>
+</ol>
+</div>
+<div class="section" id="reporting-bugs">
+<h2>Reporting Bugs<a class="headerlink" href="#reporting-bugs" title="Permalink to this headline">¶</a></h2>
+<p>Report problems to <a class="reference external" href="mailto:bugs&#37;&#52;&#48;openvswitch&#46;org">bugs<span>&#64;</span>openvswitch<span>&#46;</span>org</a>.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../contents.html">
+              <img class="logo" src="../_static/logo.png" alt="Logo"/>
+            </a></p>
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Open vSwitch with SELinux</a><ul>
+<li><a class="reference internal" href="#limitations">Limitations</a></li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#troubleshooting">Troubleshooting</a></li>
+<li><a class="reference internal" href="#contributing-selinux-policy-patches">Contributing SELinux policy patches</a></li>
+<li><a class="reference internal" href="#reporting-bugs">Reporting Bugs</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="kvm.html"
+                        title="previous chapter">Open vSwitch with KVM</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="libvirt.html"
+                        title="next chapter">Open vSwitch with Libvirt</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="../_sources/howto/selinux.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="libvirt.html" title="Open vSwitch with Libvirt"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="kvm.html" title="Open vSwitch with KVM"
+             >previous</a> |</li>
+        <li><a href="../contents.html">Open vSwitch 2.6.0 documentation</a> &raquo;</li>
+          <li><a href="index.html" >How-to Guides</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, The Open vSwitch Development Community.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>
