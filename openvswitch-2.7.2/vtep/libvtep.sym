@@ -1,4 +1,0 @@
-libvtep_1 {
-global:
-        *;
-};
