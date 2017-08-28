@@ -74,7 +74,7 @@ sudo sh post-config.sh
 If there is no error, then everything should be done.
 
 
-####Exceptions:
+#### Exceptions:
 **Error:**
 ImportError: libns3.25-core-debug.so: cannot open shared object file: No such file or directory
 
