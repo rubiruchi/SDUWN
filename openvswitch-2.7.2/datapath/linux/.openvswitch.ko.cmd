@@ -1,1 +1,0 @@
-cmd_/home/yuxin/Workspace/SDUWN/openvswitch-2.7.2/datapath/linux/openvswitch.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/yuxin/Workspace/SDUWN/openvswitch-2.7.2/datapath/linux/openvswitch.ko /home/yuxin/Workspace/SDUWN/openvswitch-2.7.2/datapath/linux/openvswitch.o /home/yuxin/Workspace/SDUWN/openvswitch-2.7.2/datapath/linux/openvswitch.mod.o

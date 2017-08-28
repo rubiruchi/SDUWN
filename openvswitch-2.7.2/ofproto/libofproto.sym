@@ -1,4 +1,0 @@
-libofproto_1 {
-global:
-        *;
-};

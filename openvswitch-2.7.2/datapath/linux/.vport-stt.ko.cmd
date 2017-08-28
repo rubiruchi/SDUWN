@@ -1,1 +1,0 @@
-cmd_/home/yuxin/Workspace/SDUWN/openvswitch-2.7.2/datapath/linux/vport-stt.ko := ld -r -m elf_x86_64 -T ./scripts/module-common.lds --build-id  -o /home/yuxin/Workspace/SDUWN/openvswitch-2.7.2/datapath/linux/vport-stt.ko /home/yuxin/Workspace/SDUWN/openvswitch-2.7.2/datapath/linux/vport-stt.o /home/yuxin/Workspace/SDUWN/openvswitch-2.7.2/datapath/linux/vport-stt.mod.o
