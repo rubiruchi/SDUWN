@@ -51,7 +51,7 @@ def emptyNet():
     
     #net.addLink( h1, s1 )
     
-    Csma = CSMASegment(DataRate="10Mbps", Delay="200000000ns")
+    Csma = CSMASegment(DataRate="10Mbps", Delay="100000000ns")
     Csma.add(h4)
     Csma.add(s1)
     #net.addLink( h4, s1 )
