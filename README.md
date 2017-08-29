@@ -48,7 +48,7 @@ sudo sh prepinstall.sh
 ```
 - **Step 2:** Configuration 
 ```
-sudo CXXFLAGS="-std=c++0x" ./waf configure --enable-sudo
+CXXFLAGS="-std=c++0x" ./waf configure --enable-sudo
 ```
 - **Step 3:** Build 
 ```
