@@ -82,7 +82,7 @@ ImportError: libns3.25-core-debug.so: cannot open shared object file: No such fi
 
 - **Step 1:** 
 ```
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/sduwn/ns-allinone-3.25/ns-3.25/build
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/sduwn/SDUWN/ns-allinone-3.25/ns-3.25/build
 ```
 - **Step 2:**
 ```
