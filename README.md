@@ -11,16 +11,16 @@ net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
 ```
 
-- **Step 2:** After that run `$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6`
-If it reports ‘1′ means you have disabled IPV6. 
-If it reports ‘0‘ then please follow Step 3.
-
-- **Step 3:** Type command `sudo sysctl -p` you will see this in terminal.
+- **Step 2:** Type command `sudo sysctl -p` you will see this in terminal.
 ```
 net.ipv6.conf.all.disable_ipv6 = 1
 net.ipv6.conf.default.disable_ipv6 = 1
 net.ipv6.conf.lo.disable_ipv6 = 1
 ```
+
+- **Step 3:** After that run `$ cat /proc/sys/net/ipv6/conf/all/disable_ipv6`
+If it reports ‘1′ means you have disabled IPV6. 
+If it reports ‘0‘ then please follow Step 2.
 
 2.Compile Mininet
 
