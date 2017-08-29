@@ -71,7 +71,19 @@ sudo python one-switch-in-band-controller-csma.py
 sudo sh post-config.sh
 ```
 
-If there is no error, then everything should be done.
+- **Step 3:** in mininet running in T2 run:
+```
+xterm h4
+```
+A terminal window of h4 will be opened(named as T3).
+In T3 run:
+```
+cd ~/SDUWN/pox
+./pox.py log.level --DEBUG forwarding.l2_learning
+```
+If there is no error, and you see:
+INFO:openflow.of_01:[00-00-00-00-00-01 1] connected
+then everything should be done.
 
 
 #### Exceptions:
