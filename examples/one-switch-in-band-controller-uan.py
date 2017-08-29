@@ -41,7 +41,7 @@ def emptyNet():
 
     net.addController( 'c0',
                        controller=RemoteController,
-                       ip='10.0.0.4', port=6653)
+                       ip='10.0.0.4', port=6633)
 
     h1 = net.addHost( 'h1', ip='10.0.0.1' )
     
