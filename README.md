@@ -114,5 +114,5 @@ RTNETLINK answers: File exists
 sudo mn -c
 ```
 
-Li Wei, Yuxin Tang, Yuching Cao
+Yuxin Tang
 08/27/2017
