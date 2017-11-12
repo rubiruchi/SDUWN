@@ -1,4 +1,5 @@
-## SDUWN
+## SDUWN (Software-Defined Underwater Wireless Networks)
+The implementation for paper ***Exploring Simulation of Software-Defined Underwater Wireless Networks*** accepted by WUWNet 2017
 
 #### Environment Configuration
 1.Disable IPv6 for preventing TAP devices/bridges broadcasting routing:
